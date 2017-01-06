@@ -11,7 +11,6 @@ const ApplicationStyles = {
   screen: {
     mainContainer: {
       flex: 1,
-      marginTop: Metrics.navBarHeight,
       backgroundColor: Colors.transparent
     },
     backgroundImage: {
