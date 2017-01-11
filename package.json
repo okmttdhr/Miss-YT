@@ -12,7 +12,8 @@
     "test:watch": "ava --watch",
     "coverage": "nyc ava && nyc report --reporter=html && open coverage/index.html || xdg-open coverage/index.html",
     "tron": "node_modules/.bin/reactotron",
-    "flow": "flow --show-all-errors"
+    "flow": "flow --show-all-errors",
+    "update:ranking": "node bin/batch update_ranking",
   },
   "dependencies": {
     "apisauce": "^0.6.0",
@@ -42,6 +43,7 @@
     "ava": "^0.17.0",
     "babel-eslint": "^7.1.1",
     "babel-preset-es2015": "^6.18.0",
+    "babel-register": "^6.18.0",
     "enzyme": "^2.6.0",
     "flow-bin": "0.33.0",
     "ghooks": "^1.3.2",

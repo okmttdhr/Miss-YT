@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+require('babel-register')
+
+const batch = process.argv[2]
+const batches = {
+  update_ranking: require('batches/update_ranking')
+}
+
+console.log(`${batch} batch started`)
+batches[batch]()
