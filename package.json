@@ -13,7 +13,7 @@
     "coverage": "nyc ava && nyc report --reporter=html && open coverage/index.html || xdg-open coverage/index.html",
     "tron": "node_modules/.bin/reactotron",
     "flow": "flow --show-all-errors",
-    "update:ranking": "node bin/batch update_ranking",
+    "update:ranking": "node bin/batch update_ranking"
   },
   "dependencies": {
     "apisauce": "^0.6.0",
