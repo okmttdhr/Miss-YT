@@ -19,14 +19,16 @@ type FullButtonProps = {
   styles?: Object
 }
 
-export default class FullButton extends React.Component {
+export class FullButton extends React.Component {
   props: FullButtonProps
 
   render () {
     return (
       <TouchableOpacity style={[styles.button, this.props.styles]} onPress={this.props.onPress}>
-        <Text style={styles.buttonText}>{this.props.text && this.props.text.toUpperCase()}</Text>
+        <Text style={styles.buttonText}>{this.props.text}</Text>
       </TouchableOpacity>
     )
   }
 }
+
+export default FullButton

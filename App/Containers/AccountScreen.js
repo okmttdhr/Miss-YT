@@ -3,7 +3,8 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import styles from './Styles/PresentationScreenStyle'
-import Secrets from 'react-native-config'
+import {FullButton} from '../Components/'
+import {addYoutubers} from '../Services/'
 
 type IAccountScreen = {
   title: string,
@@ -12,6 +13,6 @@ type IAccountScreen = {
 export const AccountScreen = (props: IAccountScreen) => (
   <View style={[styles.container]}>
     <Text>{props.title} Screen!</Text>
-    <Text>{Secrets.ENV_TEST}</Text>
+    <FullButton text={'YouTuberを追加'} onPress={addYoutubers} />
   </View>
 )
