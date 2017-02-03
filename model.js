@@ -24,8 +24,7 @@ like削除
 
 /*
 ランキングページ
-リソース名は変更する予定
-youtube_followerとかは、YouTubeのAPIに合わせた名前にする
+リソース名は変更する予定=>youtubersでいい。
 
 ランキングページで、自分がlikeしているかどうかの判別
 ref.child(youtubers).get(data => {
@@ -35,13 +34,22 @@ ref.child(youtubers).get(data => {
 export type youtubers = [
   {
     id: string;
-    name: string;
-    youtube_summary: string;
-    youtube_follower: number;
-    twitter_follower: number;
-    like_count: number;
     rank: number;
-    like_count: number;
+    likeCount: number;
+    cseSearchQuery?: string;
+    youtube: {
+      id: string;
+      name: string; // title
+      description: string;
+      thumbnail: string;
+      banner: string; // bannerMobileImageUrl
+      subscriberCount: string;
+      viewCount: string;
+    };
+    twitter?: {
+      id: string;
+      followersCount: number;
+    };
   }
 ]
 
@@ -56,7 +64,8 @@ export type likes = {
     {
       id: string;
       youtuber_id: string;
-      count: number;
+      rank: number;
+      likeCount: number;
     }
   ]
 }
@@ -69,7 +78,7 @@ export type users = [
     id: string;
     name: string;
     email: string;
-    possible_like_count: number;
+    possibleLikeCount: number;
   }
 ]
 
