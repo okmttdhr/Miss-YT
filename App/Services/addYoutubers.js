@@ -2,6 +2,7 @@
 
 import firebase from 'firebase'
 import Secrets from 'react-native-config'
+import {ChannelsResource} from './index'
 
 const firebaseConfig = {
   apiKey: Secrets.API_KEY,
@@ -13,8 +14,9 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 const log = () => {
-  console.log('batch finished')
-  console.log(firebase)
+  console.log('addYoutubers: batch finished')
+  const channelsResource = new ChannelsResource()
+  channelsResource.get(channelIDs).then(res => console.log(res))
 }
 
 export const addYoutubers = log
