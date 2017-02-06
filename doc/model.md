@@ -1,3 +1,4 @@
+```JavaScript
 /*
 `/resource/firebase_id/`は、便宜上配列として表している
 created_atは必要なんだっけ？
@@ -21,7 +22,9 @@ like削除
   likes.user_id.countを-1
   user.possible_like_countを+1。20になったらそれ以上は回復しない。
 */
+```
 
+```JavaScript
 /*
 ランキングページ
 リソース名は変更する予定=>channelsでいい。
@@ -53,7 +56,9 @@ export type channels = [
     };
   }
 ]
+```
 
+```JavaScript
 /*
 マイランキングページ
 ref.child(likes/user_id).get(data => {
@@ -70,7 +75,9 @@ export type likes = {
     }
   ]
 }
+```
 
+```JavaScript
 /*
 ユーザー
 */
@@ -82,7 +89,9 @@ export type users = [
     possibleLikeCount: number;
   }
 ]
+```
 
+```JavaScript
 /*
 フィードバック
 オススメチャンネルを送らせたい。リソース名は要検討
@@ -94,3 +103,4 @@ export type feedback = [
     message: string;
   }
 ]
+```
