@@ -34,11 +34,7 @@ ref.child(channels).get(data => {
 export type channels = [
   {
     id: string;
-    /* アップデートされて、正当なデータになったオブジェクトのみイテレートする?
-    is_filled, is_show, is_competed/has_competed, is_deleted...など? */
-    // isUpdated: boolean;
-    // =>表示の切り替えをするためのフラグはアンチパターン。
-    // =>typeとかで代用する。
+    status: string; // active, inactive
     rank: number;
     likeCount: number;
     cseSearchQuery?: string;

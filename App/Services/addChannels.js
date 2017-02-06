@@ -21,6 +21,7 @@ const addToFirebase = (channels) => {
     channelsRef.push({
       rank: 0,
       likeCount: 0,
+      status: 'inactive',
       youtube: {
         id: item.id,
         name: item.snippet.title,
