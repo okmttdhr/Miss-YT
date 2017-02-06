@@ -6,34 +6,39 @@ priorityってなんだっけ？
 
 /*
 paginationは以下のような感じ？
-ref.child(youtubers).orderByChild('rank').startAt(1).limitToFirst(100).get()
-ref.child(youtubers).orderByChild('rank').startAt(101).limitToFirst(100).get()
-ref.child(youtubers).orderByChild('rank').startAt(201).limitToFirst(100).get()
+ref.child(channels).orderByChild('rank').startAt(1).limitToFirst(100).get()
+ref.child(channels).orderByChild('rank').startAt(101).limitToFirst(100).get()
+ref.child(channels).orderByChild('rank').startAt(201).limitToFirst(100).get()
 */
 
 /*
 like登録
-  youtubers.like_countを+1
+  channels.like_countを+1
   likes.user_id.countを+1
   user.possible_like_countを-1。0になったらlike不可に。
 like削除
-  youtubers.like_countを-1
+  channels.like_countを-1
   likes.user_id.countを-1
   user.possible_like_countを+1。20になったらそれ以上は回復しない。
 */
 
 /*
 ランキングページ
-リソース名は変更する予定=>youtubersでいい。
+リソース名は変更する予定=>channelsでいい。
 
 ランキングページで、自分がlikeしているかどうかの判別
-ref.child(youtubers).get(data => {
-  const isLiked = ref.child(likes/user_id/).orderByChild('youtuber_id').equalTo(data.id).get();
+ref.child(channels).get(data => {
+  const isLiked = ref.child(likes/user_id/).orderByChild('channel_id').equalTo(data.id).get();
 });
 */
-export type youtubers = [
+export type channels = [
   {
     id: string;
+    /* アップデートされて、正当なデータになったオブジェクトのみイテレートする?
+    is_filled, is_show, is_competed/has_competed, is_deleted...など? */
+    // isUpdated: boolean;
+    // =>表示の切り替えをするためのフラグはアンチパターン。
+    // =>typeとかで代用する。
     rank: number;
     likeCount: number;
     cseSearchQuery?: string;
@@ -56,14 +61,14 @@ export type youtubers = [
 /*
 マイランキングページ
 ref.child(likes/user_id).get(data => {
-  ref.child(youtubers/data.youtuber_id).get();
+  ref.child(channels/data.channel_id).get();
 });
 */
 export type likes = {
   user_id: [
     {
       id: string;
-      youtuber_id: string;
+      channel_id: string;
       rank: number;
       likeCount: number;
     }
@@ -84,7 +89,7 @@ export type users = [
 
 /*
 フィードバック
-オススメYouTuberを送らせたい。リソース名は要検討
+オススメチャンネルを送らせたい。リソース名は要検討
 */
 export type feedback = [
   {
