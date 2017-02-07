@@ -63,6 +63,7 @@
   },
   "ava": {
     "files": [
+      "App/{,**/}*.spec.js",
       "Tests/**/*.js",
       "!Tests/Setup.js"
     ],

@@ -1,7 +1,7 @@
 // @flow
-import {YouTubeResource} from './Resource'
-import {API_ENDPOINT_YOUTUBE_CHANNELS} from '../../../constants/'
 import Secrets from 'react-native-config'
+import {API_ENDPOINT_YOUTUBE_CHANNELS} from '../../../constants/'
+import {YouTubeResource} from './Resource'
 
 export class ChannelsResource extends YouTubeResource {
   get (channelIDs: string) {

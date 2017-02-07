@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 const channelsRef = firebase.database().ref('channels')
-const channelIDs = 'UC2rbyOa3Jo7vGSibqKcRjqw, UCI5qMix97T3tVZfxmHObDjA, UC0elp2101KAxbaAMzInGerA'
+const channelIDs = ''
 
 const addToFirebase = (channels) => {
   channels.forEach((item, index) => {
