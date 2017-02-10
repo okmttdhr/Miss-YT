@@ -20,6 +20,7 @@
     "firebase": "^3.6.5",
     "format-json": "^1.0.3",
     "lodash": "^4.17.2",
+    "nock": "^9.0.4",
     "querystringify": "0.0.4",
     "ramda": "^0.22.1",
     "react": "15.3.1",
