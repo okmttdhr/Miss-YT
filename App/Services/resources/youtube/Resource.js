@@ -14,7 +14,7 @@ type IResponce = {
 type IParameter = { [key: string]: any }
 
 export class YouTubeResource {
-  createAPI (url: string, method: string): IApisauce {
+  _createAPI (url: string, method: string): IApisauce {
     const headers = method === 'GET' ? {} : {}
     const api = apisauce.create({
       baseURL: API_ENDPOINT_YOUTUBE,
@@ -25,11 +25,11 @@ export class YouTubeResource {
     return api
   }
   get (url: string, parameters?: IParameter) {
-    const api = this.createAPI(url, 'GET')
+    const api = this._createAPI(url, 'GET')
     return api.get(url, parameters)
   }
   post (url: string, parameters: IParameter) {
-    const api = this.createAPI(url, 'POST')
+    const api = this._createAPI(url, 'POST')
     return api.post(url, parameters)
   }
   logging (response: IResponce) {
