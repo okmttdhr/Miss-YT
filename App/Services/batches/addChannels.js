@@ -38,9 +38,6 @@ const addToFirebase = (channels) => {
 }
 
 export const addChannels = () => {
-  const _XHR = global.originalXMLHttpRequest ? global.originalXMLHttpRequest : global.XMLHttpRequest
-  XMLHttpRequest = _XHR
-
   const channelsResource = new ChannelsResource()
   channelsResource.get(CHANNEL_IDS)
     .then(res => addToFirebase(res.data.items))
