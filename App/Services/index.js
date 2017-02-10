@@ -1,2 +1,2 @@
 export * from './resources'
-export * from './addChannels'
+export * from './batches'

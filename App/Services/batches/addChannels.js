@@ -1,7 +1,10 @@
 // @flow
 import * as firebase from 'firebase'
 import Secrets from 'react-native-config'
-import {ChannelsResource} from './index'
+import {ChannelsResource} from '../index'
+
+// add CHANNEL_IDS before dispatching batch
+const CHANNEL_IDS = 'UC2rbyOa3Jo7vGSibqKcRjqw, UCI5qMix97T3tVZfxmHObDjA, UC0elp2101KAxbaAMzInGerA'
 
 const firebaseConfig = {
   apiKey: Secrets.FIREBASE_API_KEY,
@@ -13,11 +16,10 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 const channelsRef = firebase.database().ref('channels')
-const channelIDs = ''
 
 const addToFirebase = (channels) => {
   channels.forEach((item, index) => {
-    console.log(`push${index}`)
+    console.log(`${item.snippet.title} was pushed`)
     channelsRef.push({
       rank: 0,
       likeCount: 0,
@@ -40,8 +42,8 @@ export const addChannels = () => {
   XMLHttpRequest = _XHR
 
   const channelsResource = new ChannelsResource()
-  channelsResource.get(channelIDs)
+  channelsResource.get(CHANNEL_IDS)
     .then(res => addToFirebase(res.data.items))
-    .then(() => console.log('addChannels: batch finished'))
-    .catch(() => console.log('addChannels: batch failed'))
+    .then(() => console.log('addChannels: batch finished-----------------------------'))
+    .catch(() => console.log('addChannels: batch failed-----------------------------'))
 }
