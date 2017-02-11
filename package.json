@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "apisauce": "^0.6.0",
+    "firebase": "^3.6.5",
     "format-json": "^1.0.3",
     "lodash": "^4.17.2",
+    "nock": "^9.0.4",
     "querystringify": "0.0.4",
     "ramda": "^0.22.1",
     "react": "15.3.1",
@@ -40,7 +42,7 @@
     "seamless-immutable": "^6.3.0"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
+    "ava": "^0.18.1",
     "babel-eslint": "^7.1.1",
     "babel-preset-es2015": "^6.18.0",
     "babel-register": "^6.18.0",
@@ -62,6 +64,7 @@
   },
   "ava": {
     "files": [
+      "App/{,**/}*.spec.js",
       "Tests/**/*.js",
       "!Tests/Setup.js"
     ],
