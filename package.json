@@ -12,11 +12,11 @@
     "test:watch": "ava --watch",
     "coverage": "nyc ava && nyc report --reporter=html && open coverage/index.html || xdg-open coverage/index.html",
     "tron": "node_modules/.bin/reactotron",
-    "flow": "flow --show-all-errors",
-    "update:ranking": "node bin/batch update_ranking"
+    "flow": "flow --show-all-errors"
   },
   "dependencies": {
     "apisauce": "^0.6.0",
+    "bluebird": "^3.4.7",
     "firebase": "^3.6.5",
     "format-json": "^1.0.3",
     "lodash": "^4.17.2",
