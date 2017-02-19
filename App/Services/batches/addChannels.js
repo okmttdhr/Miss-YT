@@ -1,21 +1,8 @@
 // @flow
-import * as firebase from 'firebase'
-import Secrets from 'react-native-config'
-import {ChannelsResource} from '../index'
+import {ChannelsResource, channelsRef} from '../index'
 
 // add CHANNEL_IDS before dispatching batch
 const CHANNEL_IDS = 'UC2rbyOa3Jo7vGSibqKcRjqw, UCI5qMix97T3tVZfxmHObDjA, UC0elp2101KAxbaAMzInGerA'
-
-const firebaseConfig = {
-  apiKey: Secrets.FIREBASE_API_KEY,
-  authDomain: Secrets.FIREBASE_AUTH_DOMAIN,
-  databaseURL: Secrets.FIREBASE_DATABASE_URL,
-  storageBucket: Secrets.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: Secrets.FIREBASE_MESSAGING_SENDER_ID
-}
-
-firebase.initializeApp(firebaseConfig)
-const channelsRef = firebase.database().ref('channels')
 
 const addToFirebase = (channels) => {
   channels.forEach((item, index) => {
