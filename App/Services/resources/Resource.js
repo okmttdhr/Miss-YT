@@ -1,24 +1,29 @@
 // @flow
 import apisauce from 'apisauce'
-import {API_ENDPOINT_YOUTUBE, API_TIMEOUT} from '../../../constants/'
+import {API_TIMEOUT} from '../../constants/'
 
-type IApisauce = {
+export type IApisauce = {
   addMonitor: () => void;
-  get: () => void;
-  post: () => void;
+  get: () => Promise<any>;
+  post: () => Promise<any>;
 }
-type IResponce = {
+export type IResponce = {
   ok: boolean;
   problem: string;
 }
-type IParameter = { [key: string]: any }
+export type IParameter = { [key: string]: any }
 
-export class YouTubeResource {
+export class Resource {
+  baseURL: string;
+  headers: {[key: string]: string};
+  constructor (baseURL: string, headers: {[key: string]: string} = {}) {
+    this.baseURL = baseURL
+    this.headers = headers
+  }
   _createAPI (url: string, method: string): IApisauce {
-    const headers = method === 'GET' ? {} : {}
     const api = apisauce.create({
-      baseURL: API_ENDPOINT_YOUTUBE,
-      headers,
+      baseURL: this.baseURL,
+      headers: this.headers,
       timeout: API_TIMEOUT
     })
     api.addMonitor(response => this.logging(response))
