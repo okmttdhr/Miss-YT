@@ -2,14 +2,15 @@
 import Promise from 'bluebird'
 import {toString} from 'lodash'
 import {ChannelsResource, channelsRef, logFinished} from '../index'
-import type {TChannel} from '../firebaseRef'
+import type {TChannel} from '../../types/Channel'
+import type {TChannelResponse} from '../../types/ChannelResponse'
 
 // the parameter limit of TwitterUsersLookupResource's `screen_name`
 const LIMIT = 100
-type ChannelsSnapshot = {[key: string]: TChannel}
+type TChannelsSnapshot = {[key: string]: TChannel}
 
 const accumulateIds = (snapshot) => {
-  const channels: ChannelsSnapshot = snapshot.val()
+  const channels: TChannelsSnapshot = snapshot.val()
   const channelIds = Object.keys(channels).map((key, index) => channels[key].youtube.id)
   return {channelIds}
 }
@@ -27,11 +28,11 @@ const getLatestItem = (channelIds, screenNames) => {
   return channelsResource.get(channelIds).then((res) => ({channels: res.data.items}))
 }
 
-const updateSubscriberCount = (channelsResponse) => {
+const updateSubscriberCount = (channelsResponse: TChannelResponse[]) => {
   console.log('updateSubscriberCount')
   const promiseOnce = channelsResponse.map((channelResponse) => {
     return channelsRef.orderByChild('youtube/id').equalTo(channelResponse.id).once('value').then((snapshot) => {
-      const channels: ChannelsSnapshot = snapshot.val()
+      const channels: TChannelsSnapshot = snapshot.val()
       const promiseUpdate = Object.keys(channels).map((key, index) => {
         return channelsRef.update({[`/${key}/youtube/subscriberCount`]: Number(channelResponse.statistics.subscriberCount)})
       })
@@ -44,7 +45,7 @@ const updateSubscriberCount = (channelsResponse) => {
 const updateScore = () => {
   console.log('updateScore')
   return channelsRef.once('value').then((snapshot) => {
-    const channels: ChannelsSnapshot = snapshot.val()
+    const channels: TChannelsSnapshot = snapshot.val()
     const promiseUpdate = Object.keys(channels).map((key, index) => {
       const _score = channels[key].likeCount + channels[key].youtube.subscriberCount
       const score = channels[key].twitter ? _score + channels[key].twitter.followersCount : _score
@@ -73,7 +74,7 @@ export const updateChannels = () => {
     .then((snapshot) => accumulateIds(snapshot))
     .then((ids: {channelIds: string[]}) => toParameter(ids))
     .then((parameters: {channelIds: string}) => getLatestItem(parameters.channelIds))
-    .then((response: {channels: Object[]}) => updateSubscriberCount(response.channels))
+    .then((response: {channels: TChannelResponse[]}) => updateSubscriberCount(response.channels))
     .then(() => updateScore())
     .then(() => updateRank())
 

@@ -1,11 +1,13 @@
 // @flow
 import {ChannelsResource, channelsRef, logFinished} from '../index'
-import type {TChannelsRef, TChannel} from '../firebaseRef'
+import type {TChannelsRef} from '../firebaseRef'
+import type {TChannel} from '../../types/Channel'
+import type {TChannelResponse} from '../../types/ChannelResponse'
 
 // add CHANNEL_IDS before dispatching batch
 const CHANNEL_IDS = 'UC2rbyOa3Jo7vGSibqKcRjqw, UCI5qMix97T3tVZfxmHObDjA, UC0elp2101KAxbaAMzInGerA, UCB10yM5qyQpNsMNDQ1VHxKg, UCiOm_FmFK4jxB9VRuFC1pag'
 
-const createChannel = (channel): TChannel => {
+const createChannel = (channel: TChannelResponse): TChannel => {
   const subscriberCount = Number(channel.statistics.subscriberCount)
   const viewCount = Number(channel.statistics.viewCount)
   return {
@@ -25,11 +27,11 @@ const createChannel = (channel): TChannel => {
   }
 }
 
-const addToFirebase = (channels) => {
-  channels.forEach((channel, index) => {
-    console.log(`${channel.snippet.title} was pushed`)
+const addToFirebase = (channelsResponse: TChannelResponse[]) => {
+  channelsResponse.forEach((channelResponse, index) => {
+    console.log(`${channelResponse.snippet.title} was pushed`)
     const ref: TChannelsRef = channelsRef
-    ref.push(createChannel(channel))
+    ref.push(createChannel(channelResponse))
   })
 }
 

@@ -1,7 +1,5 @@
 
 * `/resource/firebase_id/`は、便宜上配列として表している
-* created_atは必要なんだっけ？
-* priorityってなんだっけ？
 
 ```JavaScript
 // paginationは以下のような感じ？

@@ -1,6 +1,7 @@
 // @flow
 import * as firebase from 'firebase'
 import Secrets from 'react-native-config'
+import {TChannel} from '../types/Channel'
 
 const firebaseConfig = {
   apiKey: Secrets.FIREBASE_API_KEY,
@@ -12,26 +13,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-export type TChannel = {
-  status: string; // active, inactive
-  rank: number;
-  score: number;
-  likeCount: number;
-  cseSearchQuery?: string;
-  youtube: {
-    id: string;
-    name: string;
-    description: string;
-    thumbnail: string;
-    banner: string;
-    subscriberCount: number;
-    viewCount: number;
-  };
-  twitter?: {
-    screen_name: string;
-    followersCount: number;
-  };
-}
 export type TChannelsRef = {
   orderByChild: (path: string) => any;
   push: (channel: TChannel) => void;
