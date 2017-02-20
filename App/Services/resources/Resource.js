@@ -2,16 +2,16 @@
 import apisauce from 'apisauce'
 import {API_TIMEOUT} from '../../constants/'
 
-export type IApisauce = {
+type IApisauce = {
   addMonitor: () => void;
   get: () => Promise<any>;
   post: () => Promise<any>;
 }
-export type IResponce = {
+type IResponce = {
   ok: boolean;
   problem: string;
 }
-export type IParameter = { [key: string]: any }
+type IParameter = { [key: string]: any }
 
 export class Resource {
   baseURL: string;

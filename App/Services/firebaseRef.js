@@ -24,16 +24,18 @@ export type TChannel = {
     description: string;
     thumbnail: string;
     banner: string;
-    subscriberCount: string;
-    viewCount: string;
+    subscriberCount: number;
+    viewCount: number;
   };
   twitter?: {
     screen_name: string;
     followersCount: number;
   };
 }
-type TChannelsRef = {
+export type TChannelsRef = {
+  orderByChild: (path: string) => any;
   push: (channel: TChannel) => void;
+  update: () => void;
 }
 
 export const channelsRef: TChannelsRef = firebase.database().ref('channels')
