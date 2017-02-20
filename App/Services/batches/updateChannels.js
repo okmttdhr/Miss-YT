@@ -27,8 +27,8 @@ const getLatestItem = (channelIds, screenNames) => {
   return channelsResource.get(channelIds).then((res) => ({channels: res.data.items}))
 }
 
-const updateOnFirebase = (channelsResponse) => {
-  console.log('updateOnFirebase')
+const updateSubscriberCount = (channelsResponse) => {
+  console.log('updateSubscriberCount')
   const promiseOnce = channelsResponse.map((channelResponse) => {
     return channelsRef.orderByChild('youtube/id').equalTo(channelResponse.id).once('value').then((snapshot) => {
       const channels: ChannelsSnapshot = snapshot.val()
@@ -73,7 +73,7 @@ export const updateChannels = () => {
     .then((snapshot) => accumulateIds(snapshot))
     .then((ids: {channelIds: string[]}) => toParameter(ids))
     .then((parameters: {channelIds: string}) => getLatestItem(parameters.channelIds))
-    .then((response: {channels: Object[]}) => updateOnFirebase(response.channels))
+    .then((response: {channels: Object[]}) => updateSubscriberCount(response.channels))
     .then(() => updateScore())
     .then(() => updateRank())
 
