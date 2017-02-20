@@ -1,5 +1,5 @@
 // @flow
-import {ChannelsResource, channelsRef} from '../index'
+import {ChannelsResource, channelsRef, logFinished} from '../index'
 import type {TChannelsRef, TChannel} from '../firebaseRef'
 
 // add CHANNEL_IDS before dispatching batch
@@ -35,8 +35,6 @@ const addToFirebase = (channels) => {
 
 export const addChannels = () => {
   const channelsResource = new ChannelsResource()
-  channelsResource.get(CHANNEL_IDS)
-    .then(res => addToFirebase(res.data.items))
-    .then(() => console.log('addChannels: batch finished-----------------------------'))
-    .catch(() => console.log('addChannels: batch failed-----------------------------'))
+  const addChannelsPromise = channelsResource.get(CHANNEL_IDS).then(res => addToFirebase(res.data.items))
+  logFinished(addChannelsPromise, 'addChannels')
 }
