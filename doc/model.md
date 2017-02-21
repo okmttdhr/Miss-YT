@@ -1,16 +1,11 @@
-```JavaScript
-/*
-`/resource/firebase_id/`は、便宜上配列として表している
-created_atは必要なんだっけ？
-priorityってなんだっけ？
-*/
 
-/*
-paginationは以下のような感じ？
+* `/resource/firebase_id/`は、便宜上配列として表している
+
+```JavaScript
+// paginationは以下のような感じ？
 ref.child(channels).orderByChild('rank').startAt(1).limitToFirst(100).get()
 ref.child(channels).orderByChild('rank').startAt(101).limitToFirst(100).get()
 ref.child(channels).orderByChild('rank').startAt(201).limitToFirst(100).get()
-*/
 
 /*
 like登録
@@ -26,36 +21,11 @@ like削除
 
 ```JavaScript
 /*
-ランキングページ
-リソース名は変更する予定=>channelsでいい。
-
 ランキングページで、自分がlikeしているかどうかの判別
 ref.child(channels).get(data => {
   const isLiked = ref.child(likes/user_id/).orderByChild('channel_id').equalTo(data.id).get();
 });
 */
-export type channels = [
-  {
-    id: string;
-    status: string; // active, inactive
-    rank: number;
-    likeCount: number;
-    cseSearchQuery?: string;
-    youtube: {
-      id: string;
-      name: string; // title
-      description: string;
-      thumbnail: string;
-      banner: string; // bannerMobileImageUrl
-      subscriberCount: string;
-      viewCount: string;
-    };
-    twitter?: {
-      id: string;
-      followersCount: number;
-    };
-  }
-]
 ```
 
 ```JavaScript
