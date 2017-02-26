@@ -1,6 +1,8 @@
 // @flow
 import Promise from 'bluebird'
-import {toString} from 'lodash'
+import {toString, assign} from 'lodash'
+import * as firebase from 'firebase'
+
 import {ChannelsResource, channelsRef, logFinished} from '../index'
 import type {TChannel} from '../../types/Channel'
 import type {TChannelResponse} from '../../types/ChannelResponse'
@@ -28,13 +30,19 @@ const getLatestItem = (channelIds, screenNames) => {
   return channelsResource.get(channelIds).then((res) => ({channels: res.data.items}))
 }
 
+const updateChannelWithTimestamp = (key, modifier) => {
+  return channelsRef.update(assign({}, modifier, {
+    [`/${key}/modifiedAt`]: firebase.database.ServerValue.TIMESTAMP
+  }))
+}
+
 const updateSubscriberCount = (channelsResponse: TChannelResponse[]) => {
   console.log('updateSubscriberCount')
   const promiseOnce = channelsResponse.map((channelResponse) => {
     return channelsRef.orderByChild('youtube/id').equalTo(channelResponse.id).once('value').then((snapshot) => {
       const channels: TChannelsSnapshot = snapshot.val()
       const promiseUpdate = Object.keys(channels).map((key, index) => {
-        return channelsRef.update({[`/${key}/youtube/subscriberCount`]: Number(channelResponse.statistics.subscriberCount)})
+        return updateChannelWithTimestamp(key, {[`/${key}/youtube/subscriberCount`]: Number(channelResponse.statistics.subscriberCount)})
       })
       return Promise.all(promiseUpdate)
     })
@@ -49,7 +57,7 @@ const updateScore = () => {
     const promiseUpdate = Object.keys(channels).map((key, index) => {
       const _score = channels[key].likeCount + channels[key].youtube.subscriberCount
       const score = channels[key].twitter ? _score + channels[key].twitter.followersCount : _score
-      return channelsRef.update({[`/${key}/score`]: score})
+      return updateChannelWithTimestamp(key, {[`/${key}/score`]: score})
     })
     return Promise.all(promiseUpdate)
   })
@@ -63,7 +71,7 @@ const updateRank = () => {
       channelKeys.push(s.key)
     })
     const promiseUpdate = channelKeys.reverse().map((key, index) => {
-      return channelsRef.update({[`/${key}/rank`]: index + 1})
+      return updateChannelWithTimestamp(key, {[`/${key}/rank`]: index + 1})
     })
     return Promise.all(promiseUpdate)
   })

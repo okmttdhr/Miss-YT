@@ -1,5 +1,7 @@
 // @flow
 export type TChannel = {
+  createdAt: string;
+  modifiedAt: string;
   status: string; // active, inactive
   rank: number;
   score: number;

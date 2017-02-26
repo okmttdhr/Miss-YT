@@ -1,4 +1,6 @@
 // @flow
+import * as firebase from 'firebase'
+
 import {ChannelsResource, channelsRef, logFinished} from '../index'
 import type {TChannelsRef} from '../firebaseRef'
 import type {TChannel} from '../../types/Channel'
@@ -11,6 +13,8 @@ const createChannel = (channel: TChannelResponse): TChannel => {
   const subscriberCount = Number(channel.statistics.subscriberCount)
   const viewCount = Number(channel.statistics.viewCount)
   return {
+    createdAt: firebase.database.ServerValue.TIMESTAMP,
+    modifiedAt: firebase.database.ServerValue.TIMESTAMP,
     rank: 0,
     score: subscriberCount,
     likeCount: 0,
