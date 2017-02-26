@@ -1,3 +1,4 @@
+// @flow
 export type TChannelResponse = {
   id: string;
   snippet: {

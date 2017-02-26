@@ -1,3 +1,4 @@
+// @flow
 export type TChannel = {
   status: string; // active, inactive
   rank: number;

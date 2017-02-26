@@ -1,7 +1,7 @@
 // @flow
 import * as firebase from 'firebase'
 import Secrets from 'react-native-config'
-import {TChannel} from '../types/Channel'
+import type {TChannel} from '../types/Channel'
 
 const firebaseConfig = {
   apiKey: Secrets.FIREBASE_API_KEY,
