@@ -50,6 +50,17 @@ const updateSubscriberCount = (channelsResponse: TChannelResponse[]) => {
   return Promise.all(promiseOnce)
 }
 
+const addId = () => {
+  console.log('addId')
+  return channelsRef.once('value').then((snapshot) => {
+    const channels: TChannelsSnapshot = snapshot.val()
+    const promiseUpdate = Object.keys(channels).map((key, index) => {
+      return updateChannelWithTimestamp(key, {[`/${key}/id`]: key})
+    })
+    return Promise.all(promiseUpdate)
+  })
+}
+
 const updateScore = () => {
   console.log('updateScore')
   return channelsRef.once('value').then((snapshot) => {
@@ -83,6 +94,7 @@ export const updateChannels = () => {
     .then((ids: {channelIds: string[]}) => toParameter(ids))
     .then((parameters: {channelIds: string}) => getLatestItem(parameters.channelIds))
     .then((response: {channels: TChannelResponse[]}) => updateSubscriberCount(response.channels))
+    .then(() => addId())
     .then(() => updateScore())
     .then(() => updateRank())
 

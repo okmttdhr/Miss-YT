@@ -13,6 +13,7 @@ const createChannel = (channel: TChannelResponse): TChannel => {
   const subscriberCount = Number(channel.statistics.subscriberCount)
   const viewCount = Number(channel.statistics.viewCount)
   return {
+    id: '',
     createdAt: firebase.database.ServerValue.TIMESTAMP,
     modifiedAt: firebase.database.ServerValue.TIMESTAMP,
     rank: 0,
