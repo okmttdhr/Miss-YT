@@ -20,3 +20,4 @@ export type TChannelsRef = {
 }
 
 export const channelsRef: TChannelsRef = firebase.database().ref('channels')
+export const likesRef = firebase.database().ref('likes')
