@@ -1,7 +1,8 @@
 // @flow
 export type TChannel = {
-  createdAt: string;
-  modifiedAt: string;
+  id: string;
+  createdAt: number;
+  modifiedAt: number;
   status: string; // active, inactive
   rank: number;
   score: number;
@@ -20,4 +21,8 @@ export type TChannel = {
     screen_name: string;
     followersCount: number;
   };
+}
+
+export type TChannelStore = TChannel & {
+  isLiked: boolean
 }
