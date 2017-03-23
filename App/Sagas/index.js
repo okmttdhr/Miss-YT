@@ -2,6 +2,7 @@ import { takeLatest } from 'redux-saga'
 
 /* ------------- Types ------------- */
 
+import { channelsTypes } from '../Redux/'
 import { StartupTypes } from '../Redux/StartupRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 
@@ -9,13 +10,14 @@ import { LoginTypes } from '../Redux/LoginRedux'
 
 import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
+import { getChannels } from './ChannelsSagas'
 
-/* ------------- Connect Types To Sagas ------------- */
+/* ------------- RootSaga ------------- */
 
 export default function * root () {
   yield [
-    // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
-    takeLatest(LoginTypes.LOGIN_REQUEST, login)
+    takeLatest(LoginTypes.LOGIN_REQUEST, login),
+    takeLatest(channelsTypes.CHANNELS_REQUEST, getChannels)
   ]
 }

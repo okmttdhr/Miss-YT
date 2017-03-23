@@ -6,7 +6,7 @@ import { call, put } from 'redux-saga/effects'
 import type {TChannel, TChannelStore} from '../types/Channel'
 import type {APIResponse} from '../types/APIResponse'
 import {channelsRef, likesRef, statusCode} from '../Services/'
-import {channelsActions} from '../Redux/ChannelsRedux'
+import {channelsActions} from '../Redux/'
 
 const LIMIT = 100
 
