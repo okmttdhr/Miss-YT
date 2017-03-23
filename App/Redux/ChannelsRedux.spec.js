@@ -9,7 +9,7 @@ test('could make a request to get Channels', (t) => {
 test('could update Channels', (t) => {
   const channelsMock = {isMock: true}
   const state = channelsReducer(DEFAULT_CHANNELS, channelsActions.channelsSuccess(channelsMock))
-  t.deepEqual(state.channels, channelsMock)
+  t.deepEqual(state.items, channelsMock)
 })
 
 test('could update errorMessage', (t) => {
