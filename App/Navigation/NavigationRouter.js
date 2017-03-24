@@ -3,7 +3,7 @@
 import React from 'react'
 import { Scene, Router } from 'react-native-router-flux'
 
-import {PresentationScreen, AccountScreen} from '../Containers'
+import {PresentationScreen, AccountScreen, ConnectedRankingScreen} from '../Containers'
 import { TabIcon } from '../Components'
 import {TabBarStyle} from './Styles'
 
@@ -11,7 +11,7 @@ const NavigationRouter = () => (
   <Router>
     <Scene key='Root'>
       <Scene key='Tabbar' tabs initial tabBarStyle={TabBarStyle.container}>
-        <Scene key='Ranking' title='Ranking' component={PresentationScreen} icon={TabIcon} />
+        <Scene key='Ranking' title='Ranking' component={ConnectedRankingScreen} icon={TabIcon} />
         <Scene key='MyRanking' title='My Ranking' component={PresentationScreen} icon={TabIcon} />
         <Scene key='Account' title='Account' component={AccountScreen} icon={TabIcon} />
       </Scene>
