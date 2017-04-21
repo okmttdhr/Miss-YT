@@ -8,7 +8,6 @@ import { Metrics } from '../Themes/'
 import Icon from 'react-native-vector-icons/Ionicons'
 import ExamplesRegistry from '../Services/ExamplesRegistry'
 
-// Example
 ExamplesRegistry.add('Alert Message', () =>
   <View>
     <AlertMessage
