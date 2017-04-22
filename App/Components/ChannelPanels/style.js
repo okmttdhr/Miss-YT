@@ -2,11 +2,14 @@
 import { StyleSheet, Dimensions } from 'react-native'
 import { assign } from 'lodash'
 
-const HEADER_HEIGHT = 66
-
 const viewportWidth = (percentageWidth) => {
   return Dimensions.get('window').width * (percentageWidth / 100)
 }
+
+const HEADER_HEIGHT = 66
+const PANEL_MARGIN = 2
+const THUMBNAIL_WIDTH = viewportWidth(50) - PANEL_MARGIN
+const PANEL_WIDTH = THUMBNAIL_WIDTH + 30
 
 const flexRowCenter = {
   flex: 1,
@@ -16,10 +19,10 @@ const flexRowCenter = {
 
 const panelContent = {
   flex: 1,
-  height: 250,
-  marginRight: 2,
-  marginBottom: 2,
-  backgroundColor: 'powderblue'
+  height: PANEL_WIDTH,
+  marginRight: PANEL_MARGIN,
+  marginBottom: PANEL_MARGIN
+  // backgroundColor: 'powderblue'
 }
 
 export default StyleSheet.create({
@@ -32,10 +35,37 @@ export default StyleSheet.create({
   scrollView: {
     width: viewportWidth(100)
   },
+
   panelWrapper: flexRowCenter,
   panel: flexRowCenter,
   panelContentOdd: panelContent,
   panelContentEven: assign({}, panelContent, {
     marginRight: 0
-  })
+  }),
+
+  thumbnail: {
+    width: THUMBNAIL_WIDTH,
+    height: THUMBNAIL_WIDTH
+  },
+  rank: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 20,
+    height: 20,
+    position: 'absolute',
+    left: 5,
+    top: 5,
+    borderRadius: 100,
+    backgroundColor: '#ffffff'
+  },
+  rankText: {
+    backgroundColor: 'transparent'
+  },
+  name: {
+    marginTop: 5,
+    marginLeft: 5,
+    fontSize: 14,
+    fontWeight: 'bold'
+  }
 })
