@@ -62,10 +62,24 @@ export default StyleSheet.create({
   rankText: {
     backgroundColor: 'transparent'
   },
+
+  panelInfo: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+    // justifyContent: 'flex-start'
+  },
   name: {
+    flex: 1,
     marginTop: 5,
     marginLeft: 5,
     fontSize: 14,
     fontWeight: 'bold'
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+    justifyContent: 'flex-end'
   }
 })
