@@ -1,9 +1,10 @@
 // @flow
 import React from 'react'
 import { Text, View, Image } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import type {TChannelStore} from '../../../types/Channel'
+import {COLOR_RED} from '../../../constants'
 import styles from './style'
 
 type TChannelPanel = {
@@ -21,7 +22,7 @@ export const Panel = ({channel, isMargin}: TChannelPanel) => (
       <View style={styles.panelInfo}>
         <Text style={styles.name}>{channel.youtube.name}</Text>
         <View style={styles.icon}>
-          <Icon name='rocket' size={20} color={channel.isLiked ? '#900' : '#ddd'} />
+          <Icon name={channel.isLiked ? 'favorite' : 'favorite'} size={20} color={COLOR_RED} />
         </View>
       </View>
     </View>
