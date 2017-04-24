@@ -2,7 +2,7 @@
 import {range} from 'lodash'
 import type {TChannelStore} from '../../App/types/Channel'
 
-export const channelStoreMock = range(10).map((i: number): TChannelStore => {
+export const channelsStoreMock = range(10).map((i: number): TChannelStore => {
   return {
     id: `ID${i}`,
     createdAt: 12345,
@@ -24,9 +24,9 @@ export const channelStoreMock = range(10).map((i: number): TChannelStore => {
   }
 })
 
-export const channelsStoreMock = () => {
+export const channelsStoreWithKeyMock = () => {
   const channels: {[key: string]: TChannelStore} = {}
-  channelStoreMock.forEach((channel) => {
+  channelsStoreMock.forEach((channel) => {
     channels[channel.id] = channel
   })
   return channels
