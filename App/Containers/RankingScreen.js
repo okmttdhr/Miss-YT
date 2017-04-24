@@ -2,12 +2,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 
 import type {TDefaultChannels, TChannelsActions} from '../types/Redux/ChannelsRedux'
 
 import styles from './Styles/RankingScreenStyle'
 import {channelsActions} from '../Redux/ChannelsRedux'
+import {ChannelPanels} from '../Components'
 
 type IRankingScreen = {
   title: string,
@@ -24,9 +25,7 @@ export class RankingScreen extends React.Component {
     const items = Object.values(this.props.channels.items)
     return (
       <View style={[styles.container]}>
-        {items.length > 0 ? items.map((item: any, index: number) => {
-          return (<Text key={index}>{item.youtube.name}</Text>)
-        }) : null}
+        <ChannelPanels channels={items} />
       </View>
     )
   }
