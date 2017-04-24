@@ -47,7 +47,6 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
-    // justifyContent: 'flex-start'
   },
   name: {
     flex: 1,
