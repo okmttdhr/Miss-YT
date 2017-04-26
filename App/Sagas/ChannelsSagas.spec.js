@@ -2,7 +2,7 @@ import test from 'ava-spec'
 import Promise from 'bluebird'
 import { call, put } from 'redux-saga/effects'
 
-import {firebaseChannelsResponse, channelStoreMock, channelsStoreMock} from '../../Tests/mock/'
+import {firebaseChannelsResponse, channelsStoreMock, channelsStoreWithKeyMock} from '../../Tests/mock/'
 import {channelsActions} from '../Redux/ChannelsRedux'
 import {getChannels, getFromFirebase, createIsLikedPromises} from './ChannelsSagas'
 import {statusCode} from '../Services/'
@@ -24,8 +24,8 @@ test.serial.group('Normal', t => {
   })
 
   test('could send channels with isLiked to action', t => {
-    next = generator.next(channelStoreMock)
-    t.deepEqual(next.value, put(channelsActions.channelsSuccess(channelsStoreMock())))
+    next = generator.next(channelsStoreMock)
+    t.deepEqual(next.value, put(channelsActions.channelsSuccess(channelsStoreWithKeyMock())))
   })
 })
 

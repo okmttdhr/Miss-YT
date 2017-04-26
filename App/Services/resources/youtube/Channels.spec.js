@@ -1,3 +1,4 @@
+// @flow
 import test from 'ava'
 import nock from 'nock'
 import {ChannelsResource, YOUTUBE_RESOURCE_PARAMETER_PART} from './index'
