@@ -1,3 +1,4 @@
+// @flow
 export const statusCode = {
   Ok: 200,
   InvalidParameters: 400,
