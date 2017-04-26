@@ -5,7 +5,7 @@ import { call, put } from 'redux-saga/effects'
 
 import type {TChannel, TChannelStore} from '../types/Channel'
 import type {APIResponse} from '../types/APIResponse'
-import {channelsRef, likesRef, statusCode} from '../Services/'
+import {channelsRef, likesRef, statusCode, snapshotExists} from '../Services/'
 import {channelsActions} from '../Redux/'
 
 const LIMIT = 100
@@ -25,12 +25,7 @@ export const getFromFirebase = (startAt: number = 1) => {
 
 const getIsLiked = (userId: string, channelId: string) => {
   return likesRef.child(userId).orderByChild('channelId').equalTo(channelId).once('value')
-    .then((responce): boolean => {
-      if (responce.val() === null) {
-        return false
-      }
-      return true
-    })
+    .then(snapshotExists)
     .catch(() => false)
 }
 

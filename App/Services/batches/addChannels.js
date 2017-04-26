@@ -2,7 +2,7 @@
 import Promise from 'bluebird'
 import * as firebase from 'firebase'
 
-import {ChannelsResource, channelsRef, logFinished} from '../index'
+import {ChannelsResource, channelsRef, logFinished, snapshotExists} from '../index'
 import type {TChannel} from '../../types/Channel'
 import type {TChannelResponse} from '../../types/ChannelResponse'
 
@@ -37,12 +37,7 @@ const createChannel = (channel: TChannelResponse): TChannel => {
 
 const channelExists = (channelResponse: TChannelResponse) => {
   return channelsRef.orderByChild('youtube/id').equalTo(channelResponse.id).once('value')
-    .then((snapshot) => {
-      if (snapshot.val() === null) {
-        return false
-      }
-      return true
-    })
+    .then(snapshotExists)
     .catch(() => false)
 }
 
