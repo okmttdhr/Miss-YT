@@ -58,6 +58,14 @@ const addId = (channels: TChannelsSnapshot) => {
   return Promise.all(promiseUpdate)
 }
 
+const activate = (channels: TChannelsSnapshot) => {
+  console.log('activate')
+  const promiseUpdate = Object.keys(channels).map((key, index) => {
+    return updateChannelWithTimestamp(key, {[`/${key}/status`]: 'active'})
+  })
+  return Promise.all(promiseUpdate)
+}
+
 const updateScore = (channels: TChannelsSnapshot) => {
   console.log('updateScore')
   const promiseUpdate = Object.keys(channels).map((key, index) => {
@@ -71,7 +79,11 @@ const updateScore = (channels: TChannelsSnapshot) => {
 const toAll = () => {
   return channelsRef.once('value').then((snapshot) => {
     const channels: TChannelsSnapshot = snapshot.val()
-    return Promise.all([updateScore(channels), addId(channels)])
+    return Promise.all([
+      updateScore(channels),
+      addId(channels),
+      activate(channels)
+    ])
   })
 }
 
