@@ -1,10 +1,10 @@
 // @flow
 
-import React from 'react'
-import { Text, View } from 'react-native'
-import styles from './Styles/PresentationScreenStyle'
-import {FullButton} from '../Components/'
-import {addChannels, updateChannels} from '../Services/'
+import React from 'react';
+import { Text, View } from 'react-native';
+import styles from './Styles/PresentationScreenStyle';
+import {FullButton} from '../Components/';
+import {addChannels, updateChannels} from '../Services/';
 
 type IAccountScreen = {
   title: string,
@@ -16,4 +16,4 @@ export const AccountScreen = (props: IAccountScreen) => (
     <FullButton text={'Channelを追加'} onPress={addChannels} />
     <FullButton text={'Channelを更新'} onPress={updateChannels} />
   </View>
-)
+);

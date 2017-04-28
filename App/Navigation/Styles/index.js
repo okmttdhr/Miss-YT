@@ -1,1 +1,1 @@
-export * from './TabBarStyle'
+export * from './TabBarStyle';

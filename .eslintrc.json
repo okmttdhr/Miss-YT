@@ -1,0 +1,52 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": [
+    "flowtype"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "__DEV__": true
+  },
+  "rules": {
+    "import/prefer-default-export": 0,
+    "no-console": 0,
+    "object-curly-spacing": 0,
+    "react/jsx-filename-extension": 0,
+    "no-alert": 0,
+    "import/first": 1,
+    "react/require-default-props": 1,
+    "react/no-array-index-key": 1,
+    "react/sort-comp": 1,
+    "react/no-unused-prop-types": 1,
+    "react/prefer-stateless-function": 1,
+    "react/no-string-refs": 1,
+    "react/no-unescaped-entities": 1,
+    "import/no-extraneous-dependencies": 1,
+    "import/no-unresolved": 1,
+    "import/extensions": 1,
+    "import/newline-after-import": 1,
+    "class-methods-use-this": 1,
+    "no-underscore-dangle": 1,
+    "import/no-named-as-default-member": 1,
+    "default-case": 1,
+    "no-plusplus": 1,
+    "global-require": 1,
+    "no-unused-vars": 1,
+    "react/prop-types": 1,
+    "consistent-return": 1,
+    "array-callback-return": 1,
+    "no-case-declarations": 1,
+    "no-prototype-builtins": 1,
+    "react/forbid-prop-types": 1,
+    "react/forbid-prop-types": 1,
+    "no-undef": 1,
+    "no-shadow": 1,
+    "no-param-reassign": 1,
+    "import/no-named-as-default": 1,
+    "max-len": 1
+  }
+}

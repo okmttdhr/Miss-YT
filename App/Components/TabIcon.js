@@ -1,7 +1,7 @@
 // @flow
 
-import React from 'react'
-import { Text, View } from 'react-native'
+import React from 'react';
+import { Text, View } from 'react-native';
 
 type ITabIcon = {
   selected: string,
@@ -15,4 +15,4 @@ export const TabIcon = (props: ITabIcon) => (
       {props.title}
     </Text>
   </View>
-)
+);

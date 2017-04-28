@@ -4,8 +4,8 @@ export const statusCode = {
   InvalidParameters: 400,
   Forbidden: 403,
   NotFound: 404,
-  InternalError: 500
-}
+  InternalError: 500,
+};
 
-export * from './Resource'
-export * from './youtube/'
+export * from './Resource';
+export * from './youtube/';

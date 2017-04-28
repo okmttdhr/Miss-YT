@@ -1,24 +1,24 @@
 // @flow
 
-import React from 'react'
-import { View, Text } from 'react-native'
-import styles from './Styles/AlertMessageStyle'
-import * as Animatable from 'react-native-animatable'
-import { Metrics } from '../Themes/'
-import Icon from 'react-native-vector-icons/Ionicons'
-import ExamplesRegistry from '../Services/ExamplesRegistry'
+import React from 'react';
+import { View, Text } from 'react-native';
+import styles from './Styles/AlertMessageStyle';
+import * as Animatable from 'react-native-animatable';
+import { Metrics } from '../Themes/';
+import Icon from 'react-native-vector-icons/Ionicons';
+import ExamplesRegistry from '../Services/ExamplesRegistry';
 
 ExamplesRegistry.add('Alert Message', () =>
   <View>
     <AlertMessage
-      title='Alert Message with animation'
+      title="Alert Message with animation"
     />
     <AlertMessage
-      title='Never see me'
+      title="Never see me"
       show={false}
     />
-  </View>
-)
+  </View>,
+);
 
 type AlertMessageProps = {
   title: string,
@@ -32,15 +32,15 @@ export default class AlertMessage extends React.Component {
 
   props: AlertMessageProps
 
-  render () {
-    let messageComponent = null
+  render() {
+    const messageComponent = null;
     if (this.props.show) {
-      const { title } = this.props
+      const { title } = this.props;
       return (
         <Animatable.View
           style={[styles.container, this.props.style]}
           delay={800}
-          animation='bounceIn'
+          animation="bounceIn"
         >
           <View style={styles.contentContainer}>
             <Icon
@@ -48,16 +48,18 @@ export default class AlertMessage extends React.Component {
               size={Metrics.icons.large}
               style={styles.icon}
             />
-            <Text allowFontScaling={false} style={styles.message}>{title && title.toUpperCase()}</Text>
+            <Text allowFontScaling={false} style={styles.message}>
+              {title && title.toUpperCase()}
+            </Text>
           </View>
         </Animatable.View>
-      )
+      );
     }
 
-    return messageComponent
+    return messageComponent;
   }
 }
 
 AlertMessage.defaultProps = {
-  show: true
-}
+  show: true,
+};

@@ -1,11 +1,11 @@
 // @flow
-import React from 'react'
-import { Text, View, Image } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import React from 'react';
+import { Text, View, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import type {TChannelStore} from '../../../types/Channel'
-import {COLOR_RED} from '../../../constants'
-import styles from './style'
+import type {TChannelStore} from '../../../types/Channel';
+import {COLOR_RED} from '../../../constants';
+import styles from './style';
 
 type TChannelPanel = {
   channel: TChannelStore,
@@ -27,4 +27,4 @@ export const Panel = ({channel, isMargin}: TChannelPanel) => (
       </View>
     </View>
   </View>
-)
+);
