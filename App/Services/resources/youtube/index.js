@@ -1,2 +1,2 @@
 // @flow
-export * from './Channels'
+export * from './Channels';

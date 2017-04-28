@@ -1,12 +1,12 @@
 // @flow
 
-import {Colors} from '../../Themes/'
+import { Colors } from '../../Themes/';
 
 export default {
   drawer: {
-    backgroundColor: Colors.background
+    backgroundColor: Colors.background,
   },
   main: {
-    backgroundColor: Colors.ember
-  }
-}
+    backgroundColor: Colors.ember,
+  },
+};

@@ -1,3 +1,3 @@
 // @flow
-export * from './ChannelsRedux'
-export * from './Root'
+export * from './ChannelsRedux';
+export * from './Root';

@@ -1,41 +1,41 @@
-import Promise from 'bluebird'
+import Promise from 'bluebird';
 
 const firebaseRefOnceMock = (ref) => {
-  let success
+  let success;
   switch (ref) {
     case 'channels':
-      success = 'success responce'
-      break
+      success = 'success responce';
+      break;
     case 'likes':
-      success = 'success responce'
-      break
+      success = 'success responce';
+      break;
   }
 
   return (type) => {
-    let mock
+    let mock;
     switch (type) {
       case 'value':
         mock = new Promise((resolve) => {
-          resolve(success)
-        })
-        break
+          resolve(success);
+        });
+        break;
     }
-    return mock
-  }
-}
+    return mock;
+  };
+};
 
-const firebaseRefMock = (ref) => ({
+const firebaseRefMock = ref => ({
   child: () => firebaseRefMock(ref),
   equalTo: () => firebaseRefMock(ref),
   startAt: () => firebaseRefMock(ref),
   limitToFirst: () => firebaseRefMock(ref),
   orderByChild: () => firebaseRefMock(ref),
-  once: firebaseRefOnceMock(ref)
-})
+  once: firebaseRefOnceMock(ref),
+});
 
 export const firebaseMock = {
   initializeApp: () => {},
   database: () => ({
-    ref: firebaseRefMock
-  })
-}
+    ref: firebaseRefMock,
+  }),
+};
