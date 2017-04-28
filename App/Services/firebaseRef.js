@@ -14,9 +14,13 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 export type TChannelsRef = {
-  orderByChild: (path: string) => any;
+  startAt: () => TChannelsRef;
+  equalTo: () => TChannelsRef;
+  limitToFirst: () => TChannelsRef;
+  orderByChild: (path: string) => TChannelsRef;
   push: (channel: TChannel) => void;
   update: () => void;
+  once: () => Promise<any>;
 }
 
 export const channelsRef: TChannelsRef = firebase.database().ref('channels')

@@ -50,34 +50,47 @@ const updateSubscriberCount = (channelsResponse: TChannelResponse[]) => {
   return Promise.all(promiseOnce)
 }
 
-const addId = () => {
+const addId = (channels: TChannelsSnapshot) => {
   console.log('addId')
-  return channelsRef.once('value').then((snapshot) => {
-    const channels: TChannelsSnapshot = snapshot.val()
-    const promiseUpdate = Object.keys(channels).map((key, index) => {
-      return updateChannelWithTimestamp(key, {[`/${key}/id`]: key})
-    })
-    return Promise.all(promiseUpdate)
+  const promiseUpdate = Object.keys(channels).map((key, index) => {
+    return updateChannelWithTimestamp(key, {[`/${key}/id`]: key})
   })
+  return Promise.all(promiseUpdate)
 }
 
-const updateScore = () => {
+const activate = (channels: TChannelsSnapshot) => {
+  console.log('activate')
+  const promiseUpdate = Object.keys(channels).map((key, index) => {
+    return updateChannelWithTimestamp(key, {[`/${key}/status`]: 'active'})
+  })
+  return Promise.all(promiseUpdate)
+}
+
+const updateScore = (channels: TChannelsSnapshot) => {
   console.log('updateScore')
+  const promiseUpdate = Object.keys(channels).map((key, index) => {
+    const _score = channels[key].likeCount + channels[key].youtube.subscriberCount
+    const score = channels[key].twitter ? _score + channels[key].twitter.followersCount : _score
+    return updateChannelWithTimestamp(key, {[`/${key}/score`]: score})
+  })
+  return Promise.all(promiseUpdate)
+}
+
+const toAll = () => {
   return channelsRef.once('value').then((snapshot) => {
     const channels: TChannelsSnapshot = snapshot.val()
-    const promiseUpdate = Object.keys(channels).map((key, index) => {
-      const _score = channels[key].likeCount + channels[key].youtube.subscriberCount
-      const score = channels[key].twitter ? _score + channels[key].twitter.followersCount : _score
-      return updateChannelWithTimestamp(key, {[`/${key}/score`]: score})
-    })
-    return Promise.all(promiseUpdate)
+    return Promise.all([
+      updateScore(channels),
+      addId(channels),
+      activate(channels)
+    ])
   })
 }
 
 const updateRank = () => {
   console.log('updateRank')
   return channelsRef.orderByChild('score').once('value').then((snapshot) => {
-    const channelKeys = []
+    const channelKeys: Array<string> = []
     snapshot.forEach((s) => {
       channelKeys.push(s.key)
     })
@@ -94,8 +107,7 @@ export const updateChannels = () => {
     .then((ids: {channelIds: string[]}) => toParameter(ids))
     .then((parameters: {channelIds: string}) => getLatestItem(parameters.channelIds))
     .then((response: {channels: TChannelResponse[]}) => updateSubscriberCount(response.channels))
-    .then(() => addId())
-    .then(() => updateScore())
+    .then(() => toAll())
     .then(() => updateRank())
 
   logFinished(updateChannelsPromise, 'updateChannels')
