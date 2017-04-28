@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js run-ios",
-    "lint": "$(npm bin)/eslint ./",
-    "lint:fix": "yarn lint -- --fix",
     "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean",
     "newclear": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && npm cache clean && npm i",
-    "test": "NODE_ENV=production ava",
+    "lint": "$(npm bin)/eslint ./",
+    "lint:fix": "yarn lint -- --fix",
+    "test": "yarn lint && yarn test:unit",
+    "test:unit": "NODE_ENV=production $(npm bin)/ava",
     "test:watch": "ava --watch",
     "coverage": "nyc ava && nyc report --reporter=html && open coverage/index.html || xdg-open coverage/index.html",
     "tron": "node_modules/.bin/reactotron",
@@ -84,7 +85,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "if [ -d 'ignite-base' ]; then cd ignite-base; fi; npm run lint"
+      "pre-commit": "if [ -d 'ignite-base' ]; then cd ignite-base; fi; yarn test"
     }
   }
 }
