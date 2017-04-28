@@ -9,6 +9,7 @@ const snapshotMock = (value: Object) => {
   }
 }
 
+// separate store's channel from firebase's channel considering readability as mock
 const firebaseChannelsMock = range(10).map((i): TChannel => {
   return {
     id: `ID${i}`,
@@ -17,7 +18,7 @@ const firebaseChannelsMock = range(10).map((i): TChannel => {
     rank: 0,
     score: i + 1,
     likeCount: 0,
-    status: 'inactive',
+    status: i % 2 === 0 ? 'active' : 'inactive',
     youtube: {
       id: `ID${i}`,
       name: `NAME${i}`,

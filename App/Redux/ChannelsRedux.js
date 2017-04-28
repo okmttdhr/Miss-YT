@@ -28,7 +28,6 @@ export const channelsReducer = createReducer(DEFAULT_CHANNELS, {
   [Types.CHANNELS_REQUEST]: (state: Object) =>
     state.merge({ isFetching: true, items: {} }),
   [Types.CHANNELS_SUCCESS]: (state: Object, { items }: Object) => {
-    console.log(items)
     return state.merge({ isFetching: false, errorMessage: '', items })
   },
   [Types.CHANNELS_FAILURE]: (state: Object) =>

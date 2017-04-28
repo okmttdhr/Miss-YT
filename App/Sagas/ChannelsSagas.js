@@ -52,7 +52,9 @@ export function *getChannels<T> (action: any): Generator<T, any, any> {
 
     const channels: {[key: string]: TChannelStore} = {}
     channelsArray.forEach((channel) => {
-      channels[channel.id] = channel
+      if (channel.status === 'active') {
+        channels[channel.id] = channel
+      }
     })
     yield put(channelsActions.channelsSuccess(channels))
   }
