@@ -37,8 +37,7 @@ export const createIsLikedPromises = (snapshot: any) => {
 };
 
 export function* getChannels<T>(action: any): Generator<T, any, any> {
-  const START_AT = 1;
-  const responce: APIResponse = yield call(getFromFirebase, START_AT);
+  const responce: APIResponse = yield call(getFromFirebase, action.startAt);
 
   if (responce.status !== statusCode.Ok) {
     yield put(channelsActions.channelsFailure());

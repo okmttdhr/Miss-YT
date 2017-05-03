@@ -1,3 +1,4 @@
+// @flow
 import test from 'ava';
 import { channelsActions, channelsReducer, DEFAULT_CHANNELS } from './ChannelsRedux';
 
@@ -16,4 +17,9 @@ test('could update errorMessage', (t) => {
   const state = channelsReducer(DEFAULT_CHANNELS, channelsActions.channelsFailure());
   t.false(state.isFetching);
   t.is(state.errorMessage, 'error');
+});
+
+test('could set contentHeight', (t) => {
+  const state = channelsReducer(DEFAULT_CHANNELS, channelsActions.setContentHeight(100));
+  t.is(state.contentHeight, 100);
 });

@@ -11,21 +11,23 @@ import {channelsActions} from '../Redux/ChannelsRedux';
 import {ChannelPanels} from '../Components';
 
 type IRankingScreen = {
-  title: string,
   channels: TDefaultChannels,
   channelsActions: TChannelsActions
 }
 
 export class RankingScreen extends React.Component {
-  props: IRankingScreen
   componentDidMount() {
-    this.props.channelsActions.channelsRequest();
+    const START_AT = 1;
+    this.props.channelsActions.channelsRequest(START_AT);
   }
+  props: IRankingScreen
   render() {
-    const items = Object.values(this.props.channels.items);
     return (
       <View style={[styles.container]}>
-        <ChannelPanels channels={items} />
+        <ChannelPanels
+          channels={this.props.channels}
+          setContentHeight={this.props.channelsActions.setContentHeight}
+        />
       </View>
     );
   }

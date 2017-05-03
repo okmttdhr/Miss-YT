@@ -7,9 +7,9 @@ import { channelsActions } from '../Redux/ChannelsRedux';
 import { getChannels, getFromFirebase, createIsLikedPromises } from './ChannelsSagas';
 import { statusCode } from '../Services/';
 
-test.serial.group('Normal', (t) => {
+test.serial.group('Normal', () => {
   let next;
-  const generator = getChannels('action');
+  const generator = getChannels({startAt: 1});
 
   test('could make a request to get Channels', (t) => {
     next = generator.next();
@@ -29,16 +29,16 @@ test.serial.group('Normal', (t) => {
   });
 });
 
-test.serial.group('Abnormal', (t) => {
+test.serial.group('Abnormal', () => {
   let next;
-  const generator = getChannels('action');
+  const generator = getChannels({startAt: 1});
 
   test('could make a request to get Channels', (t) => {
     next = generator.next();
     t.deepEqual(next.value, call(getFromFirebase, 1));
   });
 
-  test('could make a request to know channel is liked by user', (t) => {
+  test('could send errorResponce to action', (t) => {
     const errorResponce = firebaseChannelsResponse(statusCode.InternalError);
     next = generator.next(errorResponce);
     t.deepEqual(next.value, put(channelsActions.channelsFailure()));
