@@ -1,27 +1,32 @@
 // @flow
 import Promise from 'bluebird';
 import { assign } from 'lodash';
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
-import type {TChannel, TChannelStore} from '../types/Channel';
-import type {APIResponse} from '../types/APIResponse';
+import type {TChannel, TChannelStore, TRootState, APIResponse} from '../types/';
+import {PER_PAGE} from '../constants';
 import {channelsRef, likesRef, statusCode, snapshotExists} from '../Services/';
 import {channelsActions} from '../Redux/';
 
-const LIMIT = 100;
+export const getStartAt = (state: TRootState) => state.channels.startAt;
 
-export const getFromFirebase = (startAt: number = 1) => channelsRef.orderByChild('rank').startAt(startAt).limitToFirst(LIMIT).once('value')
-    .then((responce): APIResponse => ({
-      status: statusCode.Ok,
-      message: '',
-      snapshot: responce,
-    }))
+export const getFromFirebase = (startAt: number) => {
+  return channelsRef.orderByChild('rank').startAt(startAt).limitToFirst(PER_PAGE).once('value')
+    .then((snapshot): APIResponse => {
+      return {
+        status: snapshotExists(snapshot) ? statusCode.Ok : statusCode.NotFound,
+        message: '',
+        snapshot,
+      };
+    })
     .catch((): APIResponse => ({
       status: statusCode.InternalError,
       message: '',
     }));
+};
 
-const getIsLiked = (userId: string, channelId: string) => likesRef.child(userId).orderByChild('channelId').equalTo(channelId).once('value')
+const getIsLiked = (userId: string, channelId: string) =>
+  likesRef.child(userId).orderByChild('channelId').equalTo(channelId).once('value')
     .then(snapshotExists)
     .catch(() => false);
 
@@ -36,8 +41,9 @@ export const createIsLikedPromises = (snapshot: any) => {
   return isLikedPromises;
 };
 
-export function* getChannels<T>(action: any): Generator<T, any, any> {
-  const responce: APIResponse = yield call(getFromFirebase, action.startAt);
+export function* getChannels<T>(): Generator<T, any, any> {
+  const startAt = yield select(getStartAt);
+  const responce: APIResponse = yield call(getFromFirebase, startAt);
 
   if (responce.status !== statusCode.Ok) {
     yield put(channelsActions.channelsFailure());

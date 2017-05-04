@@ -5,7 +5,8 @@ export type TDefaultChannels = {
   items: {[key: string]: TChannelStore},
   contentHeight: number,
   isFetching: boolean,
-  errorMessage: string
+  errorMessage: string,
+  startAt: number,
 }
 
 export type TChannelsActions = {

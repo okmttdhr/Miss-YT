@@ -19,6 +19,8 @@
     "react/jsx-filename-extension": 0,
     "no-alert": 0,
     "arrow-body-style": 0,
+    "global-require": 0,
+    "no-underscore-dangle": 0,
     "import/first": 1,
     "react/require-default-props": 1,
     "react/no-array-index-key": 1,

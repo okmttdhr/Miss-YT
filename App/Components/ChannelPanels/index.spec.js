@@ -10,6 +10,9 @@ import { Panel } from './Panel/';
 const setContentHeightMock = () => {
   console.log('setContentHeightMock');
 };
+const channelsRequestMock = () => {
+  console.log('channelsRequestMock');
+};
 
 const wrapper = shallow(
   <ChannelPanels
@@ -18,8 +21,10 @@ const wrapper = shallow(
       contentHeight: 100,
       isFetching: false,
       errorMessage: '',
+      startAt: 1,
     }}
     setContentHeight={setContentHeightMock}
+    channelsRequest={channelsRequestMock}
   />,
 );
 

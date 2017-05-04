@@ -11,13 +11,14 @@ import styles from './style';
 type TChannelPanels = {
   channels: TDefaultChannels,
   setContentHeight: (height: number) => void,
+  channelsRequest: () => void,
 }
 
-const onScroll = (event, contentHeight) => {
+const onScroll = (event, contentHeight, channelsRequest) => {
   console.log(Dimensions.get('window').height + event.nativeEvent.contentOffset.y);
   const windowScroll = Dimensions.get('window').height + event.nativeEvent.contentOffset.y;
   if (windowScroll > contentHeight) {
-    console.log('to next page!');
+    channelsRequest();
   }
 };
 
@@ -32,14 +33,14 @@ const getPanels = (items) => {
   });
 };
 
-export const ChannelPanels = ({channels, setContentHeight}: TChannelPanels) => {
+export const ChannelPanels = ({channels, setContentHeight, channelsRequest}: TChannelPanels) => {
   const {items, contentHeight} = channels;
   const channelsItem = Object.values(items);
   return (
     <View style={styles.channelPanels}>
       <ScrollView
-        onScroll={e => onScroll(e, contentHeight)}
-        scrollEventThrottle={1}
+        onScroll={e => onScroll(e, contentHeight, channelsRequest)}
+        scrollEventThrottle={200}
         onContentSizeChange={(width, height) => setContentHeight(height)}
         style={styles.scrollView}
       >

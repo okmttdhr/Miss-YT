@@ -13,7 +13,8 @@ const CHANNEL_IDS = `
   UCfCY70zRsvnnKzQ39mBq0rw, UCr-QcqNToYablI-jU2VPVSw, UCQFvuGmxBmv-c_irVda7mwg, UCLfbmGhvu7xTHXktmMWdfvw, UC69xoWl5-Y3m-oRFTORIbKw,
   UChcgcbX3zMBwd0wTJyy2JlA, UCAjZx0WhDOjIWsoy0owuK4w, UC0-H-XRuSPbDdPRmAnuzxSQ, UC97ysepeThCEbhrWhYrqxAw, UCjeKoCr7YTNn0bmMO1HdyVw,
   UCrd9neCNtPkvQukpNTYrP4Q, UCLi8qtd3QLvXCZLyobiodiw, UCtVnAr55ALHAuI7Yyz4GZWg, UCC1BNMUl5dnju1b9oKpkysg, UC36d9BfqBDm4ToLVvPnI1zg,
-  UCsTM1roCxoot1-03EO5zQxg, UCIyMwXronD5pT5cx-G_KSHA
+  UCsTM1roCxoot1-03EO5zQxg, UCIyMwXronD5pT5cx-G_KSHA, UCmsA3A5_HKBwI9OktSttTFg, UC8X6Cb-pumA1CNkd3K-lCyA, UCZvbol2FjFRiqc0hwIvpmMQ,
+  UC5vDiFXIokkQv5xZ91fg-oA, UCN559lrbV9wt46NwlnPJtPw
 `;
 
 const createChannel = (channel: TChannelResponse): TChannel => {
@@ -39,18 +40,21 @@ const createChannel = (channel: TChannelResponse): TChannel => {
   };
 };
 
-const channelExists = (channelResponse: TChannelResponse) => channelsRef.orderByChild('youtube/id').equalTo(channelResponse.id).once('value')
+const channelExists = (channelResponse: TChannelResponse) =>
+  channelsRef.orderByChild('youtube/id').equalTo(channelResponse.id).once('value')
     .then(snapshotExists)
     .catch(() => false);
 
 const addToFirebase = (channelsResponse: TChannelResponse[]) => {
-  const promiseAdded = channelsResponse.map((channelResponse, index) => channelExists(channelResponse).then((exists) => {
-    if (exists) {
-      return;
-    }
-    channelsRef.push(createChannel(channelResponse));
-    console.log(`${channelResponse.snippet.title} was pushed`);
-  }));
+  const promiseAdded = channelsResponse.map((channelResponse) => {
+    return channelExists(channelResponse).then((exists) => {
+      if (exists) {
+        return;
+      }
+      channelsRef.push(createChannel(channelResponse));
+      console.log(`${channelResponse.snippet.title} was pushed`);
+    });
+  });
   return Promise.all(promiseAdded);
 };
 
