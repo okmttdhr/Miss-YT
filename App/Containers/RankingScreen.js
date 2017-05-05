@@ -17,7 +17,9 @@ type IRankingScreen = {
 
 export class RankingScreen extends React.Component {
   componentDidMount() {
-    this.props.channelsActions.channelsRequest();
+    if (Object.keys(this.props.channels.items).length === 0) {
+      this.props.channelsActions.channelsRequest();
+    }
   }
   props: IRankingScreen
   render() {
