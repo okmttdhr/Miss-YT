@@ -1,46 +1,56 @@
 import test from 'ava-spec';
 import Promise from 'bluebird';
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 import { firebaseChannelsResponse, channelsStoreMock, channelsStoreWithKeyMock } from '../../Tests/mock/';
 import { channelsActions } from '../Redux/ChannelsRedux';
-import { getChannels, getFromFirebase, createIsLikedPromises } from './ChannelsSagas';
+import { getChannels, getFromFirebase, createIsLikedPromises, getStartAt } from './ChannelsSagas';
 import { statusCode } from '../Services/';
 
-test.serial.group('Normal', (t) => {
-  let next;
-  const generator = getChannels('action');
+test.serial.group('Normal', () => {
+  const generator = getChannels();
+
+  test('could select channels state', (t) => {
+    t.deepEqual(
+      generator.next().value,
+      select(getStartAt),
+    );
+  });
 
   test('could make a request to get Channels', (t) => {
-    next = generator.next();
-    t.deepEqual(next.value, call(getFromFirebase, 1));
+    t.deepEqual(
+      generator.next(1).value,
+      call(getFromFirebase, 1),
+    );
   });
 
   test('could make a request to know channel is liked by user', (t) => {
     const responce = firebaseChannelsResponse();
-    next = generator.next(responce);
     const isLikedPromises = createIsLikedPromises(responce.snapshot);
-    t.deepEqual(next.value, call(Promise.all, isLikedPromises));
+    t.deepEqual(
+      generator.next(responce).value,
+      call(Promise.all, isLikedPromises),
+    );
   });
 
   test('could send channels with isLiked to action', (t) => {
-    next = generator.next(channelsStoreMock);
-    t.deepEqual(next.value, put(channelsActions.channelsSuccess(channelsStoreWithKeyMock())));
+    t.deepEqual(
+      generator.next(channelsStoreMock).value,
+      put(channelsActions.channelsSuccess(channelsStoreWithKeyMock())),
+    );
   });
 });
 
-test.serial.group('Abnormal', (t) => {
-  let next;
-  const generator = getChannels('action');
+test.serial.group('Abnormal', () => {
+  const generator = getChannels();
 
-  test('could make a request to get Channels', (t) => {
-    next = generator.next();
-    t.deepEqual(next.value, call(getFromFirebase, 1));
-  });
-
-  test('could make a request to know channel is liked by user', (t) => {
+  test('could send errorResponce to action', (t) => {
     const errorResponce = firebaseChannelsResponse(statusCode.InternalError);
-    next = generator.next(errorResponce);
-    t.deepEqual(next.value, put(channelsActions.channelsFailure()));
+    generator.next();
+    generator.next();
+    t.deepEqual(
+      generator.next(errorResponce).value,
+      put(channelsActions.channelsFailure()),
+    );
   });
 });
