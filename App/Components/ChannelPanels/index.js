@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { View, ScrollView, Dimensions } from 'react-native';
-import { chunk } from 'lodash';
+import { chunk, orderBy } from 'lodash';
 
 import styles from './style';
 import type {TChannelStore} from '../../types/Channel';
@@ -35,7 +35,7 @@ const getPanels = (items) => {
 
 export const ChannelPanels = ({channels, setContentHeight, channelsRequest}: TChannelPanels) => {
   const {items, contentHeight, isFetching} = channels;
-  const channelsItem = Object.values(items);
+  const channelsItem = orderBy(Object.values(items), ['rank'], ['asc']);
   return (
     <View style={styles.channelPanels}>
       <ScrollView
