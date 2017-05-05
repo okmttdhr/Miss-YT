@@ -3,10 +3,11 @@ import React from 'react';
 import { View, ScrollView, Dimensions } from 'react-native';
 import { chunk } from 'lodash';
 
+import styles from './style';
 import type {TChannelStore} from '../../types/Channel';
 import type {TDefaultChannels} from '../../types/Redux/ChannelsRedux';
 import {Panel} from './Panel';
-import styles from './style';
+import {Loading} from '../Loading/';
 
 type TChannelPanels = {
   channels: TDefaultChannels,
@@ -15,7 +16,6 @@ type TChannelPanels = {
 }
 
 const onScroll = (event, contentHeight, channelsRequest) => {
-  console.log(Dimensions.get('window').height + event.nativeEvent.contentOffset.y);
   const windowScroll = Dimensions.get('window').height + event.nativeEvent.contentOffset.y;
   if (windowScroll > contentHeight) {
     channelsRequest();
@@ -34,7 +34,7 @@ const getPanels = (items) => {
 };
 
 export const ChannelPanels = ({channels, setContentHeight, channelsRequest}: TChannelPanels) => {
-  const {items, contentHeight} = channels;
+  const {items, contentHeight, isFetching} = channels;
   const channelsItem = Object.values(items);
   return (
     <View style={styles.channelPanels}>
@@ -49,6 +49,7 @@ export const ChannelPanels = ({channels, setContentHeight, channelsRequest}: TCh
             const panels = getPanels(chunkedItems);
             return (<View style={styles.panelWrapper} key={chunkedItems[0].id}>{panels}</View>);
           }) : null}
+        <Loading isShow={isFetching} />
       </ScrollView>
     </View>
   );
