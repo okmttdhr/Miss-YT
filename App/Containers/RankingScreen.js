@@ -7,7 +7,7 @@ import { View } from 'react-native';
 import type {TDefaultChannels, TChannelsActions} from '../types/Redux/ChannelsRedux';
 
 import styles from './Styles/RankingScreenStyle';
-import {channelsActions} from '../Redux/ChannelsRedux';
+import {channelsActions} from '../Redux/';
 import {ChannelPanels} from '../Components';
 
 type IRankingScreen = {
@@ -17,7 +17,7 @@ type IRankingScreen = {
 
 export class RankingScreen extends React.Component {
   componentDidMount() {
-    if (Object.keys(this.props.channels.items).length === 0) {
+    if (this.props.channels.startAt === 1) {
       this.props.channelsActions.channelsRequest();
     }
   }

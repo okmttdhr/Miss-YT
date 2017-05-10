@@ -1,5 +1,5 @@
 // @flow
-export * from './firebaseRef';
+export * from './firebase';
 export * from './resources';
 export * from './batches';
 export * from './styles';

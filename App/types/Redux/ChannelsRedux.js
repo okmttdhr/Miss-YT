@@ -13,5 +13,7 @@ export type TChannelsActions = {
   channelsRequest: () => any,
   channelsSuccess: () => any,
   channelsFailure: () => any,
+  channelsChanged: () => any,
+  channelsRemoved: () => any,
   setContentHeight: (height: number) => void,
 }
