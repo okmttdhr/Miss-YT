@@ -2,7 +2,7 @@
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 import {PER_PAGE} from '../constants';
-import type {TDefaultChannels, TChannelsActions, TChannelStore, TChannel} from '../types/';
+import type {TDefaultChannels, TChannelsActions, TChannel} from '../types/';
 
 /* ------------- Types and Action Creators ------------- */
 

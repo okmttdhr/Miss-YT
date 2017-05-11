@@ -3,7 +3,7 @@ export type TChannel = {
   id: string;
   createdAt: number;
   modifiedAt: number;
-  status: string; // active, inactive
+  status: string; // uninitialized, active, inactive
   rank: number;
   score: number;
   likeCount: number;

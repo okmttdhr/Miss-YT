@@ -32,7 +32,7 @@ const createChannel = (channel: TChannelResponse): TChannel => {
     rank: 0,
     score: subscriberCount,
     likeCount: 0,
-    status: 'inactive',
+    status: 'uninitialized',
     youtube: {
       id: channel.id,
       name: channel.snippet.title,
