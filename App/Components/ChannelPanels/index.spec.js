@@ -22,5 +22,5 @@ test('has right number of <Panel>', (t) => {
       channelsRequest={channelsRequestMock}
     />,
   );
-  t.is(wrapper.find(Panel).length, 10);
+  t.is(wrapper.find(Panel).length, 4);
 });
