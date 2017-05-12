@@ -13,7 +13,7 @@ type TChannelsSnapshot = {[key: string]: TChannel}
 
 const accumulateIds = (snapshot) => {
   const channels: TChannelsSnapshot = snapshot.val();
-  const channelIds = Object.keys(channels).map((key, index) => channels[key].youtube.id);
+  const channelIds = Object.keys(channels).map((key: string) => channels[key].youtube.id);
   return {channelIds};
 };
 
@@ -21,10 +21,11 @@ const toParameter = ids => ({
   channelIds: toString(ids.channelIds),
 });
 
-const getLatestItem = (channelIds, screenNames) => {
+const getLatestItem = (channelIds) => {
   console.log('getLatestItem');
   const channelsResource = new ChannelsResource();
-  // change to something like `{channels: item, twitter, item}`, when you add TwitterUsersLookupResource
+  // change to something like `{channels: item, twitter, item}`,
+  // when you add TwitterUsersLookupResource
   return channelsResource.get(channelIds).then(res => ({channels: res.data.items}));
 };
 
@@ -36,7 +37,7 @@ const updateSubscriberCount = (channelsResponse: TChannelResponse[]) => {
   console.log('updateSubscriberCount');
   const promiseOnce = channelsResponse.map(channelResponse => channelsRef.orderByChild('youtube/id').equalTo(channelResponse.id).once('value').then((snapshot) => {
     const channels: TChannelsSnapshot = snapshot.val();
-    const promiseUpdate = Object.keys(channels).map((key, index) => updateChannelWithTimestamp(key, {[`/${key}/youtube/subscriberCount`]: Number(channelResponse.statistics.subscriberCount)}));
+    const promiseUpdate = Object.keys(channels).map((key: string) => updateChannelWithTimestamp(key, {[`/${key}/youtube/subscriberCount`]: Number(channelResponse.statistics.subscriberCount)}));
     return Promise.all(promiseUpdate);
   }));
   return Promise.all(promiseOnce);
@@ -44,19 +45,22 @@ const updateSubscriberCount = (channelsResponse: TChannelResponse[]) => {
 
 const addId = (channels: TChannelsSnapshot) => {
   console.log('addId');
-  const promiseUpdate = Object.keys(channels).map((key, index) => updateChannelWithTimestamp(key, {[`/${key}/id`]: key}));
+  const promiseUpdate = Object.keys(channels).map((key: string) => updateChannelWithTimestamp(key, {[`/${key}/id`]: key}));
   return Promise.all(promiseUpdate);
 };
 
 const activate = (channels: TChannelsSnapshot) => {
   console.log('activate');
-  const promiseUpdate = Object.keys(channels).map((key, index) => updateChannelWithTimestamp(key, {[`/${key}/status`]: 'active'}));
+  const castedChannels: Array<any> = Object.keys(channels);
+  const promiseUpdate = castedChannels
+    .filter((key: string) => channels[key].status === 'uninitialized')
+    .map((key: string) => updateChannelWithTimestamp(key, {[`/${key}/status`]: 'active'}));
   return Promise.all(promiseUpdate);
 };
 
 const updateScore = (channels: TChannelsSnapshot) => {
   console.log('updateScore');
-  const promiseUpdate = Object.keys(channels).map((key, index) => {
+  const promiseUpdate = Object.keys(channels).map((key: string) => {
     const _score = channels[key].likeCount + channels[key].youtube.subscriberCount;
     const score = channels[key].twitter ? _score + channels[key].twitter.followersCount : _score;
     return updateChannelWithTimestamp(key, {[`/${key}/score`]: score});
@@ -67,9 +71,9 @@ const updateScore = (channels: TChannelsSnapshot) => {
 const toAll = () => channelsRef.once('value').then((snapshot) => {
   const channels: TChannelsSnapshot = snapshot.val();
   return Promise.all([
-    updateScore(channels),
     addId(channels),
     activate(channels),
+    updateScore(channels),
   ]);
 });
 

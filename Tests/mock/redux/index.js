@@ -1,9 +1,9 @@
 // @flow
 import type {TDefaultChannels} from '../../../App/types/';
-import {channelsStoreMock} from '../index';
+import {channelsStoreWithKeyMock} from '../index';
 
 export const defaultChannelsMock: TDefaultChannels = {
-  items: channelsStoreMock,
+  items: channelsStoreWithKeyMock(),
   isFetching: false,
   errorMessage: '',
   contentHeight: 100,

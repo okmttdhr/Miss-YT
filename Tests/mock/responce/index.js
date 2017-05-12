@@ -8,7 +8,7 @@ const snapshotMock = (value: Object) => ({
 });
 
 // separate store's channel from firebase's channel considering readability as mock
-const firebaseChannelsMock = range(10).map((i): TChannel => ({
+export const firebaseChannelMock = (i: number = 0): TChannel => ({
   id: `ID${i}`,
   createdAt: 12345,
   modifiedAt: 12345,
@@ -25,7 +25,9 @@ const firebaseChannelsMock = range(10).map((i): TChannel => ({
     subscriberCount: i + 1,
     viewCount: i + 1,
   },
-}));
+});
+
+const firebaseChannelsMock = range(10).map((i: number): TChannel => firebaseChannelMock(i));
 
 export const firebaseChannelsResponse = (status: number = 200) => {
   let responce;
@@ -45,6 +47,7 @@ export const firebaseChannelsResponse = (status: number = 200) => {
         message: '',
       };
       break;
+    // no default
   }
   return responce;
 };

@@ -1,7 +1,7 @@
 // @flow
 import * as firebase from 'firebase';
 import Secrets from 'react-native-config';
-import type {TChannel} from '../types/Channel';
+import type {TChannel} from '../../types/Channel';
 
 const firebaseConfig = {
   apiKey: Secrets.FIREBASE_API_KEY,
@@ -21,6 +21,7 @@ export type TChannelsRef = {
   push: (channel: TChannel) => void;
   update: () => void;
   once: () => Promise<any>;
+  on: () => void;
 }
 
 export const channelsRef: TChannelsRef = firebase.database().ref('channels');
