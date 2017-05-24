@@ -1,7 +1,7 @@
 // @flow
 import Promise from 'bluebird';
 import {toString, assign} from 'lodash';
-import * as firebase from 'firebase';
+import {firebaseApp} from '../firebase/';
 
 import {ChannelsResource, channelsRef, logFinished} from '../index';
 import type {TChannel} from '../../types/Channel';
@@ -30,7 +30,7 @@ const getLatestItem = (channelIds) => {
 };
 
 const updateChannelWithTimestamp = (key, modifier) => channelsRef.update(assign({}, modifier, {
-  [`/${key}/modifiedAt`]: firebase.database.ServerValue.TIMESTAMP,
+  [`/${key}/modifiedAt`]: firebaseApp.database.ServerValue.TIMESTAMP,
 }));
 
 const updateSubscriberCount = (channelsResponse: TChannelResponse[]) => {
