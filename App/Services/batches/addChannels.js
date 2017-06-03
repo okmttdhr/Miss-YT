@@ -16,6 +16,7 @@ const CHANNEL_IDS = `
   UCsTM1roCxoot1-03EO5zQxg, UCIyMwXronD5pT5cx-G_KSHA, UCmsA3A5_HKBwI9OktSttTFg, UC8X6Cb-pumA1CNkd3K-lCyA, UCZvbol2FjFRiqc0hwIvpmMQ,
   UCN559lrbV9wt46NwlnPJtPw, UCNIwy_Q7EjUxLlsewfuhjgg, UC7fN-mbfjZVUo755gu-1VuQ, UChhn3SKUYAcajcG9mn7dGqA, UCHPARXha7xQNbfzwzY7NzUw,
   UClW0iupPReSXYDmlvwYfQhg, UC7rqz5As19qYWl2Rc4z-iig, UCMyArXimoNAZjE1P2xLES7A, UCNS93jTKjnzNG7pYUCN5PrQ, UCDRWhpjy_lU_phS3O31AjRQ,
+  UCBexcfMCBFzbb02OikUJD6A, UCsVtT0DHmb5GXCZZ7-4PRhg, 
 `;
 
 const createChannel = (channel: TChannelResponse): TChannel => {

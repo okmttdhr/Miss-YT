@@ -4,16 +4,12 @@
 ```JavaScript
 /*
 like登録
-  channels.like_countを+1
-  likes.user_id.countを+1
-
-  user.possible_like_countを-1。0になったらlike不可に。
+  channels.likeCountを+1
+  likes.userId.likeCountを+1
 
 like削除
-  channels.like_countを-1
-  likes.user_id.countを-1
-
-  user.possible_like_countを+1。20になったらそれ以上は回復しない。
+  channels.likeCountを-1
+  likes.userId.likeCountを-1
 */
 ```
 
@@ -25,7 +21,7 @@ ref.child('/likes/user_id/').once(data => {
 });
 */
 export type likes = {
-  user_id: [
+  userId: [
     {
       id: string;
       channelId: string;
@@ -34,20 +30,6 @@ export type likes = {
     }
   ]
 }
-```
-
-```JavaScript
-/*
-ユーザー
-*/
-export type users = [
-  {
-    id: string;
-    name: string;
-    email: string;
-    possibleLikeCount: number;
-  }
-]
 ```
 
 ```JavaScript
