@@ -7,6 +7,8 @@ import type {TDefaultUser, TUserActions} from '../types/';
 
 const { Types, Creators } = createActions({
   userRequest: null,
+  userLogin: null,
+  userCreate: null,
   userSuccess: ['item'],
   userFailure: null,
 });
