@@ -1,13 +1,12 @@
 // @flow
 import Promise from 'bluebird';
-import { assign } from 'lodash';
-import { call, put, select, fork } from 'redux-saga/effects';
+import { call, put, fork } from 'redux-saga/effects';
 
-import type {TRootState, APIResponse} from '../types/';
+import type {APIResponse} from '../types/';
 import {firebaseApp, statusCode, isSuccess} from '../Services/';
 import {userActions} from '../Redux/';
 
-const createUserWithFirebase = () => {
+export const createUserWithFirebase = () => {
   return firebaseApp.auth().createUserWithEmailAndPassword('@gmail.com', 'password')
     .then(() => {
       return {
@@ -23,7 +22,7 @@ const createUserWithFirebase = () => {
     });
 };
 
-const loginWithFirebase = () => {
+export const loginWithFirebase = () => {
   return firebaseApp.auth().signInWithEmailAndPassword('@gmail.com', 'password')
     .then(() => {
       return {
@@ -39,7 +38,9 @@ const loginWithFirebase = () => {
     });
 };
 
-function* authenticate(authWithFirebase) {
+export function* authenticate<T>(
+  authWithFirebase: () => Promise<APIResponse>,
+): Generator<T, any, any> {
   yield put(userActions.userRequest());
   const responce: APIResponse = yield call(authWithFirebase);
   if (!isSuccess(responce)) {
