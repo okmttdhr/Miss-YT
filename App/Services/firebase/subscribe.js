@@ -1,10 +1,35 @@
 // @flow
 import {channelsRef} from './ref';
-import {channelsActions} from '../../Redux/';
 import type {TChannel} from '../../types/';
+import {channelsActions, userActions, defaultUser} from '../../Redux/';
+import {firebaseApp} from './init';
 
-export const firebaseSubscribe = (store) => {
+const auth = (dispatch) => {
+  firebaseApp.auth().onAuthStateChanged((firebaseUser) => {
+    console.log('firebaseUser', firebaseUser);
+    if (!firebaseUser) {
+      dispatch(userActions.userSuccess(defaultUser.item));
+      return;
+    }
+    const user = {
+      displayName: firebaseUser.displayName,
+      email: firebaseUser.email,
+      emailVerified: firebaseUser.emailVerified,
+      isAnonymous: firebaseUser.isAnonymous,
+      phoneNumber: firebaseUser.phoneNumber,
+      photoURL: firebaseUser.photoURL,
+      providerData: firebaseUser.providerData,
+      providerId: firebaseUser.providerId,
+      refreshToken: firebaseUser.refreshToken,
+      uid: firebaseUser.uid,
+    };
+    dispatch(userActions.userSuccess(user));
+  });
+};
+
+export const firebaseSubscribe = (store: any) => {
   const {dispatch, getState} = store;
+  auth(dispatch);
   channelsRef.on('child_changed', (snapshot) => {
     const channel: TChannel = snapshot.val();
     const noChange = typeof getState().channels.items[channel.id] === 'undefined';

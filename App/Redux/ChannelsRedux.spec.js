@@ -1,7 +1,7 @@
 // @flow
 import test from 'ava';
 import Immutable from 'seamless-immutable';
-import {assign, merge} from 'lodash';
+import {assign} from 'lodash';
 import { channelsActions, channelsReducer, DEFAULT_CHANNELS } from './ChannelsRedux';
 import {defaultChannelsMock, firebaseChannelMock} from '../../Tests/mock/';
 

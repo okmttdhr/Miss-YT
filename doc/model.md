@@ -1,50 +1,35 @@
 
-* `/resource/firebase_id/`は、便宜上配列として表している
+* `/resource/firebaseId/`は、便宜上配列として表している
 
 ```JavaScript
 /*
 like登録
-  channels.like_countを+1
-  likes.user_id.countを+1
-  user.possible_like_countを-1。0になったらlike不可に。
+  channels.likeCountを+1
+  likes.userId.likeCountを+1
+
 like削除
-  channels.like_countを-1
-  likes.user_id.countを-1
-  user.possible_like_countを+1。20になったらそれ以上は回復しない。
+  channels.likeCountを-1
+  likes.userId.likeCountを-1
 */
 ```
 
 ```JavaScript
 /*
 マイランキングページ
-ref.child(likes/user_id).get(data => {
+ref.child('/likes/user_id/').once(data => {
   ref.child(channels/data.channel_id).get();
 });
 */
 export type likes = {
-  user_id: [
+  userId: [
     {
       id: string;
-      channel_id: string;
+      channelId: string;
       rank: number;
       likeCount: number;
     }
   ]
 }
-```
-
-```JavaScript
-/*
-ユーザー
-*/
-export type users = [
-  {
-    id: string;
-    name: string;
-    email: string;
-    possibleLikeCount: number;
-  }
-]
 ```
 
 ```JavaScript
