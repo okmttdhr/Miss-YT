@@ -10,7 +10,7 @@ const { Types, Creators } = createActions({
   userLogin: null,
   userCreate: null,
   userSuccess: ['item'],
-  userFailure: null,
+  userFailure: ['errorMessage'],
 });
 export const userTypes = Types;
 export const userActions: TUserActions = Creators;
@@ -49,6 +49,6 @@ export const userReducer = createReducer(DEFAULT_USER, {
       errorMessage: '',
     });
   },
-  [Types.USER_FAILURE]: (state: Object) =>
-    state.merge({ isFetching: false, errorMessage: 'error' }),
+  [Types.USER_FAILURE]: (state: Object, { errorMessage = '' }: Object) =>
+    state.merge({ isFetching: false, errorMessage }),
 });

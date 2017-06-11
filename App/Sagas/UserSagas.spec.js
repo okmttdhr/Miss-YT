@@ -41,8 +41,8 @@ test.serial.group('Abnormal', () => {
     generator.next();
     generator.next();
     t.deepEqual(
-      generator.next({status: statusCode.InternalError, message: ''}).value,
-      put(userActions.userFailure()),
+      generator.next({status: statusCode.InternalError, message: 'error'}).value,
+      put(userActions.userFailure('error')),
     );
     t.deepEqual(generator.next().done, true);
   });

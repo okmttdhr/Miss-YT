@@ -28,7 +28,7 @@ test('could update User', (t) => {
 });
 
 test('could update errorMessage', (t) => {
-  const state = userReducer(DEFAULT_USER, userActions.userFailure());
+  const state = userReducer(DEFAULT_USER, userActions.userFailure('error'));
   t.false(state.isFetching);
   t.is(state.errorMessage, 'error');
 });

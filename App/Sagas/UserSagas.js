@@ -6,36 +6,52 @@ import type {APIResponse} from '../types/';
 import {firebaseApp, statusCode, isSuccess} from '../Services/';
 import {userActions} from '../Redux/';
 
-export const createUserWithFirebase = () => {
-  return firebaseApp.auth().createUserWithEmailAndPassword('@gmail.com', 'password')
+const errorCodeToMessage = (code: string) => {
+  let message: string = '';
+  // TODO: add Firebase definition
+  switch (code) {
+    case 'auth/email-already-in-use':
+      message = 'そのメールアドレスは既に使用されています。';
+      break;
+    case 'auth/invalid-email':
+      message = '正しいメールアドレスを入力してください。';
+      break;
+    case 'auth/weak-password':
+      message = '6文字以上の英数を使用したパスワードを入力してください。';
+      break;
+    case 'auth/user-not-found':
+      message = 'メールアドレスが見つかりません。';
+      break;
+    case 'auth/wrong-password':
+      message = 'パスワードが間違っています。';
+      break;
+    // no default
+  }
+  return message;
+};
+
+const authenticationResult = (promise: Promise<any>): Promise<APIResponse> => {
+  return promise
     .then(() => {
       return {
         status: statusCode.Ok,
         message: '',
       };
     })
-    .catch(() => {
+    .catch((error) => {
       return {
         status: statusCode.InternalError,
-        message: '',
+        message: errorCodeToMessage(error.code),
       };
     });
 };
 
+export const createUserWithFirebase = () => {
+  return authenticationResult(firebaseApp.auth().createUserWithEmailAndPassword('@gmail.com', 'password'));
+};
+
 export const loginWithFirebase = () => {
-  return firebaseApp.auth().signInWithEmailAndPassword('@gmail.com', 'password')
-    .then(() => {
-      return {
-        status: statusCode.Ok,
-        message: '',
-      };
-    })
-    .catch(() => {
-      return {
-        status: statusCode.InternalError,
-        message: '',
-      };
-    });
+  return authenticationResult(firebaseApp.auth().signInWithEmailAndPassword('@gmail.com', 'password'));
 };
 
 export function* authenticate<T>(
@@ -44,7 +60,7 @@ export function* authenticate<T>(
   yield put(userActions.userRequest());
   const responce: APIResponse = yield call(authWithFirebase);
   if (!isSuccess(responce)) {
-    yield put(userActions.userFailure());
+    yield put(userActions.userFailure(responce.message));
   }
 }
 
