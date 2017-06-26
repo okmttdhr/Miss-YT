@@ -1,10 +1,10 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../Themes/';
+import { colors } from '../../Themes/';
 
 export const TabBarStyle = StyleSheet.create({
   container: {
-    backgroundColor: Colors.silver,
+    backgroundColor: colors.silver,
   },
 });

@@ -1,4 +1,4 @@
-import { Colors, Metrics, Fonts } from '../../Themes/';
+import { colors, Metrics, Fonts } from '../../Themes/';
 
 export default {
   container: {
@@ -9,16 +9,16 @@ export default {
     height: Metrics.navBarHeight,
     paddingTop: Metrics.smallMargin,
     paddingHorizontal: 5,
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   title: {
     flex: 1,
     textAlign: 'center',
-    color: Colors.snow,
+    color: colors.snow,
     marginTop: Metrics.doubleBaseMargin,
-    backgroundColor: Colors.transparent,
+    backgroundColor: colors.transparent,
     fontWeight: 'bold',
     fontSize: Fonts.size.input,
   },

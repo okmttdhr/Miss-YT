@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import LoginActions, { isLoggedIn } from '../Redux/LoginRedux';
 import TemperatureActions from '../Redux/TemperatureRedux';
 import { Actions as NavigationActions } from 'react-native-router-flux';
-import { Colors, Images, Metrics } from '../Themes';
+import { colors, Images, Metrics } from '../Themes';
 import RoundedButton from '../Components/RoundedButton';
 // external libs
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -89,19 +89,19 @@ class UsageExamplesScreen extends React.Component {
         {this.renderHeader(I18n.t('rnVectorIcons'))}
         <View style={styles.groupContainer}>
           <TouchableOpacity onPress={this.handlePressRocket}>
-            <Icon name="rocket" size={Metrics.icons.medium} color={Colors.ember} />
+            <Icon name="rocket" size={Metrics.icons.medium} color={colors.ember} />
           </TouchableOpacity>
           <TouchableOpacity onPress={this.handlePressSend}>
-            <Icon name="send" size={Metrics.icons.medium} color={Colors.error} />
+            <Icon name="send" size={Metrics.icons.medium} color={colors.error} />
           </TouchableOpacity>
           <TouchableOpacity onPress={this.handlePressStar}>
-            <Icon name="star" size={Metrics.icons.medium} color={Colors.snow} />
+            <Icon name="star" size={Metrics.icons.medium} color={colors.snow} />
           </TouchableOpacity>
-          <Icon name="trophy" size={Metrics.icons.medium} color={Colors.error} />
-          <Icon name="warning" size={Metrics.icons.medium} color={Colors.ember} />
+          <Icon name="trophy" size={Metrics.icons.medium} color={colors.error} />
+          <Icon name="warning" size={Metrics.icons.medium} color={colors.ember} />
         </View>
         <View style={styles.groupContainer}>
-          <Icon.Button name="facebook" style={styles.facebookButton} backgroundColor={Colors.facebook} onPress={() => window.alert('Facebook')}>
+          <Icon.Button name="facebook" style={styles.facebookButton} backgroundColor={colors.facebook} onPress={() => window.alert('Facebook')}>
             {I18n.t('loginWithFacebook')}
           </Icon.Button>
         </View>
@@ -110,7 +110,7 @@ class UsageExamplesScreen extends React.Component {
           <Animatable.Text animation="fadeIn" iterationCount="infinite" direction="alternate" style={styles.subtitle}>{I18n.t('rnAnimatable')}</Animatable.Text>
           <Animatable.Image animation="pulse" iterationCount="infinite" source={Images.logo} />
           <Animatable.View animation="jello" iterationCount="infinite" >
-            <Icon name="cab" size={Metrics.icons.medium} color={Colors.snow} />
+            <Icon name="cab" size={Metrics.icons.medium} color={colors.snow} />
           </Animatable.View>
         </View>
         {this.renderHeader(I18n.t('igniteGenerated'))}

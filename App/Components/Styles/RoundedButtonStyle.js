@@ -1,7 +1,7 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Fonts, Colors, Metrics } from '../../Themes/';
+import { Fonts, colors, Metrics } from '../../Themes/';
 
 export default StyleSheet.create({
   button: {
@@ -9,11 +9,11 @@ export default StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: Metrics.section,
     marginVertical: Metrics.baseMargin,
-    backgroundColor: Colors.fire,
+    backgroundColor: colors.fire,
     justifyContent: 'center',
   },
   buttonText: {
-    color: Colors.snow,
+    color: colors.snow,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: Fonts.size.medium,

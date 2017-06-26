@@ -1,7 +1,7 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, ApplicationStyles } from '../../Themes/';
+import { colors, Metrics, ApplicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -24,7 +24,7 @@ export default StyleSheet.create({
     width: 102,
     height: 102,
     borderWidth: 1,
-    borderColor: Colors.frost,
+    borderColor: colors.frost,
   },
   backerImage: {
     top: 0,
@@ -47,12 +47,12 @@ export default StyleSheet.create({
     width: 100,
     height: Metrics.doubleBaseMargin,
     lineHeight: Metrics.doubleBaseMargin,
-    color: Colors.charcoal,
+    color: colors.charcoal,
     textAlign: 'center',
   },
   fontRow: {
     padding: Metrics.smallMargin,
     marginHorizontal: Metrics.smallMargin,
-    color: Colors.snow,
+    color: colors.snow,
   },
 });

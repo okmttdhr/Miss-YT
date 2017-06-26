@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import styles from './Styles/NavItemsStyle';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Colors, Metrics } from '../Themes';
+import { colors, Metrics } from '../Themes';
 
 const openDrawer = () => {
   NavigationActions.refresh({
@@ -21,7 +21,7 @@ export default {
         <Icon
           name="angle-left"
           size={Metrics.icons.large}
-          color={Colors.snow}
+          color={colors.snow}
           style={styles.backButton}
         />
       </TouchableOpacity>
@@ -34,7 +34,7 @@ export default {
         <Icon
           name="bars"
           size={Metrics.icons.medium}
-          color={Colors.snow}
+          color={colors.snow}
           style={styles.navButtonLeft}
         />
       </TouchableOpacity>
@@ -47,7 +47,7 @@ export default {
         <Icon
           name="search"
           size={Metrics.icons.small}
-          color={Colors.snow}
+          color={colors.snow}
           style={styles.searchButton}
         />
       </TouchableOpacity>

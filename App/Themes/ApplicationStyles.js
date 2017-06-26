@@ -2,7 +2,7 @@
 
 import Fonts from './Fonts';
 import Metrics from './Metrics';
-import Colors from './Colors';
+import colors from './colors';
 
 // This file is for a reusable grouping of Theme items.
 // Similar to an XML fragment layout in Android
@@ -11,7 +11,7 @@ const ApplicationStyles = {
   screen: {
     mainContainer: {
       flex: 1,
-      backgroundColor: Colors.transparent,
+      backgroundColor: colors.transparent,
     },
     backgroundImage: {
       position: 'absolute',
@@ -27,31 +27,31 @@ const ApplicationStyles = {
     section: {
       margin: Metrics.section,
       padding: Metrics.baseMargin,
-      borderTopColor: Colors.frost,
+      borderTopColor: colors.frost,
       borderTopWidth: 0.5,
-      borderBottomColor: Colors.frost,
+      borderBottomColor: colors.frost,
       borderBottomWidth: 1,
     },
     sectionText: {
-      color: Colors.snow,
+      color: colors.snow,
       marginVertical: Metrics.smallMargin,
       textAlign: 'center',
       fontWeight: 'bold',
     },
     subtitle: {
-      color: Colors.snow,
+      color: colors.snow,
       padding: Metrics.smallMargin,
       marginBottom: Metrics.smallMargin,
       marginHorizontal: Metrics.smallMargin,
     },
   },
   darkLabelContainer: {
-    backgroundColor: Colors.cloud,
+    backgroundColor: colors.cloud,
     padding: Metrics.smallMargin,
   },
   darkLabel: {
     fontFamily: Fonts.type.bold,
-    color: Colors.snow,
+    color: colors.snow,
   },
   groupContainer: {
     margin: Metrics.smallMargin,
@@ -61,13 +61,13 @@ const ApplicationStyles = {
   },
   sectionTitle: {
     ...Fonts.style.h4,
-    color: Colors.coal,
-    backgroundColor: Colors.ricePaper,
+    color: colors.coal,
+    backgroundColor: colors.ricePaper,
     padding: Metrics.smallMargin,
     marginTop: Metrics.smallMargin,
     marginHorizontal: Metrics.baseMargin,
     borderWidth: 1,
-    borderColor: Colors.ember,
+    borderColor: colors.ember,
     alignItems: 'center',
     textAlign: 'center',
   },
