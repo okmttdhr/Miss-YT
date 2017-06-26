@@ -1,8 +1,7 @@
 // @flow
-
 import Fonts from './Fonts';
 import Metrics from './Metrics';
-import colors from './colors';
+import {colors} from './colors';
 
 // This file is for a reusable grouping of Theme items.
 // Similar to an XML fragment layout in Android
