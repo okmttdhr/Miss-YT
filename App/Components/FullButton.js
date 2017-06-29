@@ -1,34 +1,37 @@
 // @flow
-
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import styles from './Styles/FullButtonStyle';
-import ExamplesRegistry from '../Services/ExamplesRegistry';
+import { TouchableHighlight, Text } from 'react-native';
+import baseStyles from './Styles/FullButtonStyle';
+import {noop} from '../Services/';
 
-// Example
-ExamplesRegistry.add('Full Button', () =>
-  <FullButton
-    text="Hey there"
-    onPress={() => window.alert('Full Button Pressed!')}
-  />,
-);
-
-type FullButtonProps = {
-  text: string,
-  onPress: () => void,
-  styles?: Object
+type TFullButton = {
+  text: string;
+  onPress?: () => void;
+  styles?: Object;
+  disabled?: boolean;
 }
 
-export class FullButton extends React.Component {
-  props: FullButtonProps
+export const FullButton = ({styles, onPress, disabled, text}: TFullButton) => {
+  const s = [
+    baseStyles.button,
+    disabled && baseStyles.disabled,
+    styles,
+  ];
+  return (
+    <TouchableHighlight
+      style={s}
+      onPress={disabled ? noop : onPress}
+      disabled={disabled}
+    >
+      <Text style={baseStyles.buttonText}>{text}</Text>
+    </TouchableHighlight>
+  );
+};
 
-  render() {
-    return (
-      <TouchableOpacity style={[styles.button, this.props.styles]} onPress={this.props.onPress}>
-        <Text style={styles.buttonText}>{this.props.text}</Text>
-      </TouchableOpacity>
-    );
-  }
-}
+FullButton.defaultProps = {
+  onPress: noop,
+  styles: {},
+  disabled: false,
+};
 
 export default FullButton;
