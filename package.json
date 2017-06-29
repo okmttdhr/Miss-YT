@@ -66,6 +66,7 @@
     "reactotron-react-native": "^1.5.2",
     "reactotron-redux": "^1.5.2",
     "reactotron-redux-saga": "^1.5.2",
+    "sinon": "^2.3.5",
     "snazzy": "^5.0.0"
   },
   "ava": {

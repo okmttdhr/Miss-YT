@@ -15,3 +15,5 @@ export const snapshotExists = (snapshot) => {
 };
 
 export const isSuccess = (response: APIResponse) => response.status === statusCode.Ok;
+
+export const noop = () => {};
