@@ -7,7 +7,8 @@ import { spy } from 'sinon';
 import { assign } from 'lodash';
 
 import { defaultUserMock } from '../../../Tests/mock/';
-import { AccountForm, SwitchType } from './index';
+import { AccountForm } from './index';
+import { SwitchType } from './SwitchType';
 import {FullButton} from '../FullButton';
 
 const loginMock = () => {

@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Text, View } from 'react-native';
 
-import styles from './Styles/PresentationScreenStyle';
-import type {TUserActions, TDefaultUser} from '../types/';
-import {addChannels, updateChannels} from '../Services/';
-import {AccountForm} from '../Components/';
-import {userActions} from '../Redux/';
+import styles from './style';
+import type {TUserActions, TDefaultUser} from '../../types/';
+import {addChannels, updateChannels} from '../../Services/';
+import {AccountForm} from '../../Components/';
+import {userActions} from '../../Redux/';
 
 type IAccountScreen = {
   title: string;
@@ -20,7 +20,7 @@ export const AccountScreen = (props: IAccountScreen) => {
   const {title, user} = props;
   const actions = props.userActions;
   return (
-    <View style={[styles.container]}>
+    <View style={styles.container}>
       <Text>{title} Screen!</Text>
       <Text onPress={addChannels}>Channelを追加</Text>
       <Text onPress={updateChannels}>Channelを更新</Text>

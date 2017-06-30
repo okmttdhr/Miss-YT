@@ -5,6 +5,7 @@ import { View, Text, TextInput } from 'react-native';
 import styles from './style';
 import type {TDefaultUser} from '../../types/';
 import {FullButton} from '../FullButton';
+import {SwitchType} from './SwitchType';
 
 type TAccountForm = {
   user: TDefaultUser;
@@ -12,14 +13,7 @@ type TAccountForm = {
   createUser: () => void;
 }
 
-type AccountType = 'login' | 'createUser';
-
-export const SwitchType = ({onPress, type}: {type: AccountType, onPress: () => void}) => (
-  <Text onPress={onPress}>
-    {type === 'createUser' ?
-      '既にアカウントをお持ちの方はこちらをタップ' : 'まだアカウントをお持ちでない方はこちらをタップ'}
-  </Text>
-);
+export type AccountType = 'login' | 'createUser';
 
 export class AccountForm extends Component {
   constructor(props: TAccountForm) {
@@ -50,31 +44,35 @@ export class AccountForm extends Component {
     const disabled = this.state.email === '' || this.state.password === '';
     return (
       <View style={styles.container}>
-        <TextInput
-          style={{height: 40}}
-          placeholder="メールアドレス"
-          onChangeText={email => this.setState({email})}
-        />
-        <TextInput
-          style={{height: 40}}
-          placeholder="パスワード"
-          secureTextEntry
-          onChangeText={password => this.setState({password})}
-        />
+        <View>
+          <TextInput
+            style={styles.textInput}
+            placeholder="メールアドレス"
+            onChangeText={email => this.setState({email})}
+          />
+          <TextInput
+            style={styles.textInput}
+            placeholder="パスワード"
+            secureTextEntry
+            onChangeText={password => this.setState({password})}
+          />
+        </View>
         <Text>{user.errorMessage}</Text>
         <SwitchType type={type} onPress={() => this.switchType()} />
-        {type === 'createUser' ?
-          <FullButton
-            text={'登録する'}
-            onPress={() => createUser()}
-            disabled={disabled}
-          /> : null}
-        {type === 'login' ?
-          <FullButton
-            text={'ログイン'}
-            onPress={() => login()}
-            disabled={disabled}
-          /> : null}
+        <View>
+          {type === 'createUser' ?
+            <FullButton
+              text={'登録する'}
+              onPress={() => createUser()}
+              disabled={disabled}
+            /> : null}
+          {type === 'login' ?
+            <FullButton
+              text={'ログイン'}
+              onPress={() => login()}
+              disabled={disabled}
+            /> : null}
+        </View>
       </View>
     );
   }
