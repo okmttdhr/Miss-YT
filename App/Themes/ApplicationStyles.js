@@ -71,3 +71,9 @@ export const applicationStyles = {
     textAlign: 'center',
   },
 };
+
+export const flexRowCenter = {
+  flex: 1,
+  flexDirection: 'row',
+  justifyContent: 'center',
+};

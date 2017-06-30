@@ -1,7 +1,7 @@
 // @flow
 import { StyleSheet } from 'react-native';
 import { assign } from 'lodash';
-import { flexRowCenter } from '../../Services/';
+import { flexRowCenter } from '../../Themes/';
 
 export default StyleSheet.create({
   container: assign({}, flexRowCenter, {
