@@ -55,7 +55,7 @@ test('should switch account type', (t) => {
   t.is(wrapper.state('type'), 'createUser');
 });
 
-test('shoul display error message', (t) => {
+test('should display error message', (t) => {
   const wrapper = shallow(
     <AccountForm user={assign({}, defaultUserMock, {errorMessage: 'error'})} login={loginMock} createUser={createUserMock} />,
   );

@@ -1,11 +1,11 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { ApplicationStyles } from '../../Themes/';
+import { applicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
-  ...ApplicationStyles.screen,
+  ...applicationStyles.screen,
   groupContainer: {
-    ...ApplicationStyles.groupContainer,
+    ...applicationStyles.groupContainer,
   },
 });

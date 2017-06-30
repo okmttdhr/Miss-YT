@@ -1,10 +1,10 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { colors, Metrics, Fonts, ApplicationStyles } from '../../Themes/';
+import { colors, Metrics, Fonts, applicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
-  ...ApplicationStyles.screen,
+  ...applicationStyles.screen,
   cardTitle: {
     alignSelf: 'center',
     fontSize: Fonts.size.regular,

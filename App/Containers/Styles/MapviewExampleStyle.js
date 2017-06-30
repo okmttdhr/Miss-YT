@@ -1,10 +1,10 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { ApplicationStyles } from '../../Themes/';
+import { applicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
-  ...ApplicationStyles.screen,
+  ...applicationStyles.screen,
   container: {
     flex: 1,
     justifyContent: 'flex-end',

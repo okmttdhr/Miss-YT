@@ -1,18 +1,18 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { colors, Metrics, ApplicationStyles } from '../../Themes/';
+import { colors, Metrics, applicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
-  ...ApplicationStyles.screen,
+  ...applicationStyles.screen,
   groupContainer: {
-    ...ApplicationStyles.groupContainer,
+    ...applicationStyles.groupContainer,
   },
   sectionHeaderContainer: {
-    ...ApplicationStyles.darkLabelContainer,
+    ...applicationStyles.darkLabelContainer,
   },
   sectionHeader: {
-    ...ApplicationStyles.darkLabel,
+    ...applicationStyles.darkLabel,
   },
   colorsContainer: {
     flexDirection: 'row',

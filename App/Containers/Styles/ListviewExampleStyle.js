@@ -1,10 +1,10 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { ApplicationStyles, Metrics, colors } from '../../Themes/';
+import { applicationStyles, Metrics, colors } from '../../Themes/';
 
 export default StyleSheet.create({
-  ...ApplicationStyles.screen,
+  ...applicationStyles.screen,
   container: {
     flex: 1,
     marginTop: Metrics.navBarHeight,

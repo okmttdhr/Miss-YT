@@ -3,7 +3,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import R from 'ramda';
-import { ApplicationStyles } from '../Themes';
+import { applicationStyles } from '../Themes';
 import DebugSettings from '../Config/DebugSettings';
 const globalExamplesRegistry = [];
 
@@ -11,8 +11,8 @@ export const addExample = (title: string, usage: () => React$Element<*>) => { if
 
 const renderExample = (example: Object) => (
   <View key={example.title}>
-    <View style={ApplicationStyles.darkLabelContainer}>
-      <Text style={ApplicationStyles.darkLabel}>{example.title}</Text>
+    <View style={applicationStyles.darkLabelContainer}>
+      <Text style={applicationStyles.darkLabel}>{example.title}</Text>
     </View>
     {example.usage.call()}
   </View>
