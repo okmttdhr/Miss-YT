@@ -60,5 +60,5 @@ test('should display error message', (t) => {
   const wrapper = shallow(
     <AccountForm user={assign({}, defaultUserMock, {errorMessage: 'error'})} login={loginMock} createUser={createUserMock} />,
   );
-  t.is(wrapper.contains(<Text>error</Text>), true);
+  t.is(wrapper.containsMatchingElement(<Text>error</Text>), true);
 });

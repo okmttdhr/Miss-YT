@@ -41,7 +41,7 @@ export class AccountForm extends Component {
     console.log(this.state);
     const {type} = this.state;
     const {user, login, createUser} = this.props;
-    const disabled = this.state.email === '' || this.state.password === '';
+    const disabled = this.state.email === '' || this.state.password === '' || user.isFetching;
     return (
       <View style={styles.container}>
         <View>
@@ -57,7 +57,8 @@ export class AccountForm extends Component {
             onChangeText={password => this.setState({password})}
           />
         </View>
-        <Text>{user.errorMessage}</Text>
+        {user.errorMessage ?
+          <Text style={styles.errorMessage}>{user.errorMessage}</Text> : null}
         <SwitchType type={type} onPress={() => this.switchType()} />
         <View>
           {type === 'createUser' ?
