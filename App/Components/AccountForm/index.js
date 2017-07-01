@@ -3,14 +3,14 @@ import React, {Component} from 'react';
 import { View, Text, TextInput } from 'react-native';
 
 import styles from './style';
-import type {TDefaultUser} from '../../types/';
+import type {TDefaultUser, TAuthenticate} from '../../types/';
 import {FullButton} from '../FullButton';
 import {SwitchType} from './SwitchType';
 
 type TAccountForm = {
   user: TDefaultUser;
-  login: () => void;
-  createUser: () => void;
+  login: TAuthenticate;
+  createUser: TAuthenticate;
 }
 
 export type AccountType = 'login' | 'createUser';
@@ -64,13 +64,13 @@ export class AccountForm extends Component {
           {type === 'createUser' ?
             <FullButton
               text={'登録する'}
-              onPress={() => createUser()}
+              onPress={() => createUser(this.state.email, this.state.password)}
               disabled={disabled}
             /> : null}
           {type === 'login' ?
             <FullButton
               text={'ログイン'}
-              onPress={() => login()}
+              onPress={() => login(this.state.email, this.state.password)}
               disabled={disabled}
             /> : null}
         </View>

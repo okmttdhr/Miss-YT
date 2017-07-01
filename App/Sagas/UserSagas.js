@@ -2,7 +2,7 @@
 import Promise from 'bluebird';
 import { call, put, fork } from 'redux-saga/effects';
 
-import type {APIResponse} from '../types/';
+import type {APIResponse, TUserAuthenticateAction} from '../types/';
 import {firebaseApp, statusCode, isSuccess} from '../Services/';
 import {userActions} from '../Redux/';
 
@@ -46,28 +46,29 @@ const authenticationResult = (promise: Promise<any>): Promise<APIResponse> => {
     });
 };
 
-export const createUserWithFirebase = () => {
-  return authenticationResult(firebaseApp.auth().createUserWithEmailAndPassword('@gmail.com', 'password'));
+export const createUserWithFirebase = ({email, password}: TUserAuthenticateAction) => {
+  return authenticationResult(firebaseApp.auth().createUserWithEmailAndPassword(email, password));
 };
 
-export const loginWithFirebase = () => {
-  return authenticationResult(firebaseApp.auth().signInWithEmailAndPassword('@gmail.com', 'password'));
+export const loginWithFirebase = ({email, password}: any) => {
+  return authenticationResult(firebaseApp.auth().signInWithEmailAndPassword(email, password));
 };
 
 export function* authenticate<T>(
   authWithFirebase: () => Promise<APIResponse>,
+  action: TUserAuthenticateAction,
 ): Generator<T, any, any> {
   yield put(userActions.userRequest());
-  const responce: APIResponse = yield call(authWithFirebase);
+  const responce: APIResponse = yield call(authWithFirebase, action);
   if (!isSuccess(responce)) {
     yield put(userActions.userFailure(responce.message));
   }
 }
 
-export function* login<T>(): Generator<T, any, any> {
-  yield fork(authenticate, loginWithFirebase);
+export function* login<T>(action: TUserAuthenticateAction): Generator<T, any, any> {
+  yield fork(authenticate, loginWithFirebase, action);
 }
 
-export function* createUser<T>(): Generator<T, any, any> {
-  yield fork(authenticate, createUserWithFirebase);
+export function* createUser<T>(action: TUserAuthenticateAction): Generator<T, any, any> {
+  yield fork(authenticate, createUserWithFirebase, action);
 }
