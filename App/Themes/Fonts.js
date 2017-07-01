@@ -6,7 +6,7 @@ const type = {
   emphasis: 'HelveticaNeue-Italic',
 };
 
-const size = {
+export const fontSize = {
   h1: 38,
   h2: 34,
   h3: 30,
@@ -23,41 +23,40 @@ const size = {
 const style = {
   h1: {
     fontFamily: type.base,
-    fontSize: size.h1,
+    fontSize: fontSize.h1,
   },
   h2: {
     fontWeight: 'bold',
-    fontSize: size.h2,
+    fontSize: fontSize.h2,
   },
   h3: {
     fontFamily: type.emphasis,
-    fontSize: size.h3,
+    fontSize: fontSize.h3,
   },
   h4: {
     fontFamily: type.base,
-    fontSize: size.h4,
+    fontSize: fontSize.h4,
   },
   h5: {
     fontFamily: type.base,
-    fontSize: size.h5,
+    fontSize: fontSize.h5,
   },
   h6: {
     fontFamily: type.emphasis,
-    fontSize: size.h6,
+    fontSize: fontSize.h6,
   },
   normal: {
     fontFamily: type.base,
-    fontSize: size.regular,
+    fontSize: fontSize.regular,
   },
   description: {
     fontFamily: type.base,
-    fontSize: size.medium,
+    fontSize: fontSize.medium,
   },
 };
 
 export default {
   type,
-  size,
+  size: fontSize,
   style,
 };
-

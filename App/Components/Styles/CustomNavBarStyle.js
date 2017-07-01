@@ -1,4 +1,4 @@
-import { Colors, Metrics } from '../../Themes/';
+import { colors, Metrics } from '../../Themes/';
 
 export default {
   container: {
@@ -8,7 +8,7 @@ export default {
     right: 0,
     height: Metrics.navBarHeight,
     paddingHorizontal: Metrics.baseMargin,
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

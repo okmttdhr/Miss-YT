@@ -1,6 +1,7 @@
 // @flow
 import { StyleSheet } from 'react-native';
-import { viewportWidth, flexRowCenter } from '../../Services/';
+import { viewportWidth } from '../../Services/';
+import { flexRowCenter } from '../../Themes/';
 
 const HEADER_HEIGHT = 66;
 const FOOTER_HEIGHT = 52;

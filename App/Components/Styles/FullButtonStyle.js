@@ -1,22 +1,25 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Fonts, Colors } from '../../Themes/';
+import { Fonts, colors } from '../../Themes/';
 
 export default StyleSheet.create({
   button: {
-    marginVertical: 5,
-    borderTopColor: Colors.fire,
-    borderBottomColor: Colors.bloodOrange,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    backgroundColor: Colors.ember,
+    backgroundColor: colors.main,
+    borderRadius: 2,
+    shadowRadius: 1,
+    shadowOffset: { width: 0.5, height: 0.5 },
+    shadowOpacity: 0.7,
+    shadowColor: 'black',
   },
   buttonText: {
-    margin: 18,
+    margin: 10,
     textAlign: 'center',
-    color: Colors.snow,
+    color: colors.snow,
     fontSize: Fonts.size.medium,
     fontFamily: Fonts.type.bold,
+  },
+  disabled: {
+    opacity: 0.5,
   },
 });

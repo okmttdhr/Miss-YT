@@ -1,8 +1,11 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { applicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
-  ...applicationStyles.screen,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

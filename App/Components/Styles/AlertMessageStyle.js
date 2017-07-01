@@ -1,7 +1,7 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, Fonts } from '../../Themes/';
+import { colors, Metrics, Fonts } from '../../Themes/';
 
 export default StyleSheet.create({
   container: {
@@ -19,9 +19,9 @@ export default StyleSheet.create({
     fontFamily: Fonts.type.base,
     fontSize: Fonts.size.regular,
     fontWeight: 'bold',
-    color: Colors.steel,
+    color: colors.steel,
   },
   icon: {
-    color: Colors.steel,
+    color: colors.steel,
   },
 });

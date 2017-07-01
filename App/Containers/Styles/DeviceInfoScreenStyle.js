@@ -1,23 +1,23 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, Fonts, ApplicationStyles } from '../../Themes/';
+import { colors, Metrics, Fonts, applicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
-  ...ApplicationStyles.screen,
+  ...applicationStyles.screen,
   cardTitle: {
     alignSelf: 'center',
     fontSize: Fonts.size.regular,
     fontWeight: 'bold',
     marginVertical: Metrics.baseMargin,
-    color: Colors.snow,
+    color: colors.snow,
   },
   cardContainer: {
-    backgroundColor: Colors.ember,
+    backgroundColor: colors.ember,
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 2,
-    shadowColor: Colors.panther,
+    shadowColor: colors.panther,
     shadowOffset: {
       height: 7,
       width: 7,
@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
-    borderColor: Colors.windowTint,
+    borderColor: colors.windowTint,
     borderWidth: 0.5,
     borderRadius: 2,
     marginHorizontal: Metrics.baseMargin,
@@ -36,7 +36,7 @@ export default StyleSheet.create({
   rowLabelContainer: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: Colors.snow,
+    backgroundColor: colors.snow,
   },
   rowLabel: {
     fontWeight: 'bold',
@@ -47,7 +47,7 @@ export default StyleSheet.create({
   rowInfoContainer: {
     flex: 2,
     justifyContent: 'center',
-    backgroundColor: Colors.silver,
+    backgroundColor: colors.silver,
   },
   rowInfo: {
     fontSize: Fonts.size.regular,

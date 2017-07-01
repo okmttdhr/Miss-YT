@@ -6,8 +6,10 @@ import { userActions } from '../Redux/';
 import { loginWithFirebase, authenticate } from './UserSagas';
 import { statusCode } from '../Services/';
 
+const actionMock = {email: 'email', password: 'password'};
+
 test.serial.group('Normal', () => {
-  const generator = authenticate(loginWithFirebase);
+  const generator = authenticate(loginWithFirebase, actionMock);
 
   test('could set the requesting status to `redux store`', (t) => {
     t.deepEqual(
@@ -19,7 +21,7 @@ test.serial.group('Normal', () => {
   test('could make a request to authenticate', (t) => {
     t.deepEqual(
       generator.next().value,
-      call(loginWithFirebase),
+      call(loginWithFirebase, actionMock),
     );
   });
 
@@ -35,7 +37,7 @@ test.serial.group('Normal', () => {
 });
 
 test.serial.group('Abnormal', () => {
-  const generator = authenticate(loginWithFirebase);
+  const generator = authenticate(loginWithFirebase, actionMock);
 
   test('could catch the error for authentication', (t) => {
     generator.next();

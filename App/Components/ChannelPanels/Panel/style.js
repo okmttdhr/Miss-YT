@@ -2,7 +2,8 @@
 import { StyleSheet } from 'react-native';
 import { assign } from 'lodash';
 
-import { viewportWidth, flexRowCenter } from '../../../Services/';
+import { flexRowCenter } from '../../../Themes/';
+import { viewportWidth } from '../../../Services/';
 
 const PANEL_MARGIN = 2;
 const THUMBNAIL_WIDTH = viewportWidth(50) - PANEL_MARGIN;

@@ -1,10 +1,10 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors } from '../../Themes/';
+import { Metrics, colors } from '../../Themes/';
 
 const navButton = {
-  backgroundColor: Colors.transparent,
+  backgroundColor: colors.transparent,
   justifyContent: 'center',
 };
 
