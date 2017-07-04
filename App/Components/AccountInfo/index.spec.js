@@ -14,12 +14,12 @@ const updateProfileMock = () => {
 };
 
 test('should display name and email', (t) => {
+  const verifiedUserMock = merge({}, defaultUserMock, {item: {emailVerified: true}});
   const wrapper = shallow(
-    <AccountInfo
-      user={merge({}, defaultUserMock, {item: {emailVerified: true}})}
-      updateProfile={updateProfileMock}
-    />,
+    <AccountInfo user={verifiedUserMock} updateProfile={updateProfileMock} />,
   );
-  t.is(wrapper.containsMatchingElement(<DisplayName />), true);
+  t.is(wrapper.containsMatchingElement(
+    <DisplayName user={verifiedUserMock} updateProfile={updateProfileMock} />,
+  ), true);
   t.is(wrapper.containsMatchingElement(<Text>MOCK_EMAIL</Text>), true);
 });
