@@ -11,7 +11,7 @@ import { LoginTypes } from '../Redux/LoginRedux';
 import { startup } from './StartupSagas';
 import { login as legacyLogin } from './LoginSagas';
 import { getChannels } from './ChannelsSagas';
-import { login, createUser } from './UserSagas';
+import { login, createUser, updateProfile } from './UserSagas';
 
 /* ------------- RootSaga ------------- */
 
@@ -20,7 +20,9 @@ export default function* root() {
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(LoginTypes.LOGIN_REQUEST, legacyLogin),
     takeLatest(channelsTypes.CHANNELS_REQUEST, getChannels),
+
     takeLatest(userTypes.USER_LOGIN, login),
     takeLatest(userTypes.USER_CREATE, createUser),
+    takeLatest(userTypes.USER_UPDATE_PROFILE, updateProfile),
   ];
 }

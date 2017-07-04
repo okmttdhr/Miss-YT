@@ -1,8 +1,9 @@
 // @flow
-import {channelsRef} from './ref';
 import type {TChannel} from '../../types/';
 import {channelsActions, userActions, defaultUser} from '../../Redux/';
+import {channelsRef} from './ref';
 import {firebaseApp} from './init';
+import {convertUserFromFirebaseToStore} from './index';
 
 const auth = (dispatch) => {
   firebaseApp.auth().onAuthStateChanged((firebaseUser) => {
@@ -11,18 +12,7 @@ const auth = (dispatch) => {
       dispatch(userActions.userSuccess(defaultUser.item));
       return;
     }
-    const user = {
-      displayName: firebaseUser.displayName,
-      email: firebaseUser.email,
-      emailVerified: firebaseUser.emailVerified,
-      isAnonymous: firebaseUser.isAnonymous,
-      phoneNumber: firebaseUser.phoneNumber,
-      photoURL: firebaseUser.photoURL,
-      providerData: firebaseUser.providerData,
-      providerId: firebaseUser.providerId,
-      refreshToken: firebaseUser.refreshToken,
-      uid: firebaseUser.uid,
-    };
+    const user = convertUserFromFirebaseToStore(firebaseUser);
     dispatch(userActions.userSuccess(user));
   });
 };
