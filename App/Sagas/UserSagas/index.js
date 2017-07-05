@@ -48,6 +48,13 @@ const authenticationResult = (promise: Promise<any>): Promise<APIResponse> => {
     });
 };
 
+export const sendEmailVerification = () => {
+  const user = firebaseApp.auth().currentUser;
+  return user.sendEmailVerification()
+    .then(r => r)
+    .catch(e => e);
+};
+
 export const createUserWithFirebase = ({email, password}: TUserAuthenticateAction) => {
   return authenticationResult(firebaseApp.auth().createUserWithEmailAndPassword(email, password));
 };
@@ -64,7 +71,9 @@ export function* authenticate<T>(
   const responce: APIResponse = yield call(authWithFirebase, action);
   if (!isSuccess(responce)) {
     yield put(userActions.userFailure(responce.message));
+    return;
   }
+  yield call(sendEmailVerification);
 }
 
 export function* login<T>(action: TUserAuthenticateAction): Generator<T, any, any> {

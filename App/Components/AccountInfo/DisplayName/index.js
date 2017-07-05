@@ -38,7 +38,7 @@ export class DisplayName extends Component {
           <Loading isShow /> :
           <TextInput
             style={styles.textInput}
-            placeholder="名前"
+            placeholder="名前を入力する"
             onChangeText={name => this.setState({displayName: name})}
             onBlur={e => updateProfile({displayName: e.nativeEvent.text})}
             value={value}

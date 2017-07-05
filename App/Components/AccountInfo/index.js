@@ -13,7 +13,7 @@ type TAccountInfo = {
 
 const AccountShouldVerify = () => (
   <View>
-    <Text>{'AccountShouldVerify. Check your email.'}</Text>
+    <Text style={styles.accountShouldVerifyText}>{'確認用のメールが送信されました。メールアドレスをご確認ください。'}</Text>
   </View>
 );
 
