@@ -1,10 +1,12 @@
 // @flow
 import { StyleSheet } from 'react-native';
 import { assign } from 'lodash';
-import { flexRowCenter } from '../../Themes/';
 
 export default StyleSheet.create({
-  container: assign({}, flexRowCenter, {
+  container: assign({}, {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  }, {
     paddingTop: 10,
     paddingBottom: 10,
   }),

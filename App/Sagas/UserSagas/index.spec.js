@@ -2,11 +2,15 @@
 import test from 'ava-spec';
 import { call, put } from 'redux-saga/effects';
 
-import { userActions } from '../Redux/';
-import { loginWithFirebase, authenticate } from './UserSagas';
-import { statusCode } from '../Services/';
+import { userActions } from '../../Redux/';
+import { loginWithFirebase, authenticate } from './index';
+import { statusCode } from '../../Services/';
 
-const actionMock = {email: 'email', password: 'password'};
+const actionMock = {
+  type: 'type',
+  email: 'email',
+  password: 'password',
+};
 
 test.serial.group('Normal', () => {
   const generator = authenticate(loginWithFirebase, actionMock);

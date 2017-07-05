@@ -2,9 +2,11 @@
 import Promise from 'bluebird';
 import { call, put, fork } from 'redux-saga/effects';
 
-import type {APIResponse, TUserAuthenticateAction} from '../types/';
-import {firebaseApp, statusCode, isSuccess} from '../Services/';
-import {userActions} from '../Redux/';
+import type {APIResponse, TUserAuthenticateAction} from '../../types/';
+import {firebaseApp, statusCode, isSuccess} from '../../Services/';
+import {userActions} from '../../Redux/';
+
+export * from './updateProfile';
 
 const errorCodeToMessage = (code: string) => {
   let message: string = '';

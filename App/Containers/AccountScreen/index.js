@@ -7,7 +7,7 @@ import { Text, View } from 'react-native';
 import styles from './style';
 import type {TUserActions, TDefaultUser} from '../../types/';
 import {addChannels, updateChannels} from '../../Services/';
-import {AccountForm} from '../../Components/';
+import {AccountForm, AccountInfo} from '../../Components/';
 import {userActions} from '../../Redux/';
 
 type IAccountScreen = {
@@ -24,7 +24,9 @@ export const AccountScreen = (props: IAccountScreen) => {
       <Text>{title} Screen!</Text>
       <Text onPress={addChannels}>Channelを追加</Text>
       <Text onPress={updateChannels}>Channelを更新</Text>
-      <AccountForm user={user} login={actions.userLogin} createUser={actions.userCreate} />
+      {user.item.uid !== '' ?
+        <AccountInfo user={user} updateProfile={actions.userUpdateProfile} /> :
+        <AccountForm user={user} login={actions.userLogin} createUser={actions.userCreate} />}
     </View>
   );
 };

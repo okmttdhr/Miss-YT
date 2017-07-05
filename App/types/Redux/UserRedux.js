@@ -11,8 +11,12 @@ export type TDefaultUser = {
 export type TUserAuthenticateAction = TAction & {
   email: string, password: string,
 }
+export type TUserUpdateProfileAction = TAction & {
+  updates: {displayName?: string, photoURL?: string}
+}
 
 export type TAuthenticate = (email: string, password: string) => any;
+export type TUserUpdateProfile = (updates: {displayName?: string, photoURL?: string}) => any
 
 export type TUserActions = {
   userRequest: () => any,
@@ -20,4 +24,5 @@ export type TUserActions = {
   userCreate: TAuthenticate,
   userSuccess: (item: TUser) => any,
   userFailure: () => any,
+  userUpdateProfile: TUserUpdateProfile,
 }
