@@ -1,6 +1,6 @@
 // @flow
 export * from './TabIcon';
-export * from './FullButton';
+export * from './ButtonDefault';
 export * from './ChannelPanels';
 export * from './Loading';
 export * from './AccountForm';

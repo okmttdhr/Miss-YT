@@ -8,7 +8,7 @@ import styles from './Styles/AllComponentsScreenStyle';
 
 // Components to show examples (only real point of merge conflict)
 import '../Components/AlertMessage';
-import '../Components/FullButton';
+import '../Components/ButtonDefault';
 import '../Components/RoundedButton';
 import '../Components/DrawerButton';
 // import '../Components/MapCallout'

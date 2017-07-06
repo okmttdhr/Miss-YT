@@ -4,7 +4,7 @@ import { View, Text, TextInput } from 'react-native';
 
 import styles from './style';
 import type {TDefaultUser, TAuthenticate} from '../../types/';
-import {FullButton} from '../FullButton';
+import {ButtonDefault} from '../ButtonDefault';
 import {SwitchType} from './SwitchType';
 
 type TAccountForm = {
@@ -62,13 +62,13 @@ export class AccountForm extends Component {
         <SwitchType type={type} onPress={() => this.switchType()} />
         <View>
           {type === 'createUser' ?
-            <FullButton
+            <ButtonDefault
               text={'登録する'}
               onPress={() => createUser(this.state.email, this.state.password)}
               disabled={disabled}
             /> : null}
           {type === 'login' ?
-            <FullButton
+            <ButtonDefault
               text={'ログイン'}
               onPress={() => login(this.state.email, this.state.password)}
               disabled={disabled}

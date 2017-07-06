@@ -1,17 +1,17 @@
 // @flow
 import React from 'react';
 import { TouchableHighlight, Text } from 'react-native';
-import baseStyles from './Styles/FullButtonStyle';
+import baseStyles from './ButtonDefault.style';
 import {noop} from '../Services/';
 
-type TFullButton = {
+type TButtonDefault = {
   text: string;
   onPress?: () => void;
   styles?: Object;
   disabled?: boolean;
 }
 
-export const FullButton = ({styles, onPress, disabled, text}: TFullButton) => {
+export const ButtonDefault = ({styles, onPress, disabled, text}: TButtonDefault) => {
   const s = [
     baseStyles.button,
     disabled && baseStyles.disabled,
@@ -28,10 +28,10 @@ export const FullButton = ({styles, onPress, disabled, text}: TFullButton) => {
   );
 };
 
-FullButton.defaultProps = {
+ButtonDefault.defaultProps = {
   onPress: noop,
   styles: {},
   disabled: false,
 };
 
-export default FullButton;
+export default ButtonDefault;
