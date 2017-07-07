@@ -4,19 +4,11 @@ import { call, put } from 'redux-saga/effects';
 
 import { userMock } from '../../../Tests/mock/';
 import { userActions } from '../../Redux/';
-import { statusCode } from '../../Services/';
-import { updateProfile, updateProfileToFirebase } from './index';
-
-const actionMock = {
-  type: 'type',
-  updates: {
-    displayName: 'displayName',
-    photoURL: 'photoURL',
-  },
-};
+import { sendEmailVerificationWithFirebase, statusCode } from '../../Services/';
+import { sendEmailVerification } from './index';
 
 test.serial.group('Normal', () => {
-  const generator = updateProfile(actionMock);
+  const generator = sendEmailVerification();
 
   test('could set the requesting status to `redux store`', (t) => {
     t.deepEqual(
@@ -25,10 +17,10 @@ test.serial.group('Normal', () => {
     );
   });
 
-  test('could make a request to update', (t) => {
+  test('could make a request to send email', (t) => {
     t.deepEqual(
       generator.next().value,
-      call(updateProfileToFirebase, actionMock.updates),
+      call(sendEmailVerificationWithFirebase),
     );
   });
 
@@ -46,7 +38,7 @@ test.serial.group('Normal', () => {
 });
 
 test.serial.group('Abnormal', () => {
-  const generator = updateProfile(actionMock);
+  const generator = sendEmailVerification();
 
   test('could catch the error for updating', (t) => {
     generator.next();

@@ -3,10 +3,11 @@ import Promise from 'bluebird';
 import { call, put, fork } from 'redux-saga/effects';
 
 import type {APIResponse, TUserAuthenticateAction} from '../../types/';
-import {firebaseApp, statusCode, isSuccess} from '../../Services/';
+import {firebaseApp, statusCode, isSuccess, sendEmailVerificationWithFirebase} from '../../Services/';
 import {userActions} from '../../Redux/';
 
 export * from './updateProfile';
+export * from './sendEmailVerification';
 
 const errorCodeToMessage = (code: string) => {
   let message: string = '';
@@ -48,13 +49,6 @@ const authenticationResult = (promise: Promise<any>): Promise<APIResponse> => {
     });
 };
 
-export const sendEmailVerification = () => {
-  const user = firebaseApp.auth().currentUser;
-  return user.sendEmailVerification()
-    .then(r => r)
-    .catch(e => e);
-};
-
 export const createUserWithFirebase = ({email, password}: TUserAuthenticateAction) => {
   return authenticationResult(firebaseApp.auth().createUserWithEmailAndPassword(email, password));
 };
@@ -73,7 +67,7 @@ export function* authenticate<T>(
     yield put(userActions.userFailure(responce.message));
     return;
   }
-  yield call(sendEmailVerification);
+  yield call(sendEmailVerificationWithFirebase);
 }
 
 export function* login<T>(action: TUserAuthenticateAction): Generator<T, any, any> {

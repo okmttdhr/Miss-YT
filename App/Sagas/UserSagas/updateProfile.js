@@ -1,6 +1,6 @@
 // @flow
 import Promise from 'bluebird';
-import { call, put, fork } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
 import type {APIResponse, TUserUpdateProfileAction} from '../../types/';
 import {firebaseApp, statusCode, isSuccess, convertUserFromFirebaseToStore} from '../../Services/';
@@ -21,13 +21,14 @@ export const updateProfileToFirebase = (
     .catch((error) => {
       return {
         status: statusCode.InternalError,
+        // TODO codeの型しらべとく
         message: error.code,
         user: null,
       };
     });
 };
 
-export function* update<T>(
+export function* updateProfile<T>(
   action: TUserUpdateProfileAction,
 ): Generator<T, any, any> {
   yield put(userActions.userRequest());
@@ -37,8 +38,4 @@ export function* update<T>(
     return;
   }
   yield put(userActions.userSuccess(convertUserFromFirebaseToStore(responce.user)));
-}
-
-export function* updateProfile<T>(action: TUserUpdateProfileAction): Generator<T, any, any> {
-  yield fork(update, action);
 }

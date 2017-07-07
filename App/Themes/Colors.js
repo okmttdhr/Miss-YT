@@ -1,6 +1,7 @@
 // @flow
 export const colors = {
-  main: '#EB4D45',
+  main: 'rgb(235,77,69)',
+  mainWeak: '#EF716A', // opacity: 0.8;
   background: '#1F0808',
   clear: 'rgba(0,0,0,0)',
   facebook: '#3b5998',
