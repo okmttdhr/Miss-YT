@@ -3,7 +3,7 @@ import test from 'ava-spec';
 import { call, put } from 'redux-saga/effects';
 
 import { userActions } from '../../Redux/';
-import { loginWithFirebase, authenticate } from './index';
+import { loginWithFirebase, authenticate } from './authenticate';
 import { statusCode, sendEmailVerificationWithFirebase } from '../../Services/';
 
 const actionMock = {
