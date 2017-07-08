@@ -29,6 +29,13 @@ export class DisplayName extends Component {
 
   props: TDisplayName;
 
+  handleOnChangeText(name: string) {
+    this.setState({displayName: name});
+    if (!name) {
+      this.props.updateProfile({displayName: name});
+    }
+  }
+
   render() {
     const {updateProfile, user} = this.props;
     const value = this.state.displayName || this.props.user.item.displayName;
@@ -39,7 +46,7 @@ export class DisplayName extends Component {
           <TextInput
             style={styles.textInput}
             placeholder="名前を入力する"
-            onChangeText={name => this.setState({displayName: name})}
+            onChangeText={name => this.handleOnChangeText(name)}
             onBlur={e => updateProfile({displayName: e.nativeEvent.text})}
             value={value}
           />

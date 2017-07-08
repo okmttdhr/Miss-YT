@@ -1,5 +1,5 @@
 // @flow
-import test from 'ava';
+import test from 'ava-spec';
 import React from 'react';
 import {TextInput} from 'react-native';
 import { shallow } from 'enzyme';
@@ -12,7 +12,7 @@ const updateProfileMock = () => {
   console.log('updateProfileMock');
 };
 
-test('should show initial `displayName`', (t) => {
+test('could show initial `displayName`', (t) => {
   const wrapper = shallow(
     <DisplayName user={defaultUserMock} updateProfile={updateProfileMock} />,
   );
@@ -20,7 +20,7 @@ test('should show initial `displayName`', (t) => {
   t.is(wrapper.instance().props.user.item.displayName, 'MOCK_DISPLAY_NAME');
 });
 
-test('should edit `displayName`', (t) => {
+test('could edit `displayName`', (t) => {
   const wrapper = shallow(
     <DisplayName user={defaultUserMock} updateProfile={updateProfileMock} />,
   );
@@ -28,17 +28,29 @@ test('should edit `displayName`', (t) => {
   t.is(wrapper.state('displayName'), 'NAME');
 });
 
-test('should request to update `displayName`', (t) => {
-  const spiedUpdateProfileMock = spy(updateProfileMock);
-  const wrapper = shallow(
-    <DisplayName user={defaultUserMock} updateProfile={spiedUpdateProfileMock} />,
-  );
-  wrapper.find(TextInput).first().simulate('changeText', 'NAME');
-  wrapper.find(TextInput).first().simulate('blur', { nativeEvent: { text: 'NAME' } });
-  t.is(spiedUpdateProfileMock.called, true);
+test.group('could request to update `displayName`', () => {
+  test('if stop editing', (t) => {
+    const spiedUpdateProfileMock = spy(updateProfileMock);
+    const wrapper = shallow(
+      <DisplayName user={defaultUserMock} updateProfile={spiedUpdateProfileMock} />,
+    );
+    wrapper.find(TextInput).first().simulate('changeText', 'NAME');
+    wrapper.find(TextInput).first().simulate('blur', { nativeEvent: { text: 'NAME' } });
+    t.is(spiedUpdateProfileMock.called, true);
+  });
+
+  test('if local value changed to null', (t) => {
+    const spiedUpdateProfileMock = spy(updateProfileMock);
+    const wrapper = shallow(
+      <DisplayName user={defaultUserMock} updateProfile={spiedUpdateProfileMock} />,
+    );
+    wrapper.find(TextInput).first().simulate('changeText', 'NAME');
+    wrapper.find(TextInput).first().simulate('changeText', '');
+    t.is(spiedUpdateProfileMock.called, true);
+  });
 });
 
-test('should sync local value with Firebase value', (t) => {
+test('could sync local value with Firebase value', (t) => {
   const wrapper = shallow(
     <DisplayName user={defaultUserMock} updateProfile={updateProfileMock} />,
   );

@@ -1,13 +1,11 @@
 // @flow
 import { StyleSheet } from 'react-native';
-
-import {fontSize} from '../../../Themes/';
-
+import {fontSize, metrics} from '../../../Themes/';
 
 export default StyleSheet.create({
   container: {
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: metrics.doubleBaseMargin,
+    marginBottom: metrics.doubleBaseMargin,
     alignItems: 'flex-start',
   },
   textInput: {
