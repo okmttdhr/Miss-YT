@@ -1,4 +1,4 @@
-import { colors, Metrics, Fonts } from '../../Themes/';
+import { colors, metrics, Fonts } from '../../Themes/';
 
 export default {
   container: {
@@ -6,8 +6,8 @@ export default {
     top: 0,
     left: 0,
     right: 0,
-    height: Metrics.navBarHeight,
-    paddingTop: Metrics.smallMargin,
+    height: metrics.navBarHeight,
+    paddingTop: metrics.smallMargin,
     paddingHorizontal: 5,
     backgroundColor: colors.background,
     flexDirection: 'row',
@@ -17,16 +17,16 @@ export default {
     flex: 1,
     textAlign: 'center',
     color: colors.snow,
-    marginTop: Metrics.doubleBaseMargin,
+    marginTop: metrics.doubleBaseMargin,
     backgroundColor: colors.transparent,
     fontWeight: 'bold',
     fontSize: Fonts.size.input,
   },
   logo: {
     alignSelf: 'center',
-    marginTop: Metrics.baseMargin,
-    height: Metrics.icons.large,
-    width: Metrics.icons.large,
+    marginTop: metrics.baseMargin,
+    height: metrics.icons.large,
+    width: metrics.icons.large,
   },
   rightButtons: {
     flex: 1,

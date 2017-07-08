@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Styles from './Styles/LoginScreenStyle';
-import {Images, Metrics} from '../Themes';
+import {Images, metrics} from '../Themes';
 import LoginActions from '../Redux/LoginRedux';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import I18n from 'react-native-i18n';
@@ -46,8 +46,8 @@ class LoginScreen extends React.Component {
     this.state = {
       username: 'reactnative@infinite.red',
       password: 'password',
-      visibleHeight: Metrics.screenHeight,
-      topLogo: { width: Metrics.screenWidth },
+      visibleHeight: metrics.screenHeight,
+      topLogo: { width: metrics.screenWidth },
     };
     this.isAttempting = false;
   }
@@ -75,7 +75,7 @@ class LoginScreen extends React.Component {
   keyboardDidShow = (e) => {
     // Animation types easeInEaseOut/linear/spring
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    const newSize = Metrics.screenHeight - e.endCoordinates.height;
+    const newSize = metrics.screenHeight - e.endCoordinates.height;
     this.setState({
       visibleHeight: newSize,
       topLogo: {width: 100, height: 70},
@@ -86,8 +86,8 @@ class LoginScreen extends React.Component {
     // Animation types easeInEaseOut/linear/spring
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     this.setState({
-      visibleHeight: Metrics.screenHeight,
-      topLogo: {width: Metrics.screenWidth},
+      visibleHeight: metrics.screenHeight,
+      topLogo: {width: metrics.screenWidth},
     });
   }
 

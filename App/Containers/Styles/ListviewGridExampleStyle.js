@@ -1,13 +1,13 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { applicationStyles, Metrics, colors } from '../../Themes/';
+import { applicationStyles, metrics, colors } from '../../Themes/';
 
 export default StyleSheet.create({
   ...applicationStyles.screen,
   container: {
     flex: 1,
-    marginTop: Metrics.navBarHeight,
+    marginTop: metrics.navBarHeight,
     backgroundColor: colors.background,
   },
   row: {
@@ -15,16 +15,16 @@ export default StyleSheet.create({
     height: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: Metrics.baseMargin,
+    margin: metrics.baseMargin,
     backgroundColor: colors.fire,
-    borderRadius: Metrics.smallMargin,
+    borderRadius: metrics.smallMargin,
   },
   boldLabel: {
     fontWeight: 'bold',
     alignSelf: 'center',
     color: colors.snow,
     textAlign: 'center',
-    marginBottom: Metrics.smallMargin,
+    marginBottom: metrics.smallMargin,
   },
   label: {
     alignSelf: 'center',

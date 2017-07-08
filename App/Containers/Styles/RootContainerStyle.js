@@ -1,7 +1,7 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Fonts, Metrics, colors } from '../../Themes/';
+import { Fonts, metrics, colors } from '../../Themes/';
 
 export default StyleSheet.create({
   applicationView: {
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     fontFamily: Fonts.type.base,
-    margin: Metrics.baseMargin,
+    margin: metrics.baseMargin,
   },
   myImage: {
     width: 200,

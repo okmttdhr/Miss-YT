@@ -4,7 +4,7 @@
 import React from 'react';
 import { View, ScrollView, Text, Image, NetInfo } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import { Metrics, Images } from '../Themes';
+import { metrics, Images } from '../Themes';
 import styles from './Styles/DeviceInfoScreenStyle';
 
 const HARDWARE_DATA = [
@@ -15,8 +15,8 @@ const HARDWARE_DATA = [
   {title: 'Device Locale', info: DeviceInfo.getDeviceLocale()},
   {title: 'Device Country', info: DeviceInfo.getDeviceCountry()},
   {title: 'User Agent', info: DeviceInfo.getUserAgent()},
-  {title: 'Screen Width', info: Metrics.screenWidth},
-  {title: 'Screen Height', info: Metrics.screenHeight},
+  {title: 'Screen Width', info: metrics.screenWidth},
+  {title: 'Screen Height', info: metrics.screenHeight},
 ];
 
 const OS_DATA = [

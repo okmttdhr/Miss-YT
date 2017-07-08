@@ -1,4 +1,4 @@
-import { colors, Metrics } from '../../Themes/';
+import { colors, metrics } from '../../Themes/';
 
 export default {
   container: {
@@ -6,22 +6,22 @@ export default {
     top: 0,
     left: 0,
     right: 0,
-    height: Metrics.navBarHeight,
-    paddingHorizontal: Metrics.baseMargin,
+    height: metrics.navBarHeight,
+    paddingHorizontal: metrics.baseMargin,
     backgroundColor: colors.background,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   leftButton: {
-    paddingTop: Metrics.baseMargin,
+    paddingTop: metrics.baseMargin,
   },
   logo: {
-    height: Metrics.navBarHeight - Metrics.doubleBaseMargin,
-    width: Metrics.navBarHeight - Metrics.doubleBaseMargin,
+    height: metrics.navBarHeight - metrics.doubleBaseMargin,
+    width: metrics.navBarHeight - metrics.doubleBaseMargin,
     resizeMode: 'contain',
   },
   rightButton: {
-    paddingTop: Metrics.baseMargin,
+    paddingTop: metrics.baseMargin,
   },
 };

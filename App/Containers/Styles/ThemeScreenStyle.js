@@ -1,7 +1,7 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { colors, Metrics, applicationStyles } from '../../Themes/';
+import { colors, metrics, applicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
   ...applicationStyles.screen,
@@ -36,8 +36,8 @@ export default StyleSheet.create({
   },
   colorContainer: {
     height: 130,
-    padding: Metrics.smallMargin,
-    marginBottom: Metrics.smallMargin,
+    padding: metrics.smallMargin,
+    marginBottom: metrics.smallMargin,
   },
   colorSquare: {
     width: 100,
@@ -45,14 +45,14 @@ export default StyleSheet.create({
   },
   colorName: {
     width: 100,
-    height: Metrics.doubleBaseMargin,
-    lineHeight: Metrics.doubleBaseMargin,
+    height: metrics.doubleBaseMargin,
+    lineHeight: metrics.doubleBaseMargin,
     color: colors.charcoal,
     textAlign: 'center',
   },
   fontRow: {
-    padding: Metrics.smallMargin,
-    marginHorizontal: Metrics.smallMargin,
+    padding: metrics.smallMargin,
+    marginHorizontal: metrics.smallMargin,
     color: colors.snow,
   },
 });

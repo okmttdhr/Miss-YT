@@ -4,7 +4,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import styles from './Styles/AlertMessageStyle';
 import * as Animatable from 'react-native-animatable';
-import { Metrics } from '../Themes/';
+import { metrics } from '../Themes/';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ExamplesRegistry from '../Services/ExamplesRegistry';
 
@@ -45,7 +45,7 @@ export default class AlertMessage extends React.Component {
           <View style={styles.contentContainer}>
             <Icon
               name={this.props.icon || 'ios-alert'}
-              size={Metrics.icons.large}
+              size={metrics.icons.large}
               style={styles.icon}
             />
             <Text allowFontScaling={false} style={styles.message}>

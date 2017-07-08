@@ -1,7 +1,7 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { colors, Metrics } from '../../Themes';
+import { colors, metrics } from '../../Themes';
 
 export default StyleSheet.create({
   container: {
@@ -10,12 +10,12 @@ export default StyleSheet.create({
   },
   form: {
     backgroundColor: colors.snow,
-    margin: Metrics.baseMargin,
+    margin: metrics.baseMargin,
     borderRadius: 4,
   },
   row: {
-    paddingVertical: Metrics.doubleBaseMargin,
-    paddingHorizontal: Metrics.doubleBaseMargin,
+    paddingVertical: metrics.doubleBaseMargin,
+    paddingHorizontal: metrics.doubleBaseMargin,
   },
   rowLabel: {
     color: colors.charcoal,
@@ -29,8 +29,8 @@ export default StyleSheet.create({
     color: colors.steel,
   },
   loginRow: {
-    paddingBottom: Metrics.doubleBaseMargin,
-    paddingHorizontal: Metrics.doubleBaseMargin,
+    paddingBottom: metrics.doubleBaseMargin,
+    paddingHorizontal: metrics.doubleBaseMargin,
     flexDirection: 'row',
   },
   loginButtonWrapper: {

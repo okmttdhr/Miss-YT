@@ -1,6 +1,6 @@
 // @flow
 import Fonts from './Fonts';
-import Metrics from './Metrics';
+import {metrics} from './metrics';
 import {colors} from './colors';
 
 // This file is for a reusable grouping of Theme items.
@@ -21,11 +21,11 @@ export const applicationStyles = {
     },
     container: {
       flex: 1,
-      paddingTop: Metrics.baseMargin,
+      paddingTop: metrics.baseMargin,
     },
     section: {
-      margin: Metrics.section,
-      padding: Metrics.baseMargin,
+      margin: metrics.section,
+      padding: metrics.baseMargin,
       borderTopColor: colors.frost,
       borderTopWidth: 0.5,
       borderBottomColor: colors.frost,
@@ -33,27 +33,27 @@ export const applicationStyles = {
     },
     sectionText: {
       color: colors.snow,
-      marginVertical: Metrics.smallMargin,
+      marginVertical: metrics.smallMargin,
       textAlign: 'center',
       fontWeight: 'bold',
     },
     subtitle: {
       color: colors.snow,
-      padding: Metrics.smallMargin,
-      marginBottom: Metrics.smallMargin,
-      marginHorizontal: Metrics.smallMargin,
+      padding: metrics.smallMargin,
+      marginBottom: metrics.smallMargin,
+      marginHorizontal: metrics.smallMargin,
     },
   },
   darkLabelContainer: {
     backgroundColor: colors.cloud,
-    padding: Metrics.smallMargin,
+    padding: metrics.smallMargin,
   },
   darkLabel: {
     fontFamily: Fonts.type.bold,
     color: colors.snow,
   },
   groupContainer: {
-    margin: Metrics.smallMargin,
+    margin: metrics.smallMargin,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -62,9 +62,9 @@ export const applicationStyles = {
     ...Fonts.style.h4,
     color: colors.coal,
     backgroundColor: colors.ricePaper,
-    padding: Metrics.smallMargin,
-    marginTop: Metrics.smallMargin,
-    marginHorizontal: Metrics.baseMargin,
+    padding: metrics.smallMargin,
+    marginTop: metrics.smallMargin,
+    marginHorizontal: metrics.baseMargin,
     borderWidth: 1,
     borderColor: colors.ember,
     alignItems: 'center',

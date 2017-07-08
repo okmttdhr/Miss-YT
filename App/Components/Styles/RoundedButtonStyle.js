@@ -1,14 +1,14 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Fonts, colors, Metrics } from '../../Themes/';
+import { Fonts, colors, metrics } from '../../Themes/';
 
 export default StyleSheet.create({
   button: {
     height: 45,
     borderRadius: 5,
-    marginHorizontal: Metrics.section,
-    marginVertical: Metrics.baseMargin,
+    marginHorizontal: metrics.section,
+    marginVertical: metrics.baseMargin,
     backgroundColor: colors.fire,
     justifyContent: 'center',
   },
@@ -17,6 +17,6 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: Fonts.size.medium,
-    marginVertical: Metrics.baseMargin,
+    marginVertical: metrics.baseMargin,
   },
 });
