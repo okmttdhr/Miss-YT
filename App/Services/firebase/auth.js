@@ -1,6 +1,6 @@
 // @flow
 import Promise from 'bluebird';
-import {firebaseApp, statusCode} from '../../Services/';
+import {firebaseApp, statusCode, authErrorToMessage} from '../../Services/';
 import type {APIResponse} from '../../types/';
 
 const updateUserResult = (promise: Promise<any>): Promise<APIResponse> => {
@@ -16,8 +16,7 @@ const updateUserResult = (promise: Promise<any>): Promise<APIResponse> => {
     .catch((error) => {
       return {
         status: statusCode.InternalError,
-        // TODO codeの型しらべとく
-        message: error.code,
+        message: authErrorToMessage(error.code),
         user: null,
       };
     });
