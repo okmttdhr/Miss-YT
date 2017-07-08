@@ -4,8 +4,8 @@ import { call, put } from 'redux-saga/effects';
 
 import { userMock } from '../../../Tests/mock/';
 import { userActions } from '../../Redux/';
-import { statusCode } from '../../Services/';
-import { withUpdateUser, updateProfileToFirebase } from './index';
+import { statusCode, updateProfileToFirebase } from '../../Services/';
+import { withUpdateUser } from './withUpdateUser';
 
 const actionMock = {
   type: 'type',
