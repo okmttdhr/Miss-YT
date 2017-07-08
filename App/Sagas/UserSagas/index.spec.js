@@ -4,27 +4,35 @@ import { call, put } from 'redux-saga/effects';
 
 import { userMock } from '../../../Tests/mock/';
 import { userActions } from '../../Redux/';
-import { sendEmailVerificationWithFirebase, statusCode } from '../../Services/';
-import { sendEmailVerification } from './index';
+import { statusCode } from '../../Services/';
+import { withUpdateUser, updateProfileToFirebase } from './index';
+
+const actionMock = {
+  type: 'type',
+  updates: {
+    displayName: 'displayName',
+    photoURL: 'photoURL',
+  },
+};
 
 test.serial.group('Normal', () => {
-  const generator = sendEmailVerification();
+  const generator = withUpdateUser(updateProfileToFirebase, [actionMock.updates]);
 
-  test('could set the requesting status to `redux store`', (t) => {
+  test('could set the requesting status to user state', (t) => {
     t.deepEqual(
       generator.next().value,
       put(userActions.userRequest()),
     );
   });
 
-  test('could make a request to send email', (t) => {
+  test('could call function which has side effects', (t) => {
     t.deepEqual(
       generator.next().value,
-      call(sendEmailVerificationWithFirebase),
+      call(updateProfileToFirebase, actionMock.updates),
     );
   });
 
-  test('could set the success status to `redux store`', (t) => {
+  test('could update user state if it success', (t) => {
     t.deepEqual(
       generator.next({
         status: statusCode.Ok,
@@ -38,9 +46,9 @@ test.serial.group('Normal', () => {
 });
 
 test.serial.group('Abnormal', () => {
-  const generator = sendEmailVerification();
+  const generator = withUpdateUser(updateProfileToFirebase, [actionMock.updates]);
 
-  test('could catch the error for updating', (t) => {
+  test('could catch the error', (t) => {
     generator.next();
     generator.next();
     t.deepEqual(

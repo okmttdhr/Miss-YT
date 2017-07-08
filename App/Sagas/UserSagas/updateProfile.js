@@ -1,10 +1,10 @@
 // @flow
 import Promise from 'bluebird';
-import { call, put } from 'redux-saga/effects';
+import { fork } from 'redux-saga/effects';
 
 import type {APIResponse, TUserUpdateProfileAction} from '../../types/';
-import {firebaseApp, statusCode, isSuccess, convertUserFromFirebaseToStore} from '../../Services/';
-import {userActions} from '../../Redux/';
+import {firebaseApp, statusCode} from '../../Services/';
+import {withUpdateUser} from './index';
 
 export const updateProfileToFirebase = (
   updates: {displayName: string, photoURL: string},
@@ -31,11 +31,5 @@ export const updateProfileToFirebase = (
 export function* updateProfile<T>(
   action: TUserUpdateProfileAction,
 ): Generator<T, any, any> {
-  yield put(userActions.userRequest());
-  const responce: APIResponse = yield call(updateProfileToFirebase, action.updates);
-  if (!isSuccess(responce)) {
-    yield put(userActions.userFailure(responce.message));
-    return;
-  }
-  yield put(userActions.userSuccess(convertUserFromFirebaseToStore(responce.user)));
+  yield fork(withUpdateUser, updateProfileToFirebase, [action.updates]);
 }
