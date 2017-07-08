@@ -1,7 +1,7 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { colors, Metrics, Fonts, applicationStyles } from '../../Themes/';
+import { colors, metrics, Fonts, applicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
   ...applicationStyles.screen,
@@ -9,7 +9,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     fontSize: Fonts.size.regular,
     fontWeight: 'bold',
-    marginVertical: Metrics.baseMargin,
+    marginVertical: metrics.baseMargin,
     color: colors.snow,
   },
   cardContainer: {
@@ -23,15 +23,15 @@ export default StyleSheet.create({
       width: 7,
     },
     shadowRadius: 2,
-    paddingBottom: Metrics.baseMargin,
-    margin: Metrics.baseMargin,
+    paddingBottom: metrics.baseMargin,
+    margin: metrics.baseMargin,
   },
   rowContainer: {
     flexDirection: 'row',
     borderColor: colors.windowTint,
     borderWidth: 0.5,
     borderRadius: 2,
-    marginHorizontal: Metrics.baseMargin,
+    marginHorizontal: metrics.baseMargin,
   },
   rowLabelContainer: {
     flex: 1,
@@ -41,8 +41,8 @@ export default StyleSheet.create({
   rowLabel: {
     fontWeight: 'bold',
     fontSize: Fonts.size.medium,
-    marginVertical: Metrics.baseMargin,
-    marginLeft: Metrics.baseMargin,
+    marginVertical: metrics.baseMargin,
+    marginLeft: metrics.baseMargin,
   },
   rowInfoContainer: {
     flex: 2,
@@ -51,6 +51,6 @@ export default StyleSheet.create({
   },
   rowInfo: {
     fontSize: Fonts.size.regular,
-    margin: Metrics.baseMargin,
+    margin: metrics.baseMargin,
   },
 });

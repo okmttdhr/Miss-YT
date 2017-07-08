@@ -1,7 +1,7 @@
 // @flow
 import { StyleSheet } from 'react-native';
 import {viewportWidth} from '../../Services/';
-import {flexColumnCenter} from '../../Themes/';
+import {flexColumnCenter, fontSize} from '../../Themes/';
 
 export default StyleSheet.create({
   container: {
@@ -12,5 +12,12 @@ export default StyleSheet.create({
   },
   accountShouldVerifyText: {
     lineHeight: 20,
+  },
+  email: {
+    fontSize: fontSize.medium,
+  },
+  logout: {
+    marginTop: 35,
+    fontSize: fontSize.small,
   },
 });

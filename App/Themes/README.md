@@ -4,7 +4,7 @@ Application specific themes
 
 * Base Styles
 * Fonts
-* Metrics
+* metrics
 * colors
 
 etc.

@@ -4,6 +4,7 @@ import {View, Text} from 'react-native';
 
 import styles from './style';
 import type {TDefaultUser, TUserActions} from '../../types/';
+import {logOut} from '../../Services/';
 import {DisplayName} from './DisplayName/';
 import {ShouldVerify} from './ShouldVerify/';
 
@@ -20,7 +21,8 @@ export const AccountInfo = ({user, userActions}: TAccountInfo) => (
           updateProfile={userActions.userUpdateProfile}
           user={user}
         />
-        <Text>{user.item.email}</Text>
+        <Text style={styles.email}>{user.item.email}</Text>
+        <Text style={styles.logout} onPress={logOut}>{'ログアウト'}</Text>
       </View> :
       <ShouldVerify
         user={user}

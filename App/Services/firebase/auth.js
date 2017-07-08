@@ -45,3 +45,9 @@ export const updateProfileToFirebase = (
   const user = firebaseApp.auth().currentUser;
   return updateUserResult(user.updateProfile(updates));
 };
+
+export const logOut = () => {
+  firebaseApp.auth().signOut()
+    .then(r => r)
+    .catch(e => e);
+};

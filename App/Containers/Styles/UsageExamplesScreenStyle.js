@@ -1,12 +1,12 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { colors, Fonts, Metrics, applicationStyles } from '../../Themes/';
+import { colors, Fonts, metrics, applicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
   ...applicationStyles.screen,
   loginBox: {
-    padding: Metrics.doubleBaseMargin,
+    padding: metrics.doubleBaseMargin,
   },
   loginButton: {
     borderWidth: 1,
