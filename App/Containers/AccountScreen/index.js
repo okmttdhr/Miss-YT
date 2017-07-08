@@ -25,7 +25,7 @@ export const AccountScreen = (props: IAccountScreen) => {
       <Text onPress={addChannels}>Channelを追加</Text>
       <Text onPress={updateChannels}>Channelを更新</Text>
       {user.item.uid !== '' ?
-        <AccountInfo user={user} updateProfile={actions.userUpdateProfile} /> :
+        <AccountInfo user={user} userActions={actions} /> :
         <AccountForm user={user} login={actions.userLogin} createUser={actions.userCreate} />}
     </View>
   );
