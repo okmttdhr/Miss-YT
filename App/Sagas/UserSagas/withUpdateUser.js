@@ -7,6 +7,7 @@ import {
   convertUserFromFirebaseToStore,
   sendEmailVerificationWithFirebase,
   updateProfileToFirebase,
+  currentUserReload,
 } from '../../Services/';
 import {userActions} from '../../Redux/';
 
@@ -23,12 +24,16 @@ export function* withUpdateUser<T>(
   yield put(userActions.userSuccess(convertUserFromFirebaseToStore(responce.user)));
 }
 
+export function* sendEmailVerification<T>(): Generator<T, any, any> {
+  yield fork(withUpdateUser, sendEmailVerificationWithFirebase);
+}
+
+export function* reload<T>(): Generator<T, any, any> {
+  yield fork(withUpdateUser, currentUserReload);
+}
+
 export function* updateProfile<T>(
   action: TUserUpdateProfileAction,
 ): Generator<T, any, any> {
   yield fork(withUpdateUser, updateProfileToFirebase, [action.updates]);
-}
-
-export function* sendEmailVerification<T>(): Generator<T, any, any> {
-  yield fork(withUpdateUser, sendEmailVerificationWithFirebase);
 }

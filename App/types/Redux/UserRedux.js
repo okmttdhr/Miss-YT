@@ -26,4 +26,5 @@ export type TUserActions = {
   userFailure: () => any,
   userUpdateProfile: TUserUpdateProfile,
   userSendEmailVerification: () => any,
+  userReload: () => any,
 }
