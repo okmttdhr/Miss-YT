@@ -24,6 +24,13 @@ const updateUserResult = (promise: Promise<any>): Promise<APIResponse> => {
 
 export const sendEmailVerificationWithFirebase = (): APIResponse => {
   const user = firebaseApp.auth().currentUser;
+  if (user.emailVerified) {
+    return {
+      status: statusCode.Ok,
+      message: '',
+      user,
+    };
+  }
   return updateUserResult(user.sendEmailVerification());
 };
 

@@ -46,7 +46,6 @@ export function* authenticate<T>(
     yield put(userActions.userFailure(responce.message));
     return;
   }
-  // TODO isVerifiedじゃなかったときのみ送信する
   yield call(sendEmailVerificationWithFirebase);
 }
 
