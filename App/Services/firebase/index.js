@@ -1,6 +1,8 @@
 // @flow
 import type {TUser} from '../../types/';
 
+export * from './auth';
+export * from './authErrorToMessage';
 export * from './init';
 export * from './ref';
 export * from './subscribe';

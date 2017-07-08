@@ -3,8 +3,8 @@ import test from 'ava-spec';
 import { call, put } from 'redux-saga/effects';
 
 import { userActions } from '../../Redux/';
-import { loginWithFirebase, authenticate } from './index';
-import { statusCode } from '../../Services/';
+import { loginWithFirebase, authenticate } from './authenticate';
+import { statusCode, sendEmailVerificationWithFirebase } from '../../Services/';
 
 const actionMock = {
   type: 'type',
@@ -29,12 +29,19 @@ test.serial.group('Normal', () => {
     );
   });
 
-  test('could finish `generator`', (t) => {
+  test('could send email verification', (t) => {
     t.deepEqual(
       generator.next({
         status: statusCode.Ok,
         message: '',
-      }).done,
+      }).value,
+      call(sendEmailVerificationWithFirebase),
+    );
+  });
+
+  test('could finish `generator`', (t) => {
+    t.deepEqual(
+      generator.next().done,
       true,
     );
   });

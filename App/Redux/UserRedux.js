@@ -12,6 +12,8 @@ const { Types, Creators } = createActions({
   userSuccess: ['item'],
   userFailure: ['errorMessage'],
   userUpdateProfile: ['updates'],
+  userSendEmailVerification: null,
+  userReload: null,
 });
 export const userTypes = Types;
 export const userActions: TUserActions = Creators;

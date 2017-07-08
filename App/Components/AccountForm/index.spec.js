@@ -9,7 +9,7 @@ import { assign } from 'lodash';
 import { defaultUserMock } from '../../../Tests/mock/';
 import { AccountForm } from './index';
 import { SwitchType } from './SwitchType';
-import {FullButton} from '../FullButton';
+import {ButtonDefault} from '../ButtonDefault';
 
 const loginMock = () => {
   console.log('loginMock');
@@ -34,7 +34,7 @@ test('should call createUser request', (t) => {
     <AccountForm user={defaultUserMock} login={loginMock} createUser={spiedCreateUserMock} />,
   );
   wrapper.find(SwitchType).first().simulate('press');
-  wrapper.find(FullButton).first().simulate('press');
+  wrapper.find(ButtonDefault).first().simulate('press');
   t.is(spiedCreateUserMock.called, true);
 });
 
@@ -43,7 +43,7 @@ test('should call login request', (t) => {
   const wrapper = shallow(
     <AccountForm user={defaultUserMock} login={spiedLoginMock} createUser={createUserMock} />,
   );
-  wrapper.find(FullButton).first().simulate('press');
+  wrapper.find(ButtonDefault).first().simulate('press');
   t.is(spiedLoginMock.called, true);
 });
 

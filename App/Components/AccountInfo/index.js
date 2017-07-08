@@ -3,31 +3,30 @@ import React from 'react';
 import {View, Text} from 'react-native';
 
 import styles from './style';
-import type {TDefaultUser, TUserUpdateProfile} from '../../types/';
+import type {TDefaultUser, TUserActions} from '../../types/';
 import {DisplayName} from './DisplayName/';
+import {ShouldVerify} from './ShouldVerify/';
 
 type TAccountInfo = {
   user: TDefaultUser;
-  updateProfile: TUserUpdateProfile;
+  userActions: TUserActions;
 }
 
-const AccountShouldVerify = () => (
-  <View>
-    <Text>{'AccountShouldVerify. Check your email.'}</Text>
-  </View>
-);
-
-export const AccountInfo = ({user, updateProfile}: TAccountInfo) => (
+export const AccountInfo = ({user, userActions}: TAccountInfo) => (
   <View style={styles.container}>
     {user.item.emailVerified ?
       <View style={styles.containerInfo}>
         <DisplayName
-          updateProfile={updateProfile}
+          updateProfile={userActions.userUpdateProfile}
           user={user}
         />
         <Text>{user.item.email}</Text>
       </View> :
-      <AccountShouldVerify />
+      <ShouldVerify
+        user={user}
+        sendEmailVerification={userActions.userSendEmailVerification}
+        reload={userActions.userReload}
+      />
     }
   </View>
 );

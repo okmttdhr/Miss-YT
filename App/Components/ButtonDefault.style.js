@@ -1,7 +1,7 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Fonts, colors } from '../../Themes/';
+import { Fonts, colors } from '../Themes/';
 
 export default StyleSheet.create({
   button: {

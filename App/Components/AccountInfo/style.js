@@ -10,4 +10,7 @@ export default StyleSheet.create({
   },
   containerInfo: {
   },
+  accountShouldVerifyText: {
+    lineHeight: 20,
+  },
 });

@@ -4,8 +4,8 @@ import { call, put } from 'redux-saga/effects';
 
 import { userMock } from '../../../Tests/mock/';
 import { userActions } from '../../Redux/';
-import { statusCode } from '../../Services/';
-import { update, updateProfileToFirebase } from './index';
+import { statusCode, updateProfileToFirebase } from '../../Services/';
+import { withUpdateUser } from './withUpdateUser';
 
 const actionMock = {
   type: 'type',
@@ -16,23 +16,23 @@ const actionMock = {
 };
 
 test.serial.group('Normal', () => {
-  const generator = update(actionMock);
+  const generator = withUpdateUser(updateProfileToFirebase, [actionMock.updates]);
 
-  test('could set the requesting status to `redux store`', (t) => {
+  test('could set the requesting status to user state', (t) => {
     t.deepEqual(
       generator.next().value,
       put(userActions.userRequest()),
     );
   });
 
-  test('could make a request to update', (t) => {
+  test('could call function which has side effects', (t) => {
     t.deepEqual(
       generator.next().value,
       call(updateProfileToFirebase, actionMock.updates),
     );
   });
 
-  test('could set the success status to `redux store`', (t) => {
+  test('could update user state if it success', (t) => {
     t.deepEqual(
       generator.next({
         status: statusCode.Ok,
@@ -46,9 +46,9 @@ test.serial.group('Normal', () => {
 });
 
 test.serial.group('Abnormal', () => {
-  const generator = update(actionMock);
+  const generator = withUpdateUser(updateProfileToFirebase, [actionMock.updates]);
 
-  test('could catch the error for updating', (t) => {
+  test('could catch the error', (t) => {
     generator.next();
     generator.next();
     t.deepEqual(
