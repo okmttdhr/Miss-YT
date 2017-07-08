@@ -32,8 +32,6 @@ export function* reload<T>(): Generator<T, any, any> {
   yield fork(withUpdateUser, currentUserReload);
 }
 
-export function* updateProfile<T>(
-  action: TUserUpdateProfileAction,
-): Generator<T, any, any> {
+export function* updateProfile<T>(action: TUserUpdateProfileAction): Generator<T, any, any> {
   yield fork(withUpdateUser, updateProfileToFirebase, [action.updates]);
 }
