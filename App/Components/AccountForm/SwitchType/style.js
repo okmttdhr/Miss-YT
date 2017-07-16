@@ -5,7 +5,7 @@ import {metrics, fontSize} from '../../../Themes/';
 export default StyleSheet.create({
   container: {
     marginTop: metrics.doubleBaseMargin,
-    marginBottom: metrics.doubleBaseMargin,
+    marginBottom: metrics.baseMargin,
     fontSize: fontSize.small,
   },
 });

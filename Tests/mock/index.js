@@ -4,3 +4,5 @@ export * from './channel';
 export * from './user';
 export * from './responce';
 export * from './redux';
+
+export const noop = () => {};
