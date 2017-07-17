@@ -38,8 +38,6 @@ export class AuthenticateForm extends Component {
 
   render() {
     const {type} = this.state;
-    // const {user, userActions} = this.props;
-    // const {userLogin, userCreate, userSwitchForgotPassword} = userActions;
     const {user, userActions: {userLogin, userCreate, userSwitchForgotPassword}} = this.props;
     const disabled = this.state.email === '' || this.state.password === '' || user.isFetching;
     return (

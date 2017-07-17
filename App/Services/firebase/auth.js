@@ -16,7 +16,6 @@ const updateUserResult = (promise: Promise<any>): Promise<APIResponse> => {
     .catch((error) => {
       return {
         status: statusCode.InternalError,
-        // TODO 一応日本語の文言作っとく
         message: authErrorToMessage(error.code),
         user: null,
       };
