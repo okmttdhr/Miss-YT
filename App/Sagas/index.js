@@ -11,7 +11,7 @@ import { LoginTypes } from '../Redux/LoginRedux';
 import { startup } from './StartupSagas';
 import { login as legacyLogin } from './LoginSagas';
 import { getChannels } from './ChannelsSagas';
-import { login, createUser, updateProfile, sendEmailVerification, reload } from './UserSagas';
+import { login, createUser, updateProfile, sendEmailVerification, reload, sendPasswordResetEmail } from './UserSagas';
 
 /* ------------- RootSaga ------------- */
 
@@ -26,5 +26,6 @@ export default function* root() {
     takeLatest(userTypes.USER_UPDATE_PROFILE, updateProfile),
     takeLatest(userTypes.USER_SEND_EMAIL_VERIFICATION, sendEmailVerification),
     takeLatest(userTypes.USER_RELOAD, reload),
+    takeLatest(userTypes.USER_SEND_PASSWORD_RESET_EMAIL, sendPasswordResetEmail),
   ];
 }

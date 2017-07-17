@@ -2,7 +2,7 @@
 import type {TDefaultChannels, TDefaultUser, TUserActions} from '../../../App/types/';
 import {channelsStoreWithKeyMock} from '../channel';
 import {userMock} from '../user';
-import {noop} from '../index';
+import {noop} from '../utils';
 
 export const defaultChannelsMock: TDefaultChannels = {
   items: channelsStoreWithKeyMock(),
@@ -35,4 +35,5 @@ export const userActionsMock: TUserActions = {
   userSendEmailVerification: noop,
   userReload: noop,
   userSwitchForgotPassword: noop,
+  userSendPasswordResetEmail: noop,
 };

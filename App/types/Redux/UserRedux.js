@@ -4,6 +4,7 @@ import type {TAction} from './index';
 
 export type TDefaultUser = {
   item: TUser,
+  isForgotPassword: boolean,
   isFetching: boolean,
   errorMessage: string,
 }
@@ -27,4 +28,6 @@ export type TUserActions = {
   userUpdateProfile: TUserUpdateProfile,
   userSendEmailVerification: () => any,
   userReload: () => any,
+  userSwitchForgotPassword: () => any,
+  userSendPasswordResetEmail: (email: string) => any,
 }

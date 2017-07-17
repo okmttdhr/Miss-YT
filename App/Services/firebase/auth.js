@@ -16,6 +16,7 @@ const updateUserResult = (promise: Promise<any>): Promise<APIResponse> => {
     .catch((error) => {
       return {
         status: statusCode.InternalError,
+        // TODO 一応日本語の文言作っとく
         message: authErrorToMessage(error.code),
         user: null,
       };
@@ -44,6 +45,10 @@ export const updateProfileToFirebase = (
 ): Promise<APIResponse> => {
   const user = firebaseApp.auth().currentUser;
   return updateUserResult(user.updateProfile(updates));
+};
+
+export const sendPasswordResetEmailWithFirebase = (email: string) => {
+  return updateUserResult(firebaseApp.auth().sendPasswordResetEmail(email));
 };
 
 export const logOut = () => {

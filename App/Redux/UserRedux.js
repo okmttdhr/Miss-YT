@@ -14,6 +14,8 @@ const { Types, Creators } = createActions({
   userUpdateProfile: ['updates'],
   userSendEmailVerification: null,
   userReload: null,
+  userSwitchForgotPassword: null,
+  userSendPasswordResetEmail: ['email'],
 });
 export const userTypes = Types;
 export const userActions: TUserActions = Creators;
@@ -35,6 +37,7 @@ const defaultItem = {
 
 export const defaultUser: TDefaultUser = {
   item: defaultItem,
+  isForgotPassword: false,
   isFetching: false,
   errorMessage: '',
 };
@@ -43,8 +46,9 @@ export const DEFAULT_USER = Immutable(defaultUser);
 /* ------------- Reducers ------------- */
 
 export const userReducer = createReducer(DEFAULT_USER, {
-  [Types.USER_REQUEST]: (state: Object) =>
-    state.merge({ isFetching: true, errorMessage: '' }),
+  [Types.USER_REQUEST]: (state: Object) => {
+    return state.merge({ isFetching: true, errorMessage: '' });
+  },
   [Types.USER_SUCCESS]: (state: Object, { item }: Object) => {
     return state.merge({
       item,
@@ -54,4 +58,7 @@ export const userReducer = createReducer(DEFAULT_USER, {
   },
   [Types.USER_FAILURE]: (state: Object, { errorMessage = '' }: Object) =>
     state.merge({ isFetching: false, errorMessage }),
+  [Types.USER_SWITCH_FORGOT_PASSWORD]: (state: Object) => {
+    return state.merge({ isForgotPassword: !state.isForgotPassword });
+  },
 });

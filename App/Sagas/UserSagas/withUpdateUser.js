@@ -8,8 +8,9 @@ import {
   sendEmailVerificationWithFirebase,
   updateProfileToFirebase,
   currentUserReload,
+  sendPasswordResetEmailWithFirebase,
 } from '../../Services/';
-import {userActions} from '../../Redux/';
+import {userActions, defaultUser} from '../../Redux/';
 
 export function* withUpdateUser<T>(
   effect: (...args: any) => any,
@@ -19,6 +20,10 @@ export function* withUpdateUser<T>(
   const responce: APIResponse = yield call(effect, ...args);
   if (!isSuccess(responce)) {
     yield put(userActions.userFailure(responce.message));
+    return;
+  }
+  if (!responce.user) {
+    yield put(userActions.userSuccess(convertUserFromFirebaseToStore(defaultUser.item)));
     return;
   }
   yield put(userActions.userSuccess(convertUserFromFirebaseToStore(responce.user)));
@@ -34,4 +39,8 @@ export function* reload<T>(): Generator<T, any, any> {
 
 export function* updateProfile<T>(action: TUserUpdateProfileAction): Generator<T, any, any> {
   yield fork(withUpdateUser, updateProfileToFirebase, [action.updates]);
+}
+
+export function* sendPasswordResetEmail<T>(action: {email: string}): Generator<T, any, any> {
+  yield fork(withUpdateUser, sendPasswordResetEmailWithFirebase, [action.email]);
 }

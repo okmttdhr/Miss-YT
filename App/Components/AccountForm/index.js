@@ -24,7 +24,7 @@ export class AccountForm extends Component {
         {user.isForgotPassword ?
           <PasswordResetForm
             user={user}
-            switchForgotPassword={userActions.userSwitchForgotPassword}
+            userActions={userActions}
           /> :
           <AuthenticateForm
             user={user}
