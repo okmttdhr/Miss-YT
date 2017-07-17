@@ -1,4 +1,5 @@
 // @flow
+import {REHYDRATE} from 'redux-persist/constants';
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 import {PER_PAGE} from '../constants';
@@ -53,4 +54,12 @@ export const channelsReducer = createReducer(DEFAULT_CHANNELS, {
   },
   [Types.SET_CONTENT_HEIGHT]: (state: Object, {contentHeight}: Object) =>
     state.merge({ contentHeight }),
+  [REHYDRATE]: (state: Object) => {
+    return state.merge({
+      isFetching: false,
+      errorMessage: '',
+      contentHeight: 0,
+      startAt: 1,
+    });
+  },
 });

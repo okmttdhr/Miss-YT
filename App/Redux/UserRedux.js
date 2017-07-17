@@ -1,6 +1,7 @@
 // @flow
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
+import {REHYDRATE} from 'redux-persist/constants';
 import type {TDefaultUser, TUserActions} from '../types/';
 
 /* ------------- Types and Action Creators ------------- */
@@ -60,5 +61,12 @@ export const userReducer = createReducer(DEFAULT_USER, {
     state.merge({ isFetching: false, errorMessage }),
   [Types.USER_SWITCH_FORGOT_PASSWORD]: (state: Object) => {
     return state.merge({ isForgotPassword: !state.isForgotPassword });
+  },
+  [REHYDRATE]: (state: Object) => {
+    return state.merge({
+      isForgotPassword: false,
+      isFetching: false,
+      errorMessage: '',
+    });
   },
 });
