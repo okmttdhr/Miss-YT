@@ -5,27 +5,9 @@ import {Text} from 'react-native';
 import { shallow } from 'enzyme';
 import { merge } from 'lodash';
 
-import { defaultUserMock } from '../../../Tests/mock/';
-import { noop } from '../../Services';
+import { defaultUserMock, userActionsMock } from '../../../Tests/mock/';
 import { AccountInfo } from './index';
 import {DisplayName} from './DisplayName/';
-
-const userActionsMock = {
-  userRequest: noop,
-  userLogin: (email: string, password: string) => {
-    console.log('userActionsMock.userLogin');
-    console.log(email, password);
-  },
-  userCreate: (email: string, password: string) => {
-    console.log('userActionsMock.userCreate');
-    console.log(email, password);
-  },
-  userSuccess: noop,
-  userFailure: noop,
-  userUpdateProfile: noop,
-  userSendEmailVerification: noop,
-  userReload: noop,
-};
 
 test('should display name and email', (t) => {
   const verifiedUserMock = merge({}, defaultUserMock, {item: {emailVerified: true}});

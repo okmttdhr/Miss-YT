@@ -1,7 +1,7 @@
 // @flow
 
 export const authErrorToMessage = (code: string) => {
-  let message: string = '';
+  let message: string = '認証に失敗しました。時間が経ってから再度お試しください。';
   switch (code) {
     case 'auth/email-already-in-use':
       message = 'そのメールアドレスは既に使用されています。';
@@ -70,10 +70,10 @@ export const authErrorToMessage = (code: string) => {
       message = 'auth/invalid-verification-id';
       break;
     case 'auth/expired-action-code':
-      message = 'auth/expired-action-code';
+      message = 'URLの有効期限が切れています。もう一度メールを送信してお試しください。';
       break;
     case 'auth/invalid-action-code':
-      message = 'auth/invalid-action-code';
+      message = '不正なURLです。もう一度メールを送信してお試しください。';
       break;
     case 'auth/missing-verification-code':
       message = 'auth/missing-verification-code';

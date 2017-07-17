@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js run-ios",
     "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean",
+    "reset": "rm -rf node_modules .yarnclean && yarn",
     "newclear": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && npm cache clean && npm i",
     "lint": "$(npm bin)/eslint ./",
     "lint:fix": "yarn lint -- --fix",
@@ -74,7 +75,7 @@
       "App/{,**/}*.spec.js",
       "Tests/**/*.js",
       "!Tests/Setup.js",
-      "!Tests/mock/**/*.js"
+      "!Tests/mock/{,**/}*.js"
     ],
     "require": [
       "babel-register",

@@ -46,6 +46,10 @@ export const updateProfileToFirebase = (
   return updateUserResult(user.updateProfile(updates));
 };
 
+export const sendPasswordResetEmailWithFirebase = (email: string) => {
+  return updateUserResult(firebaseApp.auth().sendPasswordResetEmail(email));
+};
+
 export const logOut = () => {
   firebaseApp.auth().signOut()
     .then(r => r)

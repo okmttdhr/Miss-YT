@@ -1,6 +1,6 @@
+import { is } from 'ramda';
 import { put, select } from 'redux-saga/effects';
 import TemperatureActions from '../Redux/TemperatureRedux';
-import { is } from 'ramda';
 
 // exported to make available for tests
 export const selectTemperature = state => state.temperature.temperature;
