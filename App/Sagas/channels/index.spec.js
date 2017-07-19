@@ -2,10 +2,10 @@ import test from 'ava-spec';
 import Promise from 'bluebird';
 import { call, put, select } from 'redux-saga/effects';
 
-import { firebaseChannelsResponse, channelsStoreMock, channelsStoreWithKeyMock } from '../../Tests/mock/';
-import { channelsActions } from '../Redux/ChannelsRedux';
-import { getChannels, getFromFirebase, createIsLikedPromises, getStartAt } from './ChannelsSagas';
-import { statusCode } from '../Services/';
+import { firebaseChannelsResponse, channelsStoreMock, channelsStoreWithKeyMock } from '../../../Tests/mock/';
+import { channelsActions } from '../../Redux/ChannelsRedux';
+import { statusCode } from '../../Services/';
+import { getChannels, getFromFirebase, createIsLikedPromises, getStartAt } from './index';
 
 test.serial.group('Normal', () => {
   const generator = getChannels();

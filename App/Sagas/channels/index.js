@@ -3,10 +3,10 @@ import Promise from 'bluebird';
 import { assign } from 'lodash';
 import { call, put, select } from 'redux-saga/effects';
 
-import type {TChannel, TChannelStore, TRootState, APIResponse} from '../types/';
-import {PER_PAGE} from '../constants';
-import {channelsRef, likesRef, statusCode, snapshotExists} from '../Services/';
-import {channelsActions} from '../Redux/';
+import type {TChannel, TChannelStore, TRootState, APIResponse} from '../../types/';
+import {PER_PAGE} from '../../constants';
+import {channelsRef, likesRef, statusCode, snapshotExists} from '../../Services/';
+import {channelsActions} from '../../Redux/';
 
 export const getStartAt = (state: TRootState) => state.channels.startAt;
 
@@ -30,7 +30,7 @@ const getIsLiked = (userId: string, channelId: string) =>
     .then(snapshotExists)
     .catch(() => false);
 
-export const createIsLikedPromises = (snapshot: any) => {
+export const createIsLikedPromises = (snapshot: any): Promise<Array<TChannelStore>> => {
   const isLikedPromises = [];
   snapshot.forEach((s) => {
     const channel: TChannel = s.val();
@@ -60,3 +60,36 @@ export function* getChannels<T>(): Generator<T, any, any> {
     yield put(channelsActions.channelsSuccess(channels));
   }
 }
+
+// const getChannelsTmp = (snapshot: any): Promise<Array<TChannelStore>> => {
+//   const promises = [];
+//   snapshot.forEach((s) => {
+//     const like: TLike = s.val();
+//     const promise = getChannel(like.channelId)
+//       .then((channel: TChannel): TChannelStore => assign({}, channel, {
+//         isLiked: true,
+//         rank: like.rank,
+//         likeCount: like.count,
+//       }))
+//       .catch(() => {
+//         return {status: 'inactive'};
+//       })
+//       ;
+//     promises.push(promise);
+//   });
+//   return promises;
+// };
+//
+// export function* getLikedChannels<T>(): Generator<T, any, any> {
+//   const startAt = yield select(getStartAt);
+//   const responce: APIResponse = yield call(getLikesFromFirebase, startAt);
+//   const promises: Promise<TChannelStore[]> = yield call(getChannelsTmp, responce.snapshot);
+//   const channelsArray: TChannelStore[] = yield call(Promise.all, promises);
+//   const channels: {[key: string]: TChannelStore} = {};
+//   channelsArray.forEach((channel) => {
+//     if (channel.status === 'active') {
+//       channels[channel.id] = channel;
+//     }
+//   });
+//   yield put(channelsActions.channelsSuccess(channels));
+// }

@@ -26,7 +26,7 @@ export type likes = {
       id: string;
       channelId: string;
       rank: number;
-      likeCount: number;
+      count: number;
     }
   ]
 }

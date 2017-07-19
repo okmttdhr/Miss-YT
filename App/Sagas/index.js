@@ -8,7 +8,7 @@ import { StartupTypes } from '../Redux/StartupRedux';
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas';
-import { getChannels } from './ChannelsSagas';
+import { getChannels } from './channels';
 import { login, createUser, updateProfile, sendEmailVerification, reload, sendPasswordResetEmail } from './UserSagas';
 
 /* ------------- RootSaga ------------- */
