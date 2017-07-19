@@ -8,10 +8,13 @@ import {PER_PAGE} from '../../constants';
 import {channelsRef, likesRef, statusCode, snapshotExists} from '../../Services/';
 import {channelsActions} from '../../Redux/';
 
+export * from './liked';
+
 export const getStartAt = (state: TRootState) => state.channels.startAt;
 
 export const getFromFirebase = (startAt: number) => {
-  return channelsRef.orderByChild('rank').startAt(startAt).limitToFirst(PER_PAGE).once('value')
+  return channelsRef.orderByChild('rank').startAt(startAt).limitToFirst(PER_PAGE)
+    .once('value')
     .then((snapshot): APIResponse => {
       return {
         status: snapshotExists(snapshot) ? statusCode.Ok : statusCode.NotFound,
@@ -50,7 +53,6 @@ export function* getChannels<T>(): Generator<T, any, any> {
   } else {
     const isLikedPromises = createIsLikedPromises(responce.snapshot);
     const channelsArray: TChannelStore[] = yield call(Promise.all, isLikedPromises);
-
     const channels: {[key: string]: TChannelStore} = {};
     channelsArray.forEach((channel) => {
       if (channel.status === 'active') {
@@ -60,36 +62,3 @@ export function* getChannels<T>(): Generator<T, any, any> {
     yield put(channelsActions.channelsSuccess(channels));
   }
 }
-
-// const getChannelsTmp = (snapshot: any): Promise<Array<TChannelStore>> => {
-//   const promises = [];
-//   snapshot.forEach((s) => {
-//     const like: TLike = s.val();
-//     const promise = getChannel(like.channelId)
-//       .then((channel: TChannel): TChannelStore => assign({}, channel, {
-//         isLiked: true,
-//         rank: like.rank,
-//         likeCount: like.count,
-//       }))
-//       .catch(() => {
-//         return {status: 'inactive'};
-//       })
-//       ;
-//     promises.push(promise);
-//   });
-//   return promises;
-// };
-//
-// export function* getLikedChannels<T>(): Generator<T, any, any> {
-//   const startAt = yield select(getStartAt);
-//   const responce: APIResponse = yield call(getLikesFromFirebase, startAt);
-//   const promises: Promise<TChannelStore[]> = yield call(getChannelsTmp, responce.snapshot);
-//   const channelsArray: TChannelStore[] = yield call(Promise.all, promises);
-//   const channels: {[key: string]: TChannelStore} = {};
-//   channelsArray.forEach((channel) => {
-//     if (channel.status === 'active') {
-//       channels[channel.id] = channel;
-//     }
-//   });
-//   yield put(channelsActions.channelsSuccess(channels));
-// }
