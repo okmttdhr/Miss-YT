@@ -3,7 +3,7 @@ import Promise from 'bluebird';
 import { call, put, select } from 'redux-saga/effects';
 
 import { firebaseChannelsResponse, channelsStoreMock, channelsStoreWithKeyMock } from '../../../Tests/mock/';
-import { channelsActions } from '../../Redux/ChannelsRedux';
+import { channelsActions } from '../../Redux/channels';
 import { statusCode } from '../../Services/';
 import { getChannels, getFromFirebase, createIsLikedPromises, getStartAt } from './index';
 

@@ -5,7 +5,7 @@ import { chunk, orderBy } from 'lodash';
 
 import styles from './style';
 import type {TChannelStore} from '../../types/Channel';
-import type {TDefaultChannels} from '../../types/Redux/ChannelsRedux';
+import type {TDefaultChannels} from '../../types/Redux/channels';
 import {Panel} from './Panel';
 import {Loading} from '../Loading/';
 

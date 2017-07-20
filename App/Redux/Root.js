@@ -2,7 +2,7 @@
 import { combineReducers } from 'redux';
 import configureStore from './CreateStore';
 import rootSaga from '../Sagas/';
-import { channelsReducer } from './ChannelsRedux';
+import { channelsReducer } from './channels';
 import { userReducer } from './UserRedux';
 
 export const createStore = () => {
