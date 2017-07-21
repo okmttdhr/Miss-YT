@@ -2,7 +2,7 @@
 import {range} from 'lodash';
 import type {TChannelStore} from '../../App/types/Channel';
 
-// separate store's channel from firebase's channel considering readability as mock
+// separate firebase's channel from firebase's channel considering readability as mock
 export const channelStoreMock = (i: number = 0): TChannelStore => ({
   id: `ID${i}`,
   createdAt: 12345,

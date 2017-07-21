@@ -3,10 +3,10 @@ import Promise from 'bluebird';
 import { assign } from 'lodash';
 import { call, put, select } from 'redux-saga/effects';
 
-import type {TChannel, TChannelStore, APIResponse, TRootState, TLike} from '../../types/';
-import {PER_PAGE} from '../../constants';
-import {channelsActions} from '../../Redux/';
-import {likesRef, channelsRef, snapshotExists, statusCode, isSuccess} from '../../Services/';
+import type {TChannel, TChannelStore, APIResponse, TRootState, TLike} from '../types/';
+import {PER_PAGE} from '../constants';
+import {channelsActions} from '../Redux/';
+import {likesRef, channelsRef, snapshotExists, statusCode, isSuccess} from '../Services/';
 
 export const getStartAt = (state: TRootState) => state.likedChannels.startAt;
 
@@ -23,6 +23,7 @@ export const getLikesFromFirebase = (userId: string, startAt: number) => {
     .catch((): APIResponse => ({
       status: statusCode.InternalError,
       message: '',
+      snapshot: null,
     }));
 };
 
@@ -39,10 +40,11 @@ const getChannel = (channelId: string): Promise<Array<TChannelStore>> => {
     .catch((): APIResponse => ({
       status: statusCode.InternalError,
       message: '',
+      snapshot: null,
     }));
 };
 
-const getChannels = (snapshot: any): Promise<Array<TChannelStore>> => {
+export const getChannels = (snapshot: any): Array<Promise<TChannelStore>> => {
   const promises = [];
   snapshot.forEach((s) => {
     const like: TLike = s.val();
@@ -73,7 +75,7 @@ export function* getLikedChannels<T>(): Generator<T, any, any> {
   if (!isSuccess(responce)) {
     yield put(channelsActions.channelsFailure());
   }
-  const channelsPromise: Promise<TChannelStore[]> = yield call(getChannels, responce.snapshot);
+  const channelsPromise: Array<Promise<TChannelStore>> = yield call(getChannels, responce.snapshot);
   const channelsArray: TChannelStore[] = yield call(Promise.all, channelsPromise);
   const channels: {[key: string]: TChannelStore} = {};
   // TODO 共通化

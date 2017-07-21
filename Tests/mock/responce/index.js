@@ -1,8 +1,8 @@
 // @flow
 import {range} from 'lodash';
-import type {TChannel} from '../../../App/types/Channel';
+import type {TLike, TChannel, FirebaseServiceResponse} from '../../../App/types/';
 
-const snapshotMock = (value: Object) => ({
+const snapshotMock = (value: any) => ({
   key: 'key',
   val: () => value,
 });
@@ -27,20 +27,49 @@ export const firebaseChannelMock = (i: number = 0): TChannel => ({
   },
 });
 
-const firebaseChannelsMock = range(10).map((i: number): TChannel => firebaseChannelMock(i));
+const firebaseChannelsMock: Array<TChannel> =
+  range(10).map((i: number): TChannel => firebaseChannelMock(i));
 
-export const firebaseChannelsResponse = (status: number = 200) => {
-  let responce;
+export const firebaseChannelsResponse = (status: number = 200): FirebaseServiceResponse => {
+  let responce = {
+    status: 200,
+    message: '',
+    snapshot: [
+      snapshotMock(firebaseChannelsMock),
+    ],
+  };
   switch (status) {
-    case 200:
+    case 500:
       responce = {
-        status: 200,
+        status: 500,
         message: '',
-        snapshot: [
-          snapshotMock(firebaseChannelsMock),
-        ],
+        snapshot: null,
       };
       break;
+    // no default
+  }
+  return responce;
+};
+
+export const firebaseLikeMock = (i: number = 0): TLike => ({
+  id: `ID${i}`,
+  channelId: `CHANNEL_ID${i}`,
+  rank: 0 + i,
+  count: 0 + i,
+});
+
+const firebaseLikesMock: Array<TChannel> =
+  range(10).map((i: number): TLike => firebaseLikeMock(i));
+
+export const firebaseLikesResponse = (status: number = 200): FirebaseServiceResponse => {
+  let responce = {
+    status: 200,
+    message: '',
+    snapshot: [
+      snapshotMock(firebaseLikesMock),
+    ],
+  };
+  switch (status) {
     case 500:
       responce = {
         status: 500,
