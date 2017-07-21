@@ -8,8 +8,6 @@ import {PER_PAGE} from '../../constants';
 import {channelsRef, likesRef, statusCode, snapshotExists} from '../../Services/';
 import {channelsActions} from '../../Redux/';
 
-export * from './liked';
-
 export const getStartAt = (state: TRootState) => state.channels.startAt;
 
 export const getFromFirebase = (startAt: number) => {
