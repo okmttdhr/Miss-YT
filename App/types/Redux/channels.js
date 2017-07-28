@@ -15,5 +15,6 @@ export type TChannelsActions = {
   channelsFailure: () => any,
   channelsChanged: () => any,
   channelsRemoved: () => any,
+  // TODO channelsだけの型に命名リファクタ
   setContentHeight: (height: number) => void,
 }

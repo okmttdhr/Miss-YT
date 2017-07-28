@@ -4,3 +4,7 @@ export type APIResponse = {
   message: string;
   [key: string]: any;
 }
+
+export type FirebaseServiceResponse = APIResponse & {
+  snapshot: any;
+}

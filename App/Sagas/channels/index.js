@@ -3,15 +3,16 @@ import Promise from 'bluebird';
 import { assign } from 'lodash';
 import { call, put, select } from 'redux-saga/effects';
 
-import type {TChannel, TChannelStore, TRootState, APIResponse} from '../types/';
-import {PER_PAGE} from '../constants';
-import {channelsRef, likesRef, statusCode, snapshotExists} from '../Services/';
-import {channelsActions} from '../Redux/';
+import type {TChannel, TChannelStore, TRootState, APIResponse} from '../../types/';
+import {PER_PAGE} from '../../constants';
+import {channelsRef, likesRef, statusCode, snapshotExists} from '../../Services/';
+import {channelsActions} from '../../Redux/';
 
 export const getStartAt = (state: TRootState) => state.channels.startAt;
 
 export const getFromFirebase = (startAt: number) => {
-  return channelsRef.orderByChild('rank').startAt(startAt).limitToFirst(PER_PAGE).once('value')
+  return channelsRef.orderByChild('rank').startAt(startAt).limitToFirst(PER_PAGE)
+    .once('value')
     .then((snapshot): APIResponse => {
       return {
         status: snapshotExists(snapshot) ? statusCode.Ok : statusCode.NotFound,
@@ -30,7 +31,7 @@ const getIsLiked = (userId: string, channelId: string) =>
     .then(snapshotExists)
     .catch(() => false);
 
-export const createIsLikedPromises = (snapshot: any) => {
+export const createIsLikedPromises = (snapshot: any): Promise<Array<TChannelStore>> => {
   const isLikedPromises = [];
   snapshot.forEach((s) => {
     const channel: TChannel = s.val();
@@ -50,7 +51,6 @@ export function* getChannels<T>(): Generator<T, any, any> {
   } else {
     const isLikedPromises = createIsLikedPromises(responce.snapshot);
     const channelsArray: TChannelStore[] = yield call(Promise.all, isLikedPromises);
-
     const channels: {[key: string]: TChannelStore} = {};
     channelsArray.forEach((channel) => {
       if (channel.status === 'active') {

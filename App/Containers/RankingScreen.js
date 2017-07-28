@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View } from 'react-native';
 
-import type {TDefaultChannels, TChannelsActions} from '../types/Redux/ChannelsRedux';
+import type {TDefaultChannels, TChannelsActions} from '../types/Redux/channels';
 
 import styles from './Styles/RankingScreenStyle';
 import {channelsActions} from '../Redux/';

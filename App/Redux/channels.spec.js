@@ -2,7 +2,7 @@
 import test from 'ava';
 import Immutable from 'seamless-immutable';
 import {assign} from 'lodash';
-import { channelsActions, channelsReducer, DEFAULT_CHANNELS } from './ChannelsRedux';
+import { channelsActions, channelsReducer, DEFAULT_CHANNELS } from './channels';
 import {defaultChannelsMock, firebaseChannelMock} from '../../Tests/mock/';
 
 test('could make a request to get Channels', (t) => {

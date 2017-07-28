@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { autoRehydrate } from 'redux-persist';
 import createLogger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
-import R from 'ramda';
+import {not, contains} from 'ramda';
 
 import Config from '../Config/DebugSettings';
 import ReduxPersist from '../Config/ReduxPersist';
@@ -23,12 +23,12 @@ export default (rootReducer, rootSaga) => {
 
   /* ------------- Logger Middleware ------------- */
 
-  const SAGA_LOGGING_BLACKLIST = ['EFFECT_TRIGGERED', 'EFFECT_RESOLVED', 'EFFECT_REJECTED', 'persist/REHYDRATE'];
+  const SAGA_LOGGING_BLACKLIST = ['EFFECT_TRIGGERED', 'EFFECT_RESOLVED', 'EFFECT_REJECTED'];
   if (__DEV__) {
     const USE_LOGGING = Config.reduxLogging;
     const logger = createLogger({
       predicate: (getState, { type }) => {
-        return USE_LOGGING && R.not(R.contains(type, SAGA_LOGGING_BLACKLIST));
+        return USE_LOGGING && not(contains(type, SAGA_LOGGING_BLACKLIST));
       },
     });
     middleware.push(logger);
