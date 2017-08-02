@@ -4,7 +4,7 @@ import Promise from 'bluebird';
 import { call, put, select } from 'redux-saga/effects';
 
 import { firebaseLikesResponse, channelsStoreMock, channelsStoreWithKeyMock } from '../../Tests/mock/';
-import { channelsActions } from '../Redux/channels';
+import { likedChannelsActions } from '../Redux/';
 import { statusCode } from '../Services/';
 import { getLikedChannels, getLikesFromFirebase, getStartAt, getChannels } from './likedChannels';
 
@@ -48,7 +48,7 @@ test.serial.group('Normal', () => {
   test('could send ChannelStore to action', (t) => {
     t.deepEqual(
       generator.next(channelsStoreMock).value,
-      put(channelsActions.channelsSuccess(channelsStoreWithKeyMock())),
+      put(likedChannelsActions.likedChannelsSuccess(channelsStoreWithKeyMock())),
     );
   });
 });
@@ -62,7 +62,7 @@ test.serial.group('Abnormal', () => {
     generator.next();
     t.deepEqual(
       generator.next(errorResponce).value,
-      put(channelsActions.channelsFailure()),
+      put(likedChannelsActions.likedChannelsFailure()),
     );
   });
 });

@@ -35,6 +35,7 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
   [Types.LIKED_CHANNELS_REQUEST]: (state: Object) =>
     state.merge({ isFetching: true, errorMessage: '' }),
   [Types.LIKED_CHANNELS_SUCCESS]: (state: Object, { items }: Object) => {
+    console.log('LIKED_CHANNELS_SUCCESS');
     const newItem = state.items.merge(items);
     return state.merge({
       isFetching: false,

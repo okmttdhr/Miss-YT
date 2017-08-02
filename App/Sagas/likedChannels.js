@@ -5,7 +5,7 @@ import { call, put, select } from 'redux-saga/effects';
 
 import type {TChannel, TChannelStore, APIResponse, TRootState, TLike} from '../types/';
 import {PER_PAGE} from '../constants';
-import {channelsActions} from '../Redux/';
+import {likedChannelsActions} from '../Redux/';
 import {likesRef, channelsRef, snapshotExists, statusCode, isSuccess} from '../Services/';
 
 export const getStartAt = (state: TRootState) => state.likedChannels.startAt;
@@ -46,6 +46,7 @@ const getChannel = (channelId: string): Promise<Array<TChannelStore>> => {
 
 export const getChannels = (snapshot: any): Array<Promise<TChannelStore>> => {
   const promises = [];
+  console.log(3);
   snapshot.forEach((s) => {
     const like: TLike = s.val();
     const promise = getChannel(like.channelId)
@@ -72,17 +73,20 @@ export const getChannels = (snapshot: any): Array<Promise<TChannelStore>> => {
 export function* getLikedChannels<T>(): Generator<T, any, any> {
   const startAt = yield select(getStartAt);
   const responce: APIResponse = yield call(getLikesFromFirebase, startAt);
+  console.log('responce', responce);
   if (!isSuccess(responce)) {
-    yield put(channelsActions.channelsFailure());
+    yield put(likedChannelsActions.likedChannelsFailure());
+    return;
   }
   const channelsPromise: Array<Promise<TChannelStore>> = yield call(getChannels, responce.snapshot);
   const channelsArray: TChannelStore[] = yield call(Promise.all, channelsPromise);
   const channels: {[key: string]: TChannelStore} = {};
   // TODO 共通化
+  console.log(4);
   channelsArray.forEach((channel) => {
     if (channel.status === 'active') {
       channels[channel.id] = channel;
     }
   });
-  yield put(channelsActions.channelsSuccess(channels));
+  yield put(likedChannelsActions.likedChannelsSuccess(channels));
 }
