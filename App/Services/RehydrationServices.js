@@ -25,7 +25,6 @@ const updateReducers = (store: Object) => {
       AsyncStorage.setItem('reducerVersion', reducerVersion);
       return;
     }
-    console.log('persistStore');
     persistStore(store, config, startup);
   }).catch(() => {
     persistStore(store, config, startup);
