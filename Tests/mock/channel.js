@@ -1,10 +1,9 @@
 // @flow
 import {range} from 'lodash';
-import type {TChannelStore} from '../../App/types/Channel';
+import type {TChannelStore, TChannel} from '../../App/types/Channel';
 import {channelStoreArrayToActiveObject} from '../../App/Services';
 
-// separate firebase's channel from firebase's channel considering readability as mock
-export const channelStoreMock = (i: number = 0): TChannelStore => ({
+export const channelMock = (i: number = 0): TChannel => ({
   id: `ID${i}`,
   createdAt: 12345,
   modifiedAt: 12345,
@@ -12,7 +11,6 @@ export const channelStoreMock = (i: number = 0): TChannelStore => ({
   score: i + 1,
   likeCount: 0,
   status: i % 2 === 0 ? 'active' : 'inactive',
-  isLiked: i % 2 === 0,
   youtube: {
     id: `ID${i}`,
     name: `NAME${i}`,
@@ -23,6 +21,19 @@ export const channelStoreMock = (i: number = 0): TChannelStore => ({
     viewCount: i + 1,
   },
 });
+
+export const channelStoreMock = (i: number = 0): TChannelStore => {
+  return {
+    ...channelMock(i),
+    isLiked: i % 2 === 0,
+    isFetching: false,
+    errorMessage: '',
+  };
+};
+
+export const channelStoreWithKeyMock = (i: number = 0) => {
+  return channelStoreArrayToActiveObject([channelStoreMock(i)]);
+};
 
 export const channelsStoreMock = range(10).map((i: number): TChannelStore => channelStoreMock(i));
 

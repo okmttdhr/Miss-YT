@@ -1,31 +1,16 @@
 // @flow
 import {range} from 'lodash';
 import type {TLike, TChannel, FirebaseServiceResponse} from '../../../App/types/';
+import {channelMock} from '../channel';
 
 const snapshotMock = (value: any) => ({
   key: 'key',
   val: () => value,
 });
 
-// separate store's channel from firebase's channel considering readability as mock
-export const firebaseChannelMock = (i: number = 0): TChannel => ({
-  id: `ID${i}`,
-  createdAt: 12345,
-  modifiedAt: 12345,
-  rank: 0,
-  score: i + 1,
-  likeCount: 0,
-  status: i % 2 === 0 ? 'active' : 'inactive',
-  youtube: {
-    id: `ID${i}`,
-    name: `NAME${i}`,
-    description: `DESCRIPTION${i}`,
-    thumbnail: `THUMBNAIL${i}`,
-    banner: `BANNER${i}`,
-    subscriberCount: i + 1,
-    viewCount: i + 1,
-  },
-});
+export const firebaseChannelMock = (i: number = 0): TChannel => {
+  return channelMock(i);
+};
 
 const firebaseChannelsMock: Array<TChannel> =
   range(10).map((i: number): TChannel => firebaseChannelMock(i));

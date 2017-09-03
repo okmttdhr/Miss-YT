@@ -1,3 +1,4 @@
+// @flow
 export * from './PresentationScreen';
 export * from './AccountScreen';
 export * from './MyRankingScreen';

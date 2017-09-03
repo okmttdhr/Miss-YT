@@ -24,5 +24,7 @@ export type TChannel = {
 }
 
 export type TChannelStore = TChannel & {
-  isLiked: boolean
+  isLiked: boolean;
+  isFetching: boolean;
+  errorMessage: string;
 }

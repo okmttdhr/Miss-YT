@@ -33,6 +33,7 @@ export const activeChannelStoreArray = (channelsArray: TChannelStore[]) => {
   });
 };
 
-export const channelStoreArrayToActiveObject = (channelsArray: TChannelStore[]) => {
+export const channelStoreArrayToActiveObject =
+(channelsArray: TChannelStore[]): {[key: string]: TChannelStore} => {
   return channelStoreArrayToObject(activeChannelStoreArray(channelsArray));
 };

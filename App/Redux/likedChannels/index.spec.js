@@ -2,8 +2,8 @@
 import test from 'ava';
 import Immutable from 'seamless-immutable';
 import {assign} from 'lodash';
-import { likedChannelsActions, likedChannelsReducer, DEFAULT_LIKED_CHANNELS } from './likedChannels';
-import {defaultChannelsMock, firebaseChannelMock} from '../../Tests/mock/';
+import { likedChannelsActions, likedChannelsReducer, DEFAULT_LIKED_CHANNELS } from '../likedChannels';
+import {defaultChannelsMock, firebaseChannelMock} from '../../../Tests/mock/';
 
 test('could make a request to get liked Channels', (t) => {
   const state = likedChannelsReducer(

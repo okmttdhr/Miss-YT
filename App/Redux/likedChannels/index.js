@@ -2,8 +2,9 @@
 import {REHYDRATE} from 'redux-persist/constants';
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
-import {PER_PAGE} from '../constants';
-import type {TDefaultLikedChannels, TLikedChannelsActions, TChannel} from '../types/';
+import {PER_PAGE} from '../../constants';
+import type {TDefaultLikedChannels, TLikedChannelsActions, TChannel} from '../../types/';
+import {likesPostActions, likesPostReducer} from '../likesPost';
 
 /* ------------- Types and Action Creators ------------- */
 
@@ -14,6 +15,7 @@ const { Types, Creators } = createActions({
   likedChannelsChanged: ['item'],
   likedChannelsRemoved: ['item'],
   likedChannelsSetContentHeight: ['contentHeight'],
+  ...likesPostActions,
 });
 export const likedChannelsTypes = Types;
 export const likedChannelsActions: TLikedChannelsActions = Creators;
@@ -35,7 +37,6 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
   [Types.LIKED_CHANNELS_REQUEST]: (state: Object) =>
     state.merge({ isFetching: true, errorMessage: '' }),
   [Types.LIKED_CHANNELS_SUCCESS]: (state: Object, { items }: Object) => {
-    console.log('LIKED_CHANNELS_SUCCESS');
     const newItem = state.items.merge(items);
     return state.merge({
       isFetching: false,
@@ -55,12 +56,13 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
   },
   [Types.LIKED_CHANNELS_SET_CONTENT_HEIGHT]: (state: Object, {contentHeight}: Object) =>
     state.merge({ contentHeight }),
-  [REHYDRATE]: (state: Object) => {
-    return state.merge({
+  [REHYDRATE]: (state: Object, {payload: {likedChannels}}) => {
+    return state.merge(likedChannels, {
       isFetching: false,
       errorMessage: '',
       contentHeight: 0,
       startAt: 1,
     });
   },
+  ...likesPostReducer,
 });
