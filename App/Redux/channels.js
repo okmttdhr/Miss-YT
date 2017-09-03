@@ -57,6 +57,9 @@ export const channelsReducer = createReducer(DEFAULT_CHANNELS, {
   [Types.SET_CONTENT_HEIGHT]: (state: Object, {contentHeight}: Object) =>
     state.merge({ contentHeight }),
   [REHYDRATE]: (state: Object, {payload: {channels}}) => {
+    if (!channels) {
+      return state;
+    }
     return state.merge(channels, {
       isFetching: false,
       errorMessage: '',

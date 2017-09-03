@@ -57,6 +57,9 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
   [Types.LIKED_CHANNELS_SET_CONTENT_HEIGHT]: (state: Object, {contentHeight}: Object) =>
     state.merge({ contentHeight }),
   [REHYDRATE]: (state: Object, {payload: {likedChannels}}) => {
+    if (!likedChannels) {
+      return state;
+    }
     return state.merge(likedChannels, {
       isFetching: false,
       errorMessage: '',

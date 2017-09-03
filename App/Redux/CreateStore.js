@@ -41,7 +41,8 @@ export default (rootReducer, rootSaga) => {
   /* ------------- AutoRehydrate Enhancer ------------- */
 
   if (ReduxPersist.active) {
-    enhancers.push(autoRehydrate());
+    console.log('autoRehydrate');
+    enhancers.push(autoRehydrate({log: true}));
   }
 
   const createAppropriateStore = __DEV__ ? console.tron.createStore : createStore;
