@@ -2,9 +2,9 @@
 import test from 'ava-spec';
 import { call, select } from 'redux-saga/effects';
 
-import { likedChannelsActions, channelsActions } from '../Redux/';
-import {uidSelector} from './selector';
-import { likesPost, updateOnFirebase } from './likesPost';
+import { likedChannelsActions, channelsActions } from '../../Redux/';
+import {uidSelector} from '../selector';
+import { likesPost, updateOnFirebase } from '../likesPost';
 
 test.serial.group('Normal', () => {
   const generator = likesPost({channelId: 'channelId'});

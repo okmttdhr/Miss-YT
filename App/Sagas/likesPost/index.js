@@ -1,8 +1,8 @@
 // @flow
 import { call, select } from 'redux-saga/effects';
 
-import type {TChannel, TLike} from '../types/';
-import {likedChannelsActions, channelsActions} from '../Redux/';
+import type {TChannel, TLike} from '../../types/';
+import {likedChannelsActions, channelsActions} from '../../Redux/';
 import {likesRef,
   channelsRef,
   isSuccess,
@@ -10,8 +10,8 @@ import {likesRef,
   likesRefUpdate,
   channelsRefUpdate,
   handleServerError,
-} from '../Services/';
-import {uidSelector} from './selector';
+} from '../../Services/';
+import {uidSelector} from '../selector';
 
 export const updateOnFirebase = async (channelId: string, uid: string) => {
   const likeExist = await firebaseServiceResponse(likesRef.child(uid).orderByChild('channelId').equalTo(channelId).once('value'));
