@@ -3,7 +3,7 @@ import {REHYDRATE} from 'redux-persist/constants';
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 import {PER_PAGE} from '../../constants';
-import type {TDefaultLikedChannels, TLikedChannelsActions, TChannel} from '../../types/';
+import type {TDefaultLikedChannels, TLikedChannelsActions, TChannel, TChannelStore} from '../../types/';
 import {likesPostActions, likesPostReducer} from '../likesPost';
 
 /* ------------- Types and Action Creators ------------- */
@@ -36,7 +36,10 @@ export const DEFAULT_LIKED_CHANNELS = Immutable(defaultLikedChannels);
 export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
   [Types.LIKED_CHANNELS_REQUEST]: (state: Object) =>
     state.merge({ isFetching: true, errorMessage: '' }),
-  [Types.LIKED_CHANNELS_SUCCESS]: (state: Object, { items }: Object) => {
+  [Types.LIKED_CHANNELS_SUCCESS]: (
+    state: Object,
+    { items }: {items: {[key: string]: TChannelStore}},
+  ) => {
     const newItem = state.items.merge(items);
     return state.merge({
       isFetching: false,

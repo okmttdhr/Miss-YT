@@ -1,6 +1,6 @@
 // @flow
 import {range} from 'lodash';
-import type {TLike, TChannel, FirebaseServiceResponse} from '../../../App/types/';
+import type {TLike, TChannel, TFirebaseServiceResponse} from '../../../App/types/';
 import {channelMock} from '../channel';
 
 const snapshotMock = (value: any) => ({
@@ -15,7 +15,7 @@ export const firebaseChannelMock = (i: number = 0): TChannel => {
 const firebaseChannelsMock: Array<TChannel> =
   range(10).map((i: number): TChannel => firebaseChannelMock(i));
 
-export const firebaseChannelsResponse = (status: number = 200): FirebaseServiceResponse => {
+export const firebaseChannelsResponse = (status: number = 200): TFirebaseServiceResponse => {
   let responce = {
     status: 200,
     message: '',
@@ -46,7 +46,7 @@ export const firebaseLikeMock = (i: number = 0): TLike => ({
 const firebaseLikesMock: Array<TChannel> =
   range(10).map((i: number): TLike => firebaseLikeMock(i));
 
-export const firebaseLikesResponse = (status: number = 200): FirebaseServiceResponse => {
+export const firebaseLikesResponse = (status: number = 200): TFirebaseServiceResponse => {
   let responce = {
     status: 200,
     message: '',
@@ -59,6 +59,7 @@ export const firebaseLikesResponse = (status: number = 200): FirebaseServiceResp
       responce = {
         status: 500,
         message: '',
+        snapshot: null,
       };
       break;
     // no default

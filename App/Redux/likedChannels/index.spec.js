@@ -3,7 +3,7 @@ import test from 'ava';
 import Immutable from 'seamless-immutable';
 import {assign} from 'lodash';
 import { likedChannelsActions, likedChannelsReducer, DEFAULT_LIKED_CHANNELS } from '../likedChannels';
-import {defaultChannelsMock, firebaseChannelMock} from '../../../Tests/mock/';
+import {defaultChannelsMock, firebaseChannelMock, channelsStoreWithKeyMock} from '../../../Tests/mock/';
 
 test('could make a request to get liked Channels', (t) => {
   const state = likedChannelsReducer(
@@ -14,13 +14,12 @@ test('could make a request to get liked Channels', (t) => {
 });
 
 test('could update liked Channels', (t) => {
-  const channelsMock = { isMock: true };
   const state = likedChannelsReducer(
     DEFAULT_LIKED_CHANNELS,
-    likedChannelsActions.likedChannelsSuccess(channelsMock),
+    likedChannelsActions.likedChannelsSuccess(channelsStoreWithKeyMock()),
   );
   t.deepEqual(state, assign({}, DEFAULT_LIKED_CHANNELS, {
-    items: channelsMock,
+    items: channelsStoreWithKeyMock(),
     startAt: 11,
   }));
 });
