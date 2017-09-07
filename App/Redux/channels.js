@@ -60,12 +60,12 @@ export const channelsReducer = createReducer(DEFAULT_CHANNELS, {
     if (!channels) {
       return state;
     }
-    return state.merge(channels, {
+    return state.merge([channels, {
       isFetching: false,
       errorMessage: '',
       contentHeight: 0,
       startAt: 1,
-    });
+    }]);
   },
   ...likesPostReducer,
 });

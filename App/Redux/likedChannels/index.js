@@ -63,12 +63,12 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
     if (!likedChannels) {
       return state;
     }
-    return state.merge(likedChannels, {
+    return state.merge([likedChannels, {
       isFetching: false,
       errorMessage: '',
       contentHeight: 0,
       startAt: 1,
-    });
+    }]);
   },
   ...likesPostReducer,
 });
