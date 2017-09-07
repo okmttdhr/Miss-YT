@@ -3,8 +3,9 @@ import test from 'ava-spec';
 import { call, select } from 'redux-saga/effects';
 
 import { likedChannelsActions, channelsActions } from '../../Redux/';
+import { likesPostToFirebase } from '../../Services';
 import {uidSelector} from '../selector';
-import { likesPost, updateOnFirebase } from '../likesPost';
+import { likesPost } from '../likesPost';
 
 test.serial.group('Normal', () => {
   const generator = likesPost({channelId: 'channelId'});
@@ -33,7 +34,7 @@ test.serial.group('Normal', () => {
   test('could make promises for all liked channels', (t) => {
     t.deepEqual(
       generator.next('uid').value,
-      call(updateOnFirebase, 'channelId', 'uid'),
+      call(likesPostToFirebase, 'channelId', 'uid', 1),
     );
   });
 });
