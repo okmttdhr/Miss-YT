@@ -1,7 +1,7 @@
 // @flow
-import type {TUser, TLike, TChannel} from '../../types/';
+import type {TUser} from '../../types/';
 import {isSuccess, isNotFound, firebaseServiceResponse, handleServerError} from '../index';
-import {likesRef, channelsRef, likesRefUpdate, channelsRefUpdate} from './ref';
+import {likesRef, channelsRef} from './ref';
 
 export * from './auth';
 export * from './authErrorToMessage';
@@ -37,17 +37,16 @@ export const likesPostToFirebase = {
     if (!isSuccess(likeResponse)) {
       return likeResponse;
     }
-    const like: TLike = likeResponse.snapshot.val();
     const likeKey: string = likeResponse.snapshot.key;
-    return handleServerError(likesRefUpdate(channelId, {[`/${likeKey}/count`]: like.count + count}));
+    return firebaseServiceResponse(likesRef.child(`${likeKey}/count`).transaction(c => c + count));
   },
   channels: async (channelId: string, count: number) => {
-    const channelResponse = await firebaseServiceResponse(channelsRef.orderByChild('id').equalTo(channelId).once('value'));
-    if (!isSuccess(channelResponse)) {
-      return channelResponse;
-    }
-    const channel: TChannel = channelResponse.snapshot.val();
-    return handleServerError(channelsRefUpdate(channelId, {[`/${channelId}/likeCount`]: channel.likeCount + count}));
+    return firebaseServiceResponse(channelsRef.child(`${channelId}/likeCount`).transaction((c) => {
+      if (!c) {
+        return undefined;
+      }
+      return c + count;
+    }));
   },
 };
 
