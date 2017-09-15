@@ -42,6 +42,7 @@ export const handleServerError = (promise: Promise<any>): Promise<APIResponse> =
 };
 
 export const isSuccess = (response: APIResponse) => response.status === statusCode.Ok;
+export const isNotFound = (response: APIResponse) => response.status === statusCode.NotFound;
 
 export const noop = () => {};
 

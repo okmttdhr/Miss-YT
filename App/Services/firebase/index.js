@@ -1,6 +1,6 @@
 // @flow
 import type {TUser, TLike, TChannel} from '../../types/';
-import {isSuccess, firebaseServiceResponse, handleServerError} from '../index';
+import {isSuccess, isNotFound, firebaseServiceResponse, handleServerError} from '../index';
 import {likesRef, channelsRef, likesRefUpdate, channelsRefUpdate} from './ref';
 
 export * from './auth';
@@ -24,21 +24,39 @@ export const convertUserFromFirebaseToStore = (firebaseUser: TUser) => {
   };
 };
 
-export const likesPostToFirebase = async (channelId: string, uid: string, count: number) => {
-  const likeExist = await firebaseServiceResponse(likesRef.child(uid).orderByChild('channelId').equalTo(channelId).once('value'));
-  if (isSuccess(likeExist)) {
-    const like: TLike = likeExist.snapshot.val();
-    const likeKey: string = likeExist.snapshot.key;
-    handleServerError(likesRefUpdate(channelId, {[`/${likeKey}/count`]: like.count + count}));
-  } else {
-    handleServerError(likesRef.push({
-      channelId,
-      rank: 0,
-      count,
-    }));
-  }
-
-  const channelResponse = await firebaseServiceResponse(channelsRef.orderByChild('id').equalTo(channelId).once('value'));
-  const channel: TChannel = channelResponse.snapshot.val();
-  handleServerError(channelsRefUpdate(channelId, {[`/${channelId}/likeCount`]: channel.likeCount + count}));
+export const likesPostToFirebase = {
+  likes: async (channelId: string, count: number, uid: string) => {
+    const likeResponse = await firebaseServiceResponse(likesRef.child(uid).orderByChild('channelId').equalTo(channelId).once('value'));
+    if (isNotFound(likeResponse)) {
+      return handleServerError(likesRef.push({
+        channelId,
+        rank: 0,
+        count,
+      }));
+    }
+    if (!isSuccess(likeResponse)) {
+      return likeResponse;
+    }
+    const like: TLike = likeResponse.snapshot.val();
+    const likeKey: string = likeResponse.snapshot.key;
+    return handleServerError(likesRefUpdate(channelId, {[`/${likeKey}/count`]: like.count + count}));
+  },
+  channels: async (channelId: string, count: number) => {
+    const channelResponse = await firebaseServiceResponse(channelsRef.orderByChild('id').equalTo(channelId).once('value'));
+    if (!isSuccess(channelResponse)) {
+      return channelResponse;
+    }
+    const channel: TChannel = channelResponse.snapshot.val();
+    return handleServerError(channelsRefUpdate(channelId, {[`/${channelId}/likeCount`]: channel.likeCount + count}));
+  },
 };
+
+
+// const upvotesRef = ref('/fireblog/likes/-JRHTHaIs-jNPLXOQivY/upvotes');
+// upvotesRef.transaction((currentValue) => {
+//   if (localValue < currentValue) {
+//     return;
+//   }
+//   const count = localValue - currentValue
+//   return currentValue + count;
+// });

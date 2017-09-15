@@ -10,8 +10,9 @@ import {uidSelector} from '../selector';
 export function* likesPost<T>({channelId}: {channelId: string}): Generator<T, any, any> {
   yield call(channelsActions.likesPostIncrease, channelId);
   yield call(likedChannelsActions.likesPostIncrease, channelId);
+  yield call(likesPostToFirebase.channels, channelId, 1);
   const uid = yield select(uidSelector);
   if (uid) {
-    yield call(likesPostToFirebase, channelId, uid, 1);
+    yield call(likesPostToFirebase.likes, channelId, 1, uid);
   }
 }

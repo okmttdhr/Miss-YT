@@ -24,6 +24,13 @@ test.serial.group('Normal', () => {
     );
   });
 
+  test('could make promises for all liked channels', (t) => {
+    t.deepEqual(
+      generator.next('uid').value,
+      call(likesPostToFirebase.channels, 'channelId', 1),
+    );
+  });
+
   test('could get uid', (t) => {
     t.deepEqual(
       generator.next().value,
@@ -34,7 +41,7 @@ test.serial.group('Normal', () => {
   test('could make promises for all liked channels', (t) => {
     t.deepEqual(
       generator.next('uid').value,
-      call(likesPostToFirebase, 'channelId', 'uid', 1),
+      call(likesPostToFirebase.likes, 'channelId', 1, 'uid'),
     );
   });
 });
