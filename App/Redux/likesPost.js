@@ -1,7 +1,7 @@
 // @flow
 import Immutable from 'seamless-immutable';
 import {findLastKey} from 'lodash';
-import type {TChannelStore} from '../types/';
+import type {TChannelStoreWithKey} from '../types/';
 
 /* ------------- Types and Action Creators ------------- */
 
@@ -9,7 +9,7 @@ export const likesPostActions = {
   likesPostRequest: ['channelId'],
   likesPostSuccess: ['item'],
   likesPostFailure: ['channelId', 'errorMessage'],
-  likesPostIncrease: ['channelId', 'errorMessage'],
+  likesPostIncrease: ['item'],
 };
 
 /* ------------- Reducers ------------- */
@@ -21,7 +21,7 @@ export const likesPostReducer = {
       items: update,
     }, {deep: true});
   },
-  LIKES_POST_SUCCESS: (state: Object, { item }: {item: {[key: string]: TChannelStore}}) => {
+  LIKES_POST_SUCCESS: (state: Object, { item }: TChannelStoreWithKey) => {
     const key = item[findLastKey(item)].id;
     const update = {[key]: {isFetching: false, errorMessage: ''}};
     return state.merge({

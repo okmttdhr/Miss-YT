@@ -3,8 +3,12 @@ import type {TLike} from '../../types/';
 import {isSuccess, isNotFound, firebaseServiceResponse, handleServerError} from '../index';
 import {likesRef, channelsRef} from './ref';
 
+export const getLikeWithChannelId = (uid: string, channelId: string) => {
+  return likesRef.child(uid).orderByChild('channelId').equalTo(channelId).once('value');
+};
+
 const hasCreatedLike = async (channelId: string, count: number, uid: string) => {
-  const likeResponse = await firebaseServiceResponse(likesRef.child(uid).orderByChild('channelId').equalTo(channelId).once('value'));
+  const likeResponse = await firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
   if (isNotFound(likeResponse)) {
     const promise = await handleServerError(
       likesRef
@@ -28,7 +32,7 @@ const hasCreatedLike = async (channelId: string, count: number, uid: string) => 
 };
 
 export const likesPostToFirebase = {
-  likes: async (channelId: string, count: number, uid: string) => {
+  likesIncrease: async (channelId: string, count: number, uid: string) => {
     const created = await hasCreatedLike(channelId, count, uid);
     if (!isSuccess(created)) {
       return created;

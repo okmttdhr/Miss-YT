@@ -15,7 +15,7 @@ export const syncLikesToFirebase = (
     const isDiff = channels[key] && localChennels[key].likeCount > channels[key].likeCount;
     if (isDiff) {
       const diff = localChennels[key].likeCount - channels[key].likeCount;
-      likesPostToFirebase.likes(key, diff, uid);
+      likesPostToFirebase.likesIncrease(key, diff, uid);
     }
   });
 };

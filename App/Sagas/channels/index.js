@@ -10,6 +10,7 @@ import {channelsRef,
   statusCode,
   snapshotExists,
   channelStoreArrayToActiveObject,
+  getLikeWithChannelId,
 } from '../../Services/';
 import {channelsActions} from '../../Redux/';
 
@@ -32,7 +33,7 @@ export const getFromFirebase = (startAt: number) => {
 };
 
 const getIsLiked = (userId: string, channelId: string) =>
-  likesRef.child(userId).orderByChild('channelId').equalTo(channelId).once('value')
+  getLikeWithChannelId(userId, channelId)
     .then(snapshotExists)
     .catch(() => false);
 
