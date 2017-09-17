@@ -1,5 +1,6 @@
 // @flow
 import {REHYDRATE} from 'redux-persist/constants';
+import { omit } from 'lodash';
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 import {PER_PAGE} from '../../constants';
@@ -51,7 +52,8 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
   [Types.LIKED_CHANNELS_FAILURE]: (state: Object) =>
     state.merge({ isFetching: false, errorMessage: 'error' }),
   [Types.LIKED_CHANNELS_CHANGED]: (state: Object, { item }: {item: TChannel}) => {
-    return state.merge({items: {[item.id]: item}}, {deep: true});
+    const i = omit(item, ['rank', 'likeCount']);
+    return state.merge({items: {[i.id]: i}}, {deep: true});
   },
   [Types.LIKED_CHANNELS_REMOVED]: (state: Object, { item }: {item: TChannel}) => {
     const newItem = state.items.without(item.id);

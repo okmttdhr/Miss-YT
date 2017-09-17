@@ -35,7 +35,7 @@ test('could update errorMessage', (t) => {
 
 test('could update liked Channels with CHANGED event', (t) => {
   const DEFAULT_CHANNELS_MOCK = Immutable(defaultChannelsMock);
-  const channelMock = firebaseChannelMock(1);
+  const channelMock = firebaseChannelMock(2);
   const state = likedChannelsReducer(
     DEFAULT_CHANNELS_MOCK,
     likedChannelsActions.likedChannelsChanged(channelMock),
@@ -48,7 +48,7 @@ test('could update liked Channels with CHANGED event', (t) => {
 
 test('could remove liked Channels with REMOVED event', (t) => {
   const DEFAULT_CHANNELS_MOCK = Immutable(defaultChannelsMock);
-  const channelMock = firebaseChannelMock(1);
+  const channelMock = firebaseChannelMock(2);
   const state = likedChannelsReducer(
     DEFAULT_CHANNELS_MOCK,
     likedChannelsActions.likedChannelsRemoved(channelMock),
