@@ -10,7 +10,7 @@ export const syncLikesToFirebase = (
 ) => {
   Object.keys(localChennels).forEach((key) => {
     if (!channels[key]) {
-      likesPostToFirebase.likesNew(key, localChennels[key].likeCount, uid);
+      likesPostToFirebase.likesSync(key, localChennels[key].likeCount, uid);
     }
     const isDiff = channels[key] && localChennels[key].likeCount > channels[key].likeCount;
     if (isDiff) {
