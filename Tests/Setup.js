@@ -1,6 +1,6 @@
 import mockery from 'mockery';
 import m from 'module';
-import { firebaseMock } from './mock/index';
+import { firebaseMock } from './mock/firebase';
 
 // inject __DEV__ as it is not available when running through the tests
 global.__DEV__ = true;

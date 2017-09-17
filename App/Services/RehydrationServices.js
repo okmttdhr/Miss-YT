@@ -9,9 +9,9 @@ const updateReducers = (store: Object) => {
   const config = ReduxPersist.storeConfig;
   const startup = () => store.dispatch(StartupActions.startup());
 
-  // Check to ensure latest reducer version
   AsyncStorage.getItem('reducerVersion').then((localVersion) => {
-    if (localVersion !== reducerVersion) {
+    const reducerUpdated = localVersion !== reducerVersion;
+    if (reducerUpdated) {
       console.tron.display({
         name: 'PURGE',
         value: {
@@ -23,9 +23,9 @@ const updateReducers = (store: Object) => {
       });
       persistStore(store, config, startup).purge();
       AsyncStorage.setItem('reducerVersion', reducerVersion);
-    } else {
-      persistStore(store, config, startup);
+      return;
     }
+    persistStore(store, config, startup);
   }).catch(() => {
     persistStore(store, config, startup);
     AsyncStorage.setItem('reducerVersion', reducerVersion);

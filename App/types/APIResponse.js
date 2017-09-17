@@ -5,6 +5,6 @@ export type APIResponse = {
   [key: string]: any;
 }
 
-export type FirebaseServiceResponse = APIResponse & {
+export type TFirebaseServiceResponse = APIResponse & {
   snapshot: any;
 }

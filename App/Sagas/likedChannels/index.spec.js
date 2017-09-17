@@ -1,12 +1,13 @@
 // @flow
 import test from 'ava-spec';
 import Promise from 'bluebird';
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select, fork } from 'redux-saga/effects';
 
-import { firebaseLikesResponse, channelsStoreMock, channelsStoreWithKeyMock } from '../../Tests/mock/';
-import { channelsActions } from '../Redux/channels';
-import { statusCode } from '../Services/';
-import { getLikedChannels, getLikesFromFirebase, getStartAt, getChannels } from './likedChannels';
+import { firebaseLikesResponse, channelsStoreMock, channelsStoreWithKeyMock } from '../../../Tests/mock/';
+import { likedChannelsActions } from '../../Redux/';
+import { statusCode } from '../../Services/';
+import { getLikedChannels, getLikesFromFirebase, getStartAt, getChannels } from './index';
+import {syncLikes} from '../likesPost';
 
 test.serial.group('Normal', () => {
   const generator = getLikedChannels();
@@ -45,11 +46,19 @@ test.serial.group('Normal', () => {
     );
   });
 
+  test('could sync to server', (t) => {
+    t.deepEqual(
+      generator.next(channelsStoreMock).value,
+      fork(syncLikes, channelsStoreWithKeyMock()),
+    );
+  });
+
   test('could send ChannelStore to action', (t) => {
     t.deepEqual(
       generator.next(channelsStoreMock).value,
-      put(channelsActions.channelsSuccess(channelsStoreWithKeyMock())),
+      put(likedChannelsActions.likedChannelsSuccess(channelsStoreWithKeyMock())),
     );
+    t.true(generator.next().done);
   });
 });
 
@@ -62,7 +71,8 @@ test.serial.group('Abnormal', () => {
     generator.next();
     t.deepEqual(
       generator.next(errorResponce).value,
-      put(channelsActions.channelsFailure()),
+      put(likedChannelsActions.likedChannelsFailure()),
     );
+    t.true(generator.next().done);
   });
 });

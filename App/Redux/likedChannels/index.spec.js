@@ -2,8 +2,8 @@
 import test from 'ava';
 import Immutable from 'seamless-immutable';
 import {assign} from 'lodash';
-import { likedChannelsActions, likedChannelsReducer, DEFAULT_LIKED_CHANNELS } from './likedChannels';
-import {defaultChannelsMock, firebaseChannelMock} from '../../Tests/mock/';
+import { likedChannelsActions, likedChannelsReducer, DEFAULT_LIKED_CHANNELS } from '../likedChannels';
+import {defaultChannelsMock, firebaseChannelMock, channelsStoreWithKeyMock} from '../../../Tests/mock/';
 
 test('could make a request to get liked Channels', (t) => {
   const state = likedChannelsReducer(
@@ -14,13 +14,12 @@ test('could make a request to get liked Channels', (t) => {
 });
 
 test('could update liked Channels', (t) => {
-  const channelsMock = { isMock: true };
   const state = likedChannelsReducer(
     DEFAULT_LIKED_CHANNELS,
-    likedChannelsActions.likedChannelsSuccess(channelsMock),
+    likedChannelsActions.likedChannelsSuccess(channelsStoreWithKeyMock()),
   );
   t.deepEqual(state, assign({}, DEFAULT_LIKED_CHANNELS, {
-    items: channelsMock,
+    items: channelsStoreWithKeyMock(),
     startAt: 11,
   }));
 });
@@ -36,7 +35,7 @@ test('could update errorMessage', (t) => {
 
 test('could update liked Channels with CHANGED event', (t) => {
   const DEFAULT_CHANNELS_MOCK = Immutable(defaultChannelsMock);
-  const channelMock = firebaseChannelMock(1);
+  const channelMock = firebaseChannelMock(2);
   const state = likedChannelsReducer(
     DEFAULT_CHANNELS_MOCK,
     likedChannelsActions.likedChannelsChanged(channelMock),
@@ -49,7 +48,7 @@ test('could update liked Channels with CHANGED event', (t) => {
 
 test('could remove liked Channels with REMOVED event', (t) => {
   const DEFAULT_CHANNELS_MOCK = Immutable(defaultChannelsMock);
-  const channelMock = firebaseChannelMock(1);
+  const channelMock = firebaseChannelMock(2);
   const state = likedChannelsReducer(
     DEFAULT_CHANNELS_MOCK,
     likedChannelsActions.likedChannelsRemoved(channelMock),

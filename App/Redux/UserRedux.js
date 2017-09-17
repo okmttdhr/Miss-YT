@@ -62,7 +62,10 @@ export const userReducer = createReducer(DEFAULT_USER, {
   [Types.USER_SWITCH_FORGOT_PASSWORD]: (state: Object) => {
     return state.merge({ isForgotPassword: !state.isForgotPassword });
   },
-  [REHYDRATE]: (state: Object) => {
+  [REHYDRATE]: (state: Object, {payload: {user}}) => {
+    if (!user) {
+      return state;
+    }
     return state.merge({
       isForgotPassword: false,
       isFetching: false,

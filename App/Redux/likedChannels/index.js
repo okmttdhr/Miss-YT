@@ -1,9 +1,11 @@
 // @flow
 import {REHYDRATE} from 'redux-persist/constants';
+import { omit } from 'lodash';
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
-import {PER_PAGE} from '../constants';
-import type {TDefaultLikedChannels, TLikedChannelsActions, TChannel} from '../types/';
+import {PER_PAGE} from '../../constants';
+import type {TDefaultLikedChannels, TLikedChannelsActions, TChannel, TChannelStore} from '../../types/';
+import {likesPostActions, likesPostReducer} from '../likesPost';
 
 /* ------------- Types and Action Creators ------------- */
 
@@ -14,6 +16,7 @@ const { Types, Creators } = createActions({
   likedChannelsChanged: ['item'],
   likedChannelsRemoved: ['item'],
   likedChannelsSetContentHeight: ['contentHeight'],
+  ...likesPostActions,
 });
 export const likedChannelsTypes = Types;
 export const likedChannelsActions: TLikedChannelsActions = Creators;
@@ -34,7 +37,10 @@ export const DEFAULT_LIKED_CHANNELS = Immutable(defaultLikedChannels);
 export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
   [Types.LIKED_CHANNELS_REQUEST]: (state: Object) =>
     state.merge({ isFetching: true, errorMessage: '' }),
-  [Types.LIKED_CHANNELS_SUCCESS]: (state: Object, { items }: Object) => {
+  [Types.LIKED_CHANNELS_SUCCESS]: (
+    state: Object,
+    { items }: {items: {[key: string]: TChannelStore}},
+  ) => {
     const newItem = state.items.merge(items);
     return state.merge({
       isFetching: false,
@@ -46,7 +52,8 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
   [Types.LIKED_CHANNELS_FAILURE]: (state: Object) =>
     state.merge({ isFetching: false, errorMessage: 'error' }),
   [Types.LIKED_CHANNELS_CHANGED]: (state: Object, { item }: {item: TChannel}) => {
-    return state.merge({items: {[item.id]: item}}, {deep: true});
+    const i = omit(item, ['rank', 'likeCount']);
+    return state.merge({items: {[i.id]: i}}, {deep: true});
   },
   [Types.LIKED_CHANNELS_REMOVED]: (state: Object, { item }: {item: TChannel}) => {
     const newItem = state.items.without(item.id);
@@ -54,12 +61,16 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
   },
   [Types.LIKED_CHANNELS_SET_CONTENT_HEIGHT]: (state: Object, {contentHeight}: Object) =>
     state.merge({ contentHeight }),
-  [REHYDRATE]: (state: Object) => {
-    return state.merge({
+  [REHYDRATE]: (state: Object, {payload: {likedChannels}}) => {
+    if (!likedChannels) {
+      return state;
+    }
+    return state.merge([likedChannels, {
       isFetching: false,
       errorMessage: '',
       contentHeight: 0,
       startAt: 1,
-    });
+    }]);
   },
+  ...likesPostReducer,
 });

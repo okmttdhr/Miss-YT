@@ -1,6 +1,6 @@
 // @flow
 import type {TChannel} from '../../types/';
-import {channelsActions, userActions, defaultUser} from '../../Redux/';
+import {channelsActions, userActions, defaultUser, likedChannelsActions} from '../../Redux/';
 import {channelsRef} from './ref';
 import {firebaseApp} from './init';
 import {convertUserFromFirebaseToStore} from './index';
@@ -29,6 +29,7 @@ export const firebaseSubscribe = (store: any) => {
     switch (channel.status) {
       case 'active':
         dispatch(channelsActions.channelsChanged(channel));
+        dispatch(likedChannelsActions.likedChannelsChanged(channel));
         break;
       case 'inactive':
       case 'uninitialized':

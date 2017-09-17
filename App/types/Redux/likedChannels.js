@@ -1,11 +1,12 @@
 // @flow
-import type {TDefaultChannels} from './channels';
+import type {TDefaultChannels, TLikesPostActions} from './channels';
+import type {TChannelStore} from '../Channel';
 
 export type TDefaultLikedChannels = TDefaultChannels
 
-export type TLikedChannelsActions = {
-  likedChannelsRequest: () => any,
-  likedChannelsSuccess: () => any,
+export type TLikedChannelsActions = TLikesPostActions & {
+  likedChannelsRequest: () => void,
+  likedChannelsSuccess: (item: {[key: string]: TChannelStore}) => void,
   likedChannelsFailure: () => any,
   likedChannelsChanged: () => any,
   likedChannelsRemoved: () => any,

@@ -5,7 +5,13 @@ import { call, put, select } from 'redux-saga/effects';
 
 import type {TChannel, TChannelStore, TRootState, APIResponse} from '../../types/';
 import {PER_PAGE} from '../../constants';
-import {channelsRef, likesRef, statusCode, snapshotExists} from '../../Services/';
+import {channelsRef,
+  likesRef,
+  statusCode,
+  snapshotExists,
+  channelStoreArrayToActiveObject,
+  getLikeWithChannelId,
+} from '../../Services/';
 import {channelsActions} from '../../Redux/';
 
 export const getStartAt = (state: TRootState) => state.channels.startAt;
@@ -27,7 +33,7 @@ export const getFromFirebase = (startAt: number) => {
 };
 
 const getIsLiked = (userId: string, channelId: string) =>
-  likesRef.child(userId).orderByChild('channelId').equalTo(channelId).once('value')
+  getLikeWithChannelId(userId, channelId)
     .then(snapshotExists)
     .catch(() => false);
 
@@ -51,12 +57,7 @@ export function* getChannels<T>(): Generator<T, any, any> {
   } else {
     const isLikedPromises = createIsLikedPromises(responce.snapshot);
     const channelsArray: TChannelStore[] = yield call(Promise.all, isLikedPromises);
-    const channels: {[key: string]: TChannelStore} = {};
-    channelsArray.forEach((channel) => {
-      if (channel.status === 'active') {
-        channels[channel.id] = channel;
-      }
-    });
+    const channels: {[key: string]: TChannelStore} = channelStoreArrayToActiveObject(channelsArray);
     yield put(channelsActions.channelsSuccess(channels));
   }
 }
