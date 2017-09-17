@@ -14,11 +14,11 @@ import {uidSelector, likedChannelsSelector} from '../selector';
 
 export * from './sync';
 
-const likedChannelOnServer = (uid: string, channelId: string) => {
+export const likedChannelOnServer = (uid: string, channelId: string) => {
   return firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
 };
 
-export function* getLikedChannelOnServer<T>({channel, uid, channelId}: {
+export function* mergeLikedChannelToLocal<T>({channel, uid, channelId}: {
   channel: TChannelStore,
   uid: string,
   channelId: string,
@@ -30,6 +30,7 @@ export function* getLikedChannelOnServer<T>({channel, uid, channelId}: {
       rank: 0,
       likeCount: 1,
     })});
+    return;
   }
   const like: TLike = likeResponse.snapshot.val();
   yield call(likedChannelsActions.likedChannelsSuccess, {channelId: assign({}, channel, {
@@ -44,7 +45,7 @@ export function* likesPostIncrease<T>({channel}: {channel: TChannelStore}): Gene
   const uid = yield select(uidSelector);
   const likesChannels: {[key: string]: TChannelStore} = yield select(likedChannelsSelector);
   if (!likesChannels[channelId]) {
-    yield fork(getLikedChannelOnServer, channel, uid, channelId);
+    yield fork(mergeLikedChannelToLocal, channel, uid, channelId);
   }
   yield call(channelsActions.likesPostIncrease, channelId);
   yield call(likedChannelsActions.likesPostIncrease, channelId);
