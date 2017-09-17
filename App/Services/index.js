@@ -55,7 +55,6 @@ export const channelStoreArrayToObject = (channelsArray: TChannelStore[]) => {
 };
 
 export const activeChannelStoreArray = (channelsArray: TChannelStore[]) => {
-  // TODO filterって破壊的だっけ？
   return channelsArray.filter((channel) => {
     return channel.status === 'active';
   });
