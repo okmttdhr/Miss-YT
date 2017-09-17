@@ -6,42 +6,24 @@ import { call, put, select } from 'redux-saga/effects';
 import type {TChannel, TChannelStore, APIResponse, TRootState, TLike} from '../../types/';
 import {PER_PAGE} from '../../constants';
 import {likedChannelsActions} from '../../Redux/';
-import {likesRef, channelsRef, snapshotExists, statusCode, isSuccess, channelStoreArrayToActiveObject, likesPostToFirebase} from '../../Services/'; // eslint-disable-line
+import {likesRef, channelsRef, snapshotExists, statusCode, isSuccess, channelStoreArrayToActiveObject, likesPostToFirebase, firebaseServiceResponse} from '../../Services/'; // eslint-disable-line
 import {likedChannelsSelector, uidSelector} from '../selector'; // eslint-disable-line
 
 export const getStartAt = (state: TRootState) => state.likedChannels.startAt;
 
 export const getLikesFromFirebase = (userId: string, startAt: number) => {
-  return likesRef.child(userId).orderByChild('rank').startAt(startAt).limitToFirst(PER_PAGE)
-    .once('value')
-    .then((snapshot): APIResponse => {
-      return {
-        status: snapshotExists(snapshot) ? statusCode.Ok : statusCode.NotFound,
-        message: '',
-        snapshot,
-      };
-    })
-    .catch((): APIResponse => ({
-      status: statusCode.InternalError,
-      message: '',
-      snapshot: null,
-    }));
+  return firebaseServiceResponse(
+      likesRef
+        .child(userId)
+        .orderByChild('rank')
+        .startAt(startAt)
+        .limitToFirst(PER_PAGE)
+        .once('value'),
+    );
 };
 
 const getChannel = (channelId: string): Promise<Array<TChannelStore>> => {
-  return channelsRef.orderByChild('id').equalTo(channelId).once('value')
-    .then((snapshot): APIResponse => {
-      return {
-        status: snapshotExists(snapshot) ? statusCode.Ok : statusCode.NotFound,
-        message: '',
-        snapshot,
-      };
-    })
-    .catch((): APIResponse => ({
-      status: statusCode.InternalError,
-      message: '',
-      snapshot: null,
-    }));
+  return firebaseServiceResponse(channelsRef.orderByChild('id').equalTo(channelId).once('value'));
 };
 
 export const getChannels = (snapshot: any): Array<Promise<TChannelStore>> => {
