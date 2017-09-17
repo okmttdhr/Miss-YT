@@ -5,10 +5,10 @@ import { call, select } from 'redux-saga/effects';
 import { likedChannelsActions, channelsActions } from '../../Redux/';
 import { likesPostToFirebase } from '../../Services';
 import {uidSelector} from '../selector';
-import { likesPost } from '../likesPost';
+import { likesPostIncrease } from '../likesPost';
 
 test.serial.group('Normal', () => {
-  const generator = likesPost({channelId: 'channelId'});
+  const generator = likesPostIncrease({channelId: 'channelId'});
 
   test('could increase channels likeCount', (t) => {
     t.deepEqual(
