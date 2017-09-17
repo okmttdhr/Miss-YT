@@ -7,6 +7,8 @@ import {
 } from '../../Services/';
 import {uidSelector} from '../selector';
 
+export * from './sync';
+
 export function* likesPostIncrease<T>({channelId}: {channelId: string}): Generator<T, any, any> {
   yield call(channelsActions.likesPostIncrease, channelId);
   yield call(likedChannelsActions.likesPostIncrease, channelId);

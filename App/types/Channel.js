@@ -28,3 +28,5 @@ export type TChannelStore = TChannel & {
   isFetching: boolean;
   errorMessage: string;
 }
+
+export type TChannelStoreWithKey = {[key: string]: TChannelStore};
