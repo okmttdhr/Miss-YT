@@ -18,11 +18,11 @@ export const likedChannelOnServer = (uid: string, channelId: string) => {
   return firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
 };
 
-export function* mergeLikedChannelToLocal<T>({channel, uid, channelId}: {
+export function* mergeLikedChannelToLocal<T>(
   channel: TChannelStore,
   uid: string,
   channelId: string,
-}): Generator<T, any, any> {
+): Generator<T, any, any> {
   const likeResponse = yield call(likedChannelOnServer, uid, channelId);
   if (!isSuccess(likeResponse)) {
     yield call(likedChannelsActions.likedChannelsSuccess, {channelId: assign({}, channel, {

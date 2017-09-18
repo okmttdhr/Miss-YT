@@ -6,7 +6,10 @@ import { shallow } from 'enzyme';
 import { Panel } from './index';
 import { channelStoreMock } from '../../../../Tests/mock/';
 
-const wrapper = shallow(<Panel channel={channelStoreMock()} isMargin={false} />);
+const likesPostRequestMock = () => {};
+const wrapper = shallow(
+  <Panel channel={channelStoreMock()} isMargin={false} likesPostRequest={likesPostRequestMock} />,
+);
 
 test('displays data of channel', (t) => {
   t.is(wrapper.length, 1);

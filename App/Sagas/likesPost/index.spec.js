@@ -57,11 +57,11 @@ test.serial.group('Normal', () => {
 
 test.serial.group('getLikedChannelOnServer', () => {
   test.serial.group('Normal', () => {
-    const generator = mergeLikedChannelToLocal({
-      channel: channelStoreMock(),
-      uid: 'uid',
-      channelId: 'channelId',
-    });
+    const generator = mergeLikedChannelToLocal(
+      channelStoreMock(),
+      'uid',
+      'channelId',
+    );
 
     test('could call request', (t) => {
       t.deepEqual(
@@ -87,11 +87,11 @@ test.serial.group('getLikedChannelOnServer', () => {
     });
   });
   test.serial.group('Abnormal', () => {
-    const generator = mergeLikedChannelToLocal({
-      channel: channelStoreMock(),
-      uid: 'uid',
-      channelId: 'channelId',
-    });
+    const generator = mergeLikedChannelToLocal(
+      channelStoreMock(),
+      'uid',
+      'channelId',
+    );
 
     test('could call request', (t) => {
       t.deepEqual(

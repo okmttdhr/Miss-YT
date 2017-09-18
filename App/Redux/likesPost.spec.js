@@ -3,14 +3,14 @@ import Immutable from 'seamless-immutable';
 import test from 'ava';
 import {merge} from 'lodash';
 import { channelsActions, channelsReducer, DEFAULT_CHANNELS } from './channels';
-import {channelsStoreWithKeyMock, channelStoreWithKeyMock} from '../../Tests/mock/';
+import {channelsStoreWithKeyMock, channelStoreWithKeyMock, channelStoreMock} from '../../Tests/mock/';
 
 test('could make a request to get Channels', (t) => {
   const state = channelsReducer(
     Immutable(DEFAULT_CHANNELS.merge({
       items: channelsStoreWithKeyMock(),
     })),
-    channelsActions.likesPostRequest('ID0'),
+    channelsActions.likesPostRequest(channelStoreMock()),
   );
   t.is(state.items.ID0.isFetching, true);
   t.is(state.items.ID0.errorMessage, '');
