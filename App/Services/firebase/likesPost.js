@@ -32,7 +32,8 @@ export const likesPostToFirebase = {
     if (!likeResponse.snapshot || !isSuccess(likeResponse)) {
       return likeResponse;
     }
-    const likeKey: string = likeResponse.snapshot.key;
+    const like: TLike = likeResponse.snapshot.val();
+    const likeKey: string = Object.keys(like)[0];
     return firebaseServiceResponse(likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + count));
   },
   likesSync: async (channelId: string, count: number, uid: string) => {
@@ -40,8 +41,8 @@ export const likesPostToFirebase = {
     if (!likeResponse.snapshot || !isSuccess(likeResponse)) {
       return likeResponse;
     }
-    const likeKey: string = likeResponse.snapshot.key;
     const like: TLike = likeResponse.snapshot.val();
+    const likeKey: string = Object.keys(like)[0];
     const isDiff = count > like.count;
     if (isDiff) {
       return firebaseServiceResponse(
@@ -52,7 +53,7 @@ export const likesPostToFirebase = {
   },
   channels: async (channelId: string, count: number) => {
     return firebaseServiceResponse(channelsRef.child(`${channelId}/likeCount`).transaction((c) => {
-      if (!c) {
+      if (!c && c !== 0) {
         return undefined;
       }
       return c + count;
