@@ -8,13 +8,15 @@ import {PER_PAGE} from '../../constants';
 import {likedChannelsActions} from '../../Redux/';
 import {likesRef, channelsRef, isSuccess, channelStoreArrayToActiveObject, firebaseServiceResponse} from '../../Services/';
 import {syncLikes} from '../likesPost';
+import {uidSelector} from '../selector';
 
 export const getStartAt = (state: TRootState) => state.likedChannels.startAt;
 
-export const getLikesFromFirebase = (userId: string, startAt: number) => {
+export const getLikesFromFirebase = (uid: string, startAt: number) => {
+  console.log(uid);
   return firebaseServiceResponse(
       likesRef
-        .child(userId)
+        .child(uid)
         .orderByChild('rank')
         .startAt(startAt)
         .limitToFirst(PER_PAGE)
@@ -35,8 +37,10 @@ export const getChannels = (snapshot: any): Array<Promise<TChannelStore>> => {
         if (!isSuccess(responce)) {
           throw responce;
         }
-        const channel: TChannel = responce.snapshot.val();
-        return assign({}, channel, {
+        const channel: {[key: string]: TChannel} = responce.snapshot.val();
+        const key: string = Object.keys(channel)[0];
+        console.log('like', like);
+        return assign({}, channel[key], {
           isLiked: true,
           rank: like.rank,
           likeCount: like.count,
@@ -53,7 +57,8 @@ export const getChannels = (snapshot: any): Array<Promise<TChannelStore>> => {
 
 export function* getLikedChannels<T>(): Generator<T, any, any> {
   const startAt = yield select(getStartAt);
-  const responce: APIResponse = yield call(getLikesFromFirebase, startAt);
+  const uid = yield select(uidSelector);
+  const responce: APIResponse = yield call(getLikesFromFirebase, uid, startAt);
   if (!isSuccess(responce)) {
     yield put(likedChannelsActions.likedChannelsFailure());
     return;
