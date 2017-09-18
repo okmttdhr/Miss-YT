@@ -47,8 +47,8 @@ export function* likesPostIncrease<T>({channel}: {channel: TChannelStore}): Gene
   if (!likesChannels[channelId]) {
     yield fork(mergeLikedChannelToLocal, channel, uid, channelId);
   }
-  yield call(channelsActions.likesPostIncrease, channelId);
-  yield call(likedChannelsActions.likesPostIncrease, channelId);
+  yield call(channelsActions.channelsLikesPostIncrease, channelId);
+  yield call(likedChannelsActions.likedChannelsLikesPostIncrease, channelId);
 
   yield call(likesPostToFirebase.channels, channelId, 1);
   if (uid) {

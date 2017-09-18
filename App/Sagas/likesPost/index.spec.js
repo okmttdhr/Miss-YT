@@ -29,14 +29,14 @@ test.serial.group('Normal', () => {
   test('could increase channels likeCount', (t) => {
     t.deepEqual(
       generator.next(channelsStoreWithKeyMock()).value,
-      call(channelsActions.likesPostIncrease, 'ID0'),
+      call(channelsActions.channelsLikesPostIncrease, 'ID0'),
     );
   });
 
   test('could increase likedChannels likeCount', (t) => {
     t.deepEqual(
       generator.next().value,
-      call(likedChannelsActions.likesPostIncrease, 'ID0'),
+      call(likedChannelsActions.likedChannelsLikesPostIncrease, 'ID0'),
     );
   });
 

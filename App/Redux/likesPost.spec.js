@@ -10,7 +10,7 @@ test('could make a request to get Channels', (t) => {
     Immutable(DEFAULT_CHANNELS.merge({
       items: channelsStoreWithKeyMock(),
     })),
-    channelsActions.likesPostRequest(channelStoreMock()),
+    channelsActions.channelsLikesPostRequest(channelStoreMock()),
   );
   t.is(state.items.ID0.isFetching, true);
   t.is(state.items.ID0.errorMessage, '');

@@ -29,7 +29,7 @@ export class RankingScreen extends React.Component {
           channels={this.props.channels}
           setContentHeight={this.props.channelsActions.setContentHeight}
           channelsRequest={this.props.channelsActions.channelsRequest}
-          likesPostRequest={this.props.channelsActions.likesPostRequest}
+          likesPostRequest={this.props.channelsActions.channelsLikesPostRequest}
         />
       </View>
     );

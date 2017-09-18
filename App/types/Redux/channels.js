@@ -9,14 +9,14 @@ export type TDefaultChannels = {
   startAt: number,
 }
 
-export type TLikesPostActions = {
-  likesPostRequest: (channel: TChannelStore) => void,
+export type TChannelsLikesPostActions = {
+  channelsLikesPostRequest: (channel: TChannelStore) => void,
   likesPostSuccess: (channel: TChannelStore) => void,
   likesPostFailure: (channelId: string, errorMessage: string) => void,
-  likesPostIncrease: (channelId: string) => void,
+  channelsLikesPostIncrease: (channelId: string) => void,
 }
 
-export type TChannelsActions = TLikesPostActions & {
+export type TChannelsActions = TChannelsLikesPostActions & {
   channelsRequest: () => any,
   channelsSuccess: () => any,
   channelsFailure: () => any,
