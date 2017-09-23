@@ -5,12 +5,12 @@ import { merge } from 'lodash';
 import type {TChannelStore, TLikeWithKey, TChannelStoreWithKey} from '../../types/';
 import {likedChannelsActions, channelsActions, likedChannelsTypes} from '../../Redux/';
 import {
-  likesPostToFirebase,
   firebaseServiceResponse,
   getLikeWithChannelId,
   isSuccess,
 } from '../../Services/';
 import {uidSelector, likedChannelsSelector} from '../selector';
+import {likesPostToFirebase} from './firebase';
 
 export * from './sync';
 
