@@ -1,15 +1,14 @@
 // @flow
-import type {TLike} from '../../types/';
-import {isSuccess, isNotFound, firebaseServiceResponse, handleServerError} from '../index';
+import type {TLike, TLikeWithKey} from '../../types/';
+import {isSuccess, isNotFound, firebaseServiceResponse, firebaseTxServiceResponse, handleServerError} from '../index';
 import {likesRef, channelsRef} from './ref';
 
-export const getLikeWithChannelId = (uid: string = 'uid', channelId: string) => {
+export const getLikeWithChannelId = (uid: string, channelId: string) => {
   return likesRef.child(uid).orderByChild('channelId').equalTo(channelId).once('value');
 };
 
-const hasCreatedLike = async (channelId: string, count: number, uid: string) => {
-  const likeResponse = await firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
-  if (isNotFound(likeResponse)) {
+export const likesPostToFirebase = {
+  likesNew: async (channelId: string, count: number, uid: string) => {
     const promise = await handleServerError(
       likesRef.child(uid)
         .push({channelId, rank: 0, count})
@@ -18,41 +17,43 @@ const hasCreatedLike = async (channelId: string, count: number, uid: string) => 
         }),
     );
     return promise;
-  }
-  if (!isSuccess(likeResponse)) {
-    return likeResponse;
-  }
-  return likeResponse;
-};
-
-export const likesPostToFirebase = {
+  },
   likesIncrease: async (channelId: string, count: number, uid: string) => {
-    const likeResponse = await hasCreatedLike(channelId, count, uid);
-    console.log('likeResponse@likesIncrease', likeResponse);
-    if (!likeResponse.snapshot || !isSuccess(likeResponse)) {
+    console.log('likesIncrease');
+    const likeResponse = await firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
+    if (isNotFound(likeResponse)) {
+      return likesPostToFirebase.likesNew(channelId, count, uid);
+    }
+    if (!isSuccess(likeResponse)) {
       return likeResponse;
     }
     const like: TLike = likeResponse.snapshot.val();
     const likeKey: string = Object.keys(like)[0];
-    return firebaseServiceResponse(likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + count));
+    const tx = await firebaseTxServiceResponse(
+      likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + count),
+    );
+    return tx;
   },
   likesSync: async (channelId: string, count: number, uid: string) => {
-    const likeResponse = await hasCreatedLike(channelId, count, uid);
-    if (!likeResponse.snapshot || !isSuccess(likeResponse)) {
+    console.log('likesSync');
+    const likeResponse = await firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
+    if (isNotFound(likeResponse)) {
+      return likesPostToFirebase.likesNew(channelId, count, uid);
+    }
+    if (!isSuccess(likeResponse)) {
       return likeResponse;
     }
-    const like: TLike = likeResponse.snapshot.val();
+    const like: TLikeWithKey = likeResponse.snapshot.val();
     const likeKey: string = Object.keys(like)[0];
-    const isDiff = count > like.count;
+    const isDiff = count > like[likeKey].count;
     if (isDiff) {
-      return firebaseServiceResponse(
-        likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + (count - c)),
-      );
+      const tx = await firebaseTxServiceResponse(likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + (count - c)));
+      return tx;
     }
     return {status: 200, message: ''};
   },
   channels: async (channelId: string, count: number) => {
-    return firebaseServiceResponse(channelsRef.child(`${channelId}/likeCount`).transaction((c) => {
+    return firebaseTxServiceResponse(channelsRef.child(`${channelId}/likeCount`).transaction((c) => {
       if (!c && c !== 0) {
         return undefined;
       }

@@ -14,23 +14,38 @@ export const snapshotExists = (snapshot) => {
   return true;
 };
 
+export const firebaseServiceError = (promise: Promise<any>): Promise<APIResponse> => {
+  return promise
+    .catch((e): APIResponse => {
+      console.log(e);
+      return {
+        status: statusCode.InternalError,
+        message: '',
+        snapshot: null,
+      };
+    })
+    ;
+};
+
 export const firebaseServiceResponse =
 (promise: Promise<any>): Promise<TFirebaseServiceResponse> => {
-  return promise.then((snapshot): APIResponse => {
+  const p = promise.then((snapshot): APIResponse => {
     return {
       status: snapshotExists(snapshot) ? statusCode.Ok : statusCode.NotFound,
       message: '',
       snapshot,
     };
-  })
-  .catch((e): APIResponse => {
-    console.log(e);
-    return {
-      status: statusCode.InternalError,
-      message: '',
-      snapshot: null,
-    };
   });
+  return firebaseServiceError(p);
+};
+
+// for transaction response
+export const firebaseTxServiceResponse =
+(promise: Promise<any>): Promise<TFirebaseServiceResponse> => {
+  const p = promise.then((response) => {
+    return response.snapshot;
+  });
+  return firebaseServiceError(firebaseServiceResponse(p));
 };
 
 export const handleServerError = (promise: Promise<any>): Promise<APIResponse> => {
