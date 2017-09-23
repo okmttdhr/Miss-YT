@@ -1,9 +1,9 @@
 // @flow
-import { call, select, fork } from 'redux-saga/effects';
-import { assign } from 'lodash';
+import { call, select, fork, put, take } from 'redux-saga/effects';
+import { merge } from 'lodash';
 
-import type {TChannelStore, TLike} from '../../types/';
-import {likedChannelsActions, channelsActions} from '../../Redux/';
+import type {TChannelStore, TLikeWithKey, TChannelStoreWithKey} from '../../types/';
+import {likedChannelsActions, channelsActions, likedChannelsTypes} from '../../Redux/';
 import {
   likesPostToFirebase,
   firebaseServiceResponse,
@@ -14,41 +14,62 @@ import {uidSelector, likedChannelsSelector} from '../selector';
 
 export * from './sync';
 
-export const likedChannelOnServer = (uid: string, channelId: string) => {
+export const likeOnServer = (uid: string, channelId: string) => {
   return firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
 };
 
 export function* mergeLikedChannelToLocal<T>(
   channel: TChannelStore,
   uid: string,
-  channelId: string,
+  localLikedChannels: TChannelStoreWithKey,
 ): Generator<T, any, any> {
-  const likeResponse = yield call(likedChannelOnServer, uid, channelId);
-  if (!isSuccess(likeResponse)) {
-    yield call(likedChannelsActions.likedChannelsSuccess, {channelId: assign({}, channel, {
-      isLiked: true,
-      rank: 0,
-      likeCount: 1,
-    })});
+  console.log('mergeLikedChannelToLocal');
+  const isLikeOnServer = uid ? yield call(likeOnServer, uid, channel.id) : {status: 500, message: ''};
+
+  if (!isSuccess(isLikeOnServer)) {
+    console.log('mergeLikedChannelToLocal: new');
+    const length = Object.keys(localLikedChannels).length;
+    const rank = length === 0 ? 1 : length + 1;
+
+    yield put(likedChannelsActions.likedChannelsSuccess(
+      merge({}, {[channel.id]: channel}, {[channel.id]: {
+        isLiked: true,
+        rank,
+        likeCount: 1,
+      }}),
+    ));
     return;
   }
-  const like: TLike = likeResponse.snapshot.val();
-  yield call(likedChannelsActions.likedChannelsSuccess, {channelId: assign({}, channel, {
-    isLiked: true,
-    rank: like.rank,
-    likeCount: like.count,
-  })});
+
+  console.log('mergeLikedChannelToLocal: existing');
+  const like: TLikeWithKey = (isLikeOnServer: any).snapshot.val();
+  console.log('like', like);
+  const likeKey: string = Object.keys(like)[0];
+
+  yield put(likedChannelsActions.likedChannelsSuccess(
+    merge({}, {[channel.id]: channel}, {[channel.id]: {
+      isLiked: true,
+      rank: like[likeKey].rank,
+      likeCount: like[likeKey].count,
+    }}),
+  ));
 }
 
 export function* likesPostIncrease<T>({channel}: {channel: TChannelStore}): Generator<T, any, any> {
+  console.log('likesPostIncrease');
   const channelId = channel.id;
   const uid = yield select(uidSelector);
-  const likesChannels: {[key: string]: TChannelStore} = yield select(likedChannelsSelector);
-  if (!likesChannels[channelId]) {
-    yield fork(mergeLikedChannelToLocal, channel, uid, channelId);
+  const likedChannels: {[key: string]: TChannelStore} = yield select(likedChannelsSelector);
+  const existOnLocal = likedChannels[channelId];
+
+  if (!existOnLocal) {
+    console.log('prepare');
+    yield fork(mergeLikedChannelToLocal, channel, uid, likedChannels);
+    yield take(likedChannelsTypes.LIKED_CHANNELS_SUCCESS);
   }
-  yield call(channelsActions.channelsLikesPostIncrease, channelId);
-  yield call(likedChannelsActions.likedChannelsLikesPostIncrease, channelId);
+
+  yield put(channelsActions.channelsLikesPostIncrease(channelId));
+  yield put(likedChannelsActions.likedChannelsLikesPostIncrease(channelId));
 
   yield call(likesPostToFirebase.channels, channelId, 1);
   if (uid) {

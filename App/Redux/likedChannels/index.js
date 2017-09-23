@@ -40,7 +40,7 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
     state.merge({ isFetching: true, errorMessage: '' }),
   [Types.LIKED_CHANNELS_SUCCESS]: (
     state: Object,
-    { items }: {items: {[key: string]: TChannelStore}},
+    { items }: {items: TChannelStoreWithKey},
   ) => {
     const newItem = state.items.merge(items);
     return state.merge({

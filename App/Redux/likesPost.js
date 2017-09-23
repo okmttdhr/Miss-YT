@@ -6,7 +6,7 @@ import type {TChannelStore} from '../types/';
 export const likesPostActions = (type: string) => {
   return {
     [`${type}LikesPostRequest`]: ['channel'],
-    [`${type}LikesPostIncrease`]: ['item'],
+    [`${type}LikesPostIncrease`]: ['channelId'],
   };
 };
 

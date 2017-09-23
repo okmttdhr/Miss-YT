@@ -23,11 +23,14 @@ export const firebaseServiceResponse =
       snapshot,
     };
   })
-  .catch((): APIResponse => ({
-    status: statusCode.InternalError,
-    message: '',
-    snapshot: null,
-  }));
+  .catch((e): APIResponse => {
+    console.log(e);
+    return {
+      status: statusCode.InternalError,
+      message: '',
+      snapshot: null,
+    };
+  });
 };
 
 export const handleServerError = (promise: Promise<any>): Promise<APIResponse> => {

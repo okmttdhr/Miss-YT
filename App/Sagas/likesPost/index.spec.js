@@ -1,13 +1,13 @@
 // @flow
-import { assign } from 'lodash';
+import { merge } from 'lodash';
 import test from 'ava-spec';
-import { call, select } from 'redux-saga/effects';
+import { call, select, put, take } from 'redux-saga/effects';
 
-import {channelStoreMock, channelsStoreWithKeyMock, firebaseLikeMock} from '../../../Tests/mock/';
-import { likedChannelsActions, channelsActions } from '../../Redux/';
+import {channelStoreMock, channelsStoreWithKeyMock, firebaseLikeMock, likeWithKeyMock} from '../../../Tests/mock/';
+import { likedChannelsActions, channelsActions, likedChannelsTypes } from '../../Redux/';
 import { likesPostToFirebase } from '../../Services';
 import {uidSelector, likedChannelsSelector} from '../selector';
-import { likesPostIncrease, mergeLikedChannelToLocal, likedChannelOnServer } from '../likesPost';
+import { likesPostIncrease, mergeLikedChannelToLocal, likeOnServer } from '../likesPost';
 
 test.serial.group('Normal', () => {
   const generator = likesPostIncrease({channel: channelStoreMock()});
@@ -26,17 +26,24 @@ test.serial.group('Normal', () => {
     );
   });
 
+  // test('could increase channels likeCount', (t) => {
+  //   t.deepEqual(
+  //     generator.next(channelsStoreWithKeyMock()).value,
+  //     take(likedChannelsTypes.LIKED_CHANNELS_SUCCESS),
+  //   );
+  // });
+
   test('could increase channels likeCount', (t) => {
     t.deepEqual(
       generator.next(channelsStoreWithKeyMock()).value,
-      call(channelsActions.channelsLikesPostIncrease, 'ID0'),
+      put(channelsActions.channelsLikesPostIncrease('ID0')),
     );
   });
 
   test('could increase likedChannels likeCount', (t) => {
     t.deepEqual(
       generator.next().value,
-      call(likedChannelsActions.likedChannelsLikesPostIncrease, 'ID0'),
+      put(likedChannelsActions.likedChannelsLikesPostIncrease('ID0')),
     );
   });
 
@@ -55,18 +62,18 @@ test.serial.group('Normal', () => {
   });
 });
 
-test.serial.group('getLikedChannelOnServer', () => {
-  test.serial.group('Normal', () => {
+test.serial.group('mergeLikedChannelToLocal', () => {
+  test.serial.group('new like', () => {
     const generator = mergeLikedChannelToLocal(
-      channelStoreMock(),
+      channelStoreMock(3),
       'uid',
-      'channelId',
+      channelsStoreWithKeyMock(),
     );
 
     test('could call request', (t) => {
       t.deepEqual(
         generator.next().value,
-        call(likedChannelOnServer, 'uid', 'channelId'),
+        call(likeOnServer, 'uid', channelStoreMock(3).id),
       );
     });
 
@@ -75,28 +82,30 @@ test.serial.group('getLikedChannelOnServer', () => {
         generator.next({
           status: 200,
           snapshot: {val: () => {
-            return firebaseLikeMock(3);
+            return likeWithKeyMock(3);
           }},
         }).value,
-        call(likedChannelsActions.likedChannelsSuccess, {channelId: assign({}, channelStoreMock(), {
-          isLiked: true,
-          rank: 3,
-          likeCount: 3,
-        })}),
+        put(likedChannelsActions.likedChannelsSuccess(
+          merge({}, {[channelStoreMock(3).id]: channelStoreMock(3)}, {[channelStoreMock(3).id]: {
+            isLiked: true,
+            rank: 3,
+            likeCount: 3,
+          }}),
+        )),
       );
     });
   });
-  test.serial.group('Abnormal', () => {
+  test.serial.group('existing like', () => {
     const generator = mergeLikedChannelToLocal(
       channelStoreMock(),
       'uid',
-      'channelId',
+      channelsStoreWithKeyMock(),
     );
 
     test('could call request', (t) => {
       t.deepEqual(
         generator.next().value,
-        call(likedChannelOnServer, 'uid', 'channelId'),
+        call(likeOnServer, 'uid', channelStoreMock().id),
       );
     });
 
@@ -106,11 +115,13 @@ test.serial.group('getLikedChannelOnServer', () => {
           status: 500,
           snapshot: null,
         }).value,
-        call(likedChannelsActions.likedChannelsSuccess, {channelId: assign({}, channelStoreMock(), {
-          isLiked: true,
-          rank: 0,
-          likeCount: 1,
-        })}),
+        put(likedChannelsActions.likedChannelsSuccess(
+          merge({}, {[channelStoreMock().id]: channelStoreMock()}, {[channelStoreMock().id]: {
+            isLiked: true,
+            rank: 6,
+            likeCount: 1,
+          }}),
+        )),
       );
     });
   });
