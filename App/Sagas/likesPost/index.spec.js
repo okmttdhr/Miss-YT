@@ -1,15 +1,15 @@
 // @flow
 import { merge } from 'lodash';
 import test from 'ava-spec';
-import { call, select, put, take } from 'redux-saga/effects';
+import { call, select, put, take, fork } from 'redux-saga/effects';
 
-import {channelStoreMock, channelsStoreWithKeyMock, firebaseLikeMock, likeWithKeyMock} from '../../../Tests/mock/';
+import {channelStoreMock, channelsStoreWithKeyMock, likeWithKeyMock} from '../../../Tests/mock/';
 import { likedChannelsActions, channelsActions, likedChannelsTypes } from '../../Redux/';
 import { likesPostToFirebase } from '../../Services';
 import {uidSelector, likedChannelsSelector} from '../selector';
 import { likesPostIncrease, mergeLikedChannelToLocal, likeOnServer } from '../likesPost';
 
-test.serial.group('Normal', () => {
+test.serial.group('Normal: increase', () => {
   const generator = likesPostIncrease({channel: channelStoreMock()});
 
   test('could get uid', (t) => {
@@ -25,13 +25,6 @@ test.serial.group('Normal', () => {
       select(likedChannelsSelector),
     );
   });
-
-  // test('could increase channels likeCount', (t) => {
-  //   t.deepEqual(
-  //     generator.next(channelsStoreWithKeyMock()).value,
-  //     take(likedChannelsTypes.LIKED_CHANNELS_SUCCESS),
-  //   );
-  // });
 
   test('could increase channels likeCount', (t) => {
     t.deepEqual(
@@ -59,6 +52,35 @@ test.serial.group('Normal', () => {
       generator.next('uid').value,
       call(likesPostToFirebase.likesIncrease, 'ID0', 1, 'uid'),
     );
+  });
+});
+
+test.serial.group('Normal: add', () => {
+  const generator = likesPostIncrease({channel: channelStoreMock(10)});
+
+  generator.next();
+  generator.next('uid');
+
+  test('could update localLikedChannels', (t) => {
+    t.deepEqual(
+      generator.next(channelsStoreWithKeyMock()).value,
+      fork(mergeLikedChannelToLocal, channelStoreMock(10), 'uid', channelsStoreWithKeyMock()),
+    );
+  });
+
+  test('could wait for updationg localLikedChannels', (t) => {
+    t.deepEqual(
+      generator.next().value,
+      take(likedChannelsTypes.LIKED_CHANNELS_SUCCESS),
+    );
+  });
+
+  test('could finish generator', (t) => {
+    generator.next();
+    generator.next();
+    generator.next();
+    generator.next();
+    t.true(generator.next().done);
   });
 });
 
