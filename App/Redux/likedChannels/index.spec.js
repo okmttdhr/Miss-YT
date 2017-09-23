@@ -20,6 +20,16 @@ test('could update liked Channels', (t) => {
   );
   t.deepEqual(state, assign({}, DEFAULT_LIKED_CHANNELS, {
     items: channelsStoreWithKeyMock(),
+    startAt: 1,
+  }));
+});
+
+test('could update where next page startAt', (t) => {
+  const state = likedChannelsReducer(
+    DEFAULT_LIKED_CHANNELS,
+    likedChannelsActions.likedChannelsPaginate(),
+  );
+  t.deepEqual(state, assign({}, DEFAULT_LIKED_CHANNELS, {
     startAt: 11,
   }));
 });

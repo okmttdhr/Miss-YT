@@ -68,4 +68,5 @@ export function* getLikedChannels<T>(): Generator<T, any, any> {
   const channels: {[key: string]: TChannelStore} = channelStoreArrayToActiveObject(channelsArray);
   yield fork(syncLikes, channels);
   yield put(likedChannelsActions.likedChannelsSuccess(channels));
+  yield put(likedChannelsActions.likedChannelsPaginate());
 }

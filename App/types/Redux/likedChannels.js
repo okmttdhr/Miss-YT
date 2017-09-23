@@ -18,4 +18,5 @@ export type TLikedChannelsActions = TLikedChannelsLikesPostActions & {
   likedChannelsChanged: () => any,
   likedChannelsRemoved: () => any,
   likedChannelsSetContentHeight: (height: number) => void,
+  likedChannelsPaginate: () => void,
 }

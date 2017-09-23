@@ -30,7 +30,6 @@ export const Panel = ({channel, isMargin, likesPostRequest}: TChannelPanel) => (
             size={20}
             color={COLOR_RED}
             onPress={() => {
-              console.log('hi');
               likesPostRequest(channel);
             }}
           />

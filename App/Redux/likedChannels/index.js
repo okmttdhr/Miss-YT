@@ -16,6 +16,7 @@ const { Types, Creators } = createActions({
   likedChannelsChanged: ['item'],
   likedChannelsRemoved: ['item'],
   likedChannelsSetContentHeight: ['contentHeight'],
+  likedChannelsPaginate: null,
   ...likesPostActions('likedChannels'),
 });
 export const likedChannelsTypes = Types;
@@ -46,9 +47,10 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
       isFetching: false,
       errorMessage: '',
       items: newItem,
-      startAt: state.startAt + PER_PAGE,
-    });
+    }, {deep: true});
   },
+  [Types.LIKED_CHANNELS_PAGINATE]: (state: Object) =>
+    state.merge({ startAt: state.startAt + PER_PAGE }),
   [Types.LIKED_CHANNELS_FAILURE]: (state: Object) =>
     state.merge({ isFetching: false, errorMessage: 'error' }),
   [Types.LIKED_CHANNELS_CHANGED]: (state: Object, { item }: {item: TChannel}) => {

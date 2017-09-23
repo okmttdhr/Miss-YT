@@ -66,6 +66,10 @@ test.serial.group('Normal', () => {
       generator.next(channelsStoreMock).value,
       put(likedChannelsActions.likedChannelsSuccess(channelsStoreWithKeyMock())),
     );
+    t.deepEqual(
+      generator.next().value,
+      put(likedChannelsActions.likedChannelsPaginate()),
+    );
     t.true(generator.next().done);
   });
 });
