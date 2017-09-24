@@ -1,6 +1,7 @@
 // @flow
 import type {TDefaultChannels} from './channels';
 import type {TChannelStore} from '../Channel';
+import type {TLike} from '../like';
 
 export type TDefaultLikedChannels = TDefaultChannels
 
@@ -19,4 +20,5 @@ export type TLikedChannelsActions = TLikedChannelsLikesPostActions & {
   likedChannelsRemoved: () => any,
   likedChannelsSetContentHeight: (height: number) => void,
   likedChannelsPaginate: () => void,
+  likesChanged: (item: TLike) => void,
 }

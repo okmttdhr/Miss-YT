@@ -1,11 +1,25 @@
 // @flow
-import type {TChannel} from '../../types/';
+import type {TChannel, TLike} from '../../types/';
 import {channelsActions, userActions, defaultUser, likedChannelsActions} from '../../Redux/';
-import {channelsRef} from './ref';
+import {channelsRef, likesRef} from './ref';
 import {firebaseApp} from './init';
 import {convertUserFromFirebaseToStore} from './index';
 
-const auth = (dispatch) => {
+const likes = (store: any, uid: string) => {
+  const {dispatch, getState} = store;
+  likesRef.child(uid).on('child_changed', (snapshot) => {
+    const like: TLike = snapshot.val();
+    console.log('likesRef child_changed');
+    const noChange = typeof getState().likedChannels.items[like.channelId] === 'undefined';
+    if (noChange) {
+      return;
+    }
+    dispatch(likedChannelsActions.likesChanged(like));
+  });
+};
+
+const auth = (store: any) => {
+  const {dispatch} = store;
   firebaseApp.auth().onAuthStateChanged((firebaseUser) => {
     console.log('firebaseUser', firebaseUser);
     if (!firebaseUser) {
@@ -14,12 +28,14 @@ const auth = (dispatch) => {
     }
     const user = convertUserFromFirebaseToStore(firebaseUser);
     dispatch(userActions.userSuccess(user));
+    dispatch(likedChannelsActions.syncLikes());
+    likes(store, user.uid);
   });
 };
 
 export const firebaseSubscribe = (store: any) => {
   const {dispatch, getState} = store;
-  auth(dispatch);
+  auth(store);
   channelsRef.on('child_changed', (snapshot) => {
     const channel: TChannel = snapshot.val();
     const noChange = typeof getState().channels.items[channel.id] === 'undefined';

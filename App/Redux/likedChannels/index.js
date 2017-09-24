@@ -4,7 +4,7 @@ import { omit } from 'lodash';
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 import {PER_PAGE} from '../../constants';
-import type {TDefaultLikedChannels, TLikedChannelsActions, TChannel, TChannelStore} from '../../types/';
+import type {TDefaultLikedChannels, TLikedChannelsActions, TChannel, TLike, TChannelStoreWithKey} from '../../types/';
 import {likesPostActions, likesPostReducer} from '../likesPost';
 
 /* ------------- Types and Action Creators ------------- */
@@ -17,6 +17,7 @@ const { Types, Creators } = createActions({
   likedChannelsRemoved: ['item'],
   likedChannelsSetContentHeight: ['contentHeight'],
   likedChannelsPaginate: null,
+  likesChanged: ['item'],
   ...likesPostActions('likedChannels'),
 });
 export const likedChannelsTypes = Types;
@@ -60,6 +61,12 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
   [Types.LIKED_CHANNELS_REMOVED]: (state: Object, { item }: {item: TChannel}) => {
     const newItem = state.items.without(item.id);
     return state.merge({items: newItem});
+  },
+  [Types.LIKES_CHANGED]: (state: Object, { item }: {item: TLike}) => {
+    return state.merge({items: {[item.channelId]: {
+      rank: item.rank,
+      likeCount: item.count,
+    }}}, {deep: true});
   },
   [Types.LIKED_CHANNELS_SET_CONTENT_HEIGHT]: (state: Object, {contentHeight}: Object) =>
     state.merge({ contentHeight }),
