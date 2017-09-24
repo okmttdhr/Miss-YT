@@ -5,7 +5,6 @@ import { merge } from 'lodash';
 import type {TChannelStore, TLikeWithKey, TChannelStoreWithKey} from '../../types/';
 import {likedChannelsActions, channelsActions, likedChannelsTypes} from '../../Redux/';
 import {
-  firebaseServiceResponse,
   getLikeWithChannelId,
   isSuccess,
 } from '../../Services/';
@@ -14,17 +13,13 @@ import {likesPostToFirebase} from './firebase';
 
 export * from './sync';
 
-export const likeOnServer = (uid: string, channelId: string) => {
-  return firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
-};
-
 export function* mergeLikedChannelToLocal<T>(
   channel: TChannelStore,
   uid: string,
   localLikedChannels: TChannelStoreWithKey,
 ): Generator<T, any, any> {
   console.log('mergeLikedChannelToLocal');
-  const isLikeOnServer = uid ? yield call(likeOnServer, uid, channel.id) : {status: 500, message: ''};
+  const isLikeOnServer = uid ? yield call(getLikeWithChannelId, uid, channel.id) : {status: 500, message: ''};
 
   if (!isSuccess(isLikeOnServer)) {
     console.log('mergeLikedChannelToLocal: new');

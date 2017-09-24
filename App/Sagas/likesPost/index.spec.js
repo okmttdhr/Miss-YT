@@ -5,8 +5,9 @@ import { call, select, put, take, fork } from 'redux-saga/effects';
 
 import {channelStoreMock, channelsStoreWithKeyMock, likeWithKeyMock} from '../../../Tests/mock/';
 import { likedChannelsActions, channelsActions, likedChannelsTypes } from '../../Redux/';
+import { getLikeWithChannelId } from '../../Services';
 import {uidSelector, likedChannelsSelector} from '../selector';
-import { likesPostIncrease, mergeLikedChannelToLocal, likeOnServer } from '../likesPost';
+import { likesPostIncrease, mergeLikedChannelToLocal } from '../likesPost';
 import {likesPostToFirebase} from './firebase';
 
 test.serial.group('Normal: increase', () => {
@@ -95,7 +96,7 @@ test.serial.group('mergeLikedChannelToLocal', () => {
     test('could call request', (t) => {
       t.deepEqual(
         generator.next().value,
-        call(likeOnServer, 'uid', channelStoreMock(3).id),
+        call(getLikeWithChannelId, 'uid', channelStoreMock(3).id),
       );
     });
 
@@ -127,7 +128,7 @@ test.serial.group('mergeLikedChannelToLocal', () => {
     test('could call request', (t) => {
       t.deepEqual(
         generator.next().value,
-        call(likeOnServer, 'uid', channelStoreMock().id),
+        call(getLikeWithChannelId, 'uid', channelStoreMock().id),
       );
     });
 

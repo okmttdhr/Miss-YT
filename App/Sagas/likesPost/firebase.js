@@ -1,4 +1,5 @@
 // @flow
+import { call } from 'redux-saga/effects';
 import type {TLike, TLikeWithKey} from '../../types/';
 import {isSuccess,
   isNotFound,
@@ -7,7 +8,14 @@ import {isSuccess,
   handleServerError,
   likesRef,
   channelsRef,
-  getLikeWithChannelId} from '../../Services/';
+  getLikeWithChannelId,
+} from '../../Services/';
+
+const test2 = (uid, likeKey, count) => {
+  return firebaseTxServiceResponse(
+    likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + count),
+  );
+};
 
 export const likesPostToFirebase = {
   likesNew: async (channelId: string, count: number, uid: string) => {
@@ -20,36 +28,26 @@ export const likesPostToFirebase = {
     );
     return promise;
   },
-  // likesIncrease: function* test<T>(
-  //   channelId: string, count: number, uid: string,
-  // ): Generator<T, any, any> {
-  likesIncrease: async (channelId: string, count: number, uid: string) => {
+  likesIncrease: function* test<T>(
+    channelId: string, count: number, uid: string,
+  ): Generator<T, any, any> {
     console.log('likesIncrease');
-    // const likeResponse = yield firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
-    const likeResponse = await firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
-    if (isNotFound(likeResponse)) {
-      // yield likesPostToFirebase.likesNew(channelId, count, uid);
-      // return;
-      return likesPostToFirebase.likesNew(channelId, count, uid);
+    const isLikeOnServer = yield call(getLikeWithChannelId, uid, channelId);
+    if (isNotFound(isLikeOnServer)) {
+      yield call(likesPostToFirebase.likesNew, channelId, count, uid);
+      return;
     }
-    if (!isSuccess(likeResponse)) {
-      // yield likeResponse;
-      // return;
-      return likeResponse;
+    if (!isSuccess(isLikeOnServer)) {
+      yield isLikeOnServer;
+      return;
     }
-    const like: TLike = likeResponse.snapshot.val();
+    const like: TLike = isLikeOnServer.snapshot.val();
     const likeKey: string = Object.keys(like)[0];
-    // yield firebaseTxServiceResponse(
-      // likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + count),
-    // );
-    const tx = await firebaseTxServiceResponse(
-      likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + count),
-    );
-    return tx;
+    yield call(test2, uid, likeKey, count);
   },
   likesSync: async (channelId: string, count: number, uid: string) => {
     console.log('likesSync');
-    const likeResponse = await firebaseServiceResponse(getLikeWithChannelId(uid, channelId));
+    const likeResponse = await getLikeWithChannelId(uid, channelId);
     if (isNotFound(likeResponse)) {
       return likesPostToFirebase.likesNew(channelId, count, uid);
     }

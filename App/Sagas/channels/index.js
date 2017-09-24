@@ -5,12 +5,12 @@ import { call, put, select } from 'redux-saga/effects';
 
 import type {TChannel, TChannelStore, TRootState, APIResponse} from '../../types/';
 import {PER_PAGE} from '../../constants';
-import {channelsRef,
+import {
+  channelsRef,
   likesRef,
   statusCode,
   snapshotExists,
   channelStoreArrayToActiveObject,
-  getLikeWithChannelId,
 } from '../../Services/';
 import {channelsActions} from '../../Redux/';
 
@@ -30,6 +30,10 @@ export const getFromFirebase = (startAt: number) => {
       status: statusCode.InternalError,
       message: '',
     }));
+};
+
+const getLikeWithChannelId = (uid: string, channelId: string) => {
+  return likesRef.child(uid).orderByChild('channelId').equalTo(channelId).once('value');
 };
 
 const getIsLiked = (userId: string, channelId: string) =>
