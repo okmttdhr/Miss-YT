@@ -1,6 +1,6 @@
 // @flow
 import { call } from 'redux-saga/effects';
-import type {TLike, TLikeWithKey} from '../../types/';
+import type {TLikeWithKey} from '../../../types/';
 import {isSuccess,
   isNotFound,
   firebaseTxServiceResponse,
@@ -8,7 +8,7 @@ import {isSuccess,
   likesRef,
   channelsRef,
   getLikeWithChannelId,
-} from '../../Services/';
+} from '../../../Services/';
 
 export const increaseOnFirebase = (uid: string, likeKey: string, count: number) => {
   return firebaseTxServiceResponse(
@@ -17,6 +17,7 @@ export const increaseOnFirebase = (uid: string, likeKey: string, count: number) 
 };
 
 export const likesPostToFirebase = {
+  // TODO add tests and rename
   likesNew: async (channelId: string, count: number, uid: string) => {
     const promise = await handleServerError(
       likesRef.child(uid)
@@ -44,6 +45,7 @@ export const likesPostToFirebase = {
     const likeKey: string = Object.keys(like)[0];
     yield call(increaseOnFirebase, uid, likeKey, count);
   },
+  // TODO add tests and rename
   likesSync: async (channelId: string, count: number, uid: string) => {
     console.log('likesSync');
     const likeResponse = await getLikeWithChannelId(uid, channelId);
