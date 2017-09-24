@@ -13,6 +13,7 @@ type TChannelPanels = {
   channels: TDefaultChannels,
   setContentHeight: (height: number) => void,
   channelsRequest: () => void,
+  likesPostRequest: (channel: TChannelStore) => void,
 }
 
 const onScroll = (event, contentHeight, channelsRequest) => {
@@ -22,18 +23,27 @@ const onScroll = (event, contentHeight, channelsRequest) => {
   }
 };
 
-const getPanels = (items) => {
+const getPanels = (items, likesPostRequest) => {
   return items.map((item, i) => {
     const isSingle = items.length === 1;
     if (isSingle) {
       return null;
     }
     const isEven = (i + 1) % 2 === 0;
-    return (<Panel key={item.id} channel={item} isMargin={isEven} />);
+    return (
+      <Panel
+        key={item.id}
+        channel={item}
+        isMargin={isEven}
+        likesPostRequest={likesPostRequest}
+      />
+    );
   });
 };
 
-export const ChannelPanels = ({channels, setContentHeight, channelsRequest}: TChannelPanels) => {
+export const ChannelPanels = (
+  {channels, setContentHeight, channelsRequest, likesPostRequest}: TChannelPanels,
+) => {
   const {items, contentHeight, isFetching} = channels;
   const channelsItem = orderBy(Object.values(items), ['rank'], ['asc']);
   return (
@@ -46,7 +56,7 @@ export const ChannelPanels = ({channels, setContentHeight, channelsRequest}: TCh
       >
         {channelsItem.length > 0
           ? chunk(channelsItem, 2).map((chunkedItems: TChannelStore[]) => {
-            const panels = getPanels(chunkedItems);
+            const panels = getPanels(chunkedItems, likesPostRequest);
             return (<View style={styles.panelWrapper} key={chunkedItems[0].id}>{panels}</View>);
           }) : null}
         <Loading isShow={isFetching} />

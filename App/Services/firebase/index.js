@@ -6,7 +6,6 @@ export * from './authErrorToMessage';
 export * from './init';
 export * from './likesPost';
 export * from './ref';
-export * from './subscribe';
 
 export const convertUserFromFirebaseToStore = (firebaseUser: TUser) => {
   return {

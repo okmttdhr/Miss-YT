@@ -17,7 +17,7 @@ yarn start
 
 ## Command
 
-```
+```sh
 yarn lint
 yarn lint:fix
 ```
@@ -48,7 +48,7 @@ The `.env` file is ignored by git keeping those secrets out of your repo.
 Setting config for different environments in different files: `.env.staging` and `.env.production`.
 
 ```sh
-// build for different environments
+# build for different environments
 npm start -- --scheme YOUR_APP_SCHEMA_FOR_ENVIRONMENTS
 ```
 

@@ -8,6 +8,7 @@ import { likedChannelsActions } from '../../Redux/';
 import { statusCode } from '../../Services/';
 import { getLikedChannels, getLikesFromFirebase, getStartAt, getChannels } from './index';
 import {syncLikes} from '../likesPost';
+import {uidSelector} from '../selector';
 
 test.serial.group('Normal', () => {
   const generator = getLikedChannels();
@@ -19,10 +20,17 @@ test.serial.group('Normal', () => {
     );
   });
 
-  test('could make a request to get likes', (t) => {
+  test('could select uid', (t) => {
     t.deepEqual(
       generator.next(1).value,
-      call(getLikesFromFirebase, 1),
+      select(uidSelector),
+    );
+  });
+
+  test('could make a request to get likes', (t) => {
+    t.deepEqual(
+      generator.next('uid').value,
+      call(getLikesFromFirebase, 'uid', 1),
     );
   });
 
@@ -58,6 +66,10 @@ test.serial.group('Normal', () => {
       generator.next(channelsStoreMock).value,
       put(likedChannelsActions.likedChannelsSuccess(channelsStoreWithKeyMock())),
     );
+    t.deepEqual(
+      generator.next().value,
+      put(likedChannelsActions.likedChannelsPaginate()),
+    );
     t.true(generator.next().done);
   });
 });
@@ -67,6 +79,7 @@ test.serial.group('Abnormal', () => {
 
   test('could send errorResponce to action', (t) => {
     const errorResponce = firebaseLikesResponse(statusCode.InternalError);
+    generator.next();
     generator.next();
     generator.next();
     t.deepEqual(

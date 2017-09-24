@@ -3,7 +3,7 @@ import immutablePersistenceTransform from '../Services/ImmutablePersistenceTrans
 
 const REDUX_PERSIST = {
   active: true,
-  reducerVersion: '1.2',
+  reducerVersion: '1.3',
   storeConfig: {
     storage: AsyncStorage,
     blacklist: ['search'],

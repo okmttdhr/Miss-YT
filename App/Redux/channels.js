@@ -15,7 +15,7 @@ const { Types, Creators } = createActions({
   channelsChanged: ['item'],
   channelsRemoved: ['item'],
   setContentHeight: ['contentHeight'],
-  ...likesPostActions,
+  ...likesPostActions('channels'),
 });
 export const channelsTypes = Types;
 export const channelsActions: TChannelsActions = Creators;
@@ -67,5 +67,5 @@ export const channelsReducer = createReducer(DEFAULT_CHANNELS, {
       startAt: 1,
     }]);
   },
-  ...likesPostReducer,
+  ...likesPostReducer('CHANNELS'),
 });

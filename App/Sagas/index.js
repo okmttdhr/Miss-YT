@@ -10,7 +10,9 @@ import { StartupTypes } from '../Redux/StartupRedux';
 import { startup } from './StartupSagas';
 import { getChannels } from './channels';
 import { getLikedChannels } from './likedChannels';
+import { likesPostIncrease } from './likesPost';
 import { login, createUser, updateProfile, sendEmailVerification, reload, sendPasswordResetEmail } from './UserSagas';
+import { likesChanged } from './subscribe';
 
 /* ------------- RootSaga ------------- */
 
@@ -18,7 +20,11 @@ export default function* root() {
   yield [
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(channelsTypes.CHANNELS_REQUEST, getChannels),
+    takeLatest(channelsTypes.CHANNELS_LIKES_POST_REQUEST, likesPostIncrease),
+
     takeLatest(likedChannelsTypes.LIKED_CHANNELS_REQUEST, getLikedChannels),
+    takeLatest(likedChannelsTypes.LIKED_CHANNELS_LIKES_POST_REQUEST, likesPostIncrease),
+    takeLatest(likedChannelsTypes.LIKES_CHANGED, likesChanged),
 
     takeLatest(userTypes.USER_LOGIN, login),
     takeLatest(userTypes.USER_CREATE, createUser),

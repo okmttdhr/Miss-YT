@@ -4,3 +4,5 @@ export type TLike = {
   rank: number;
   count: number;
 }
+
+export type TLikeWithKey = {[key: string]: TLike};

@@ -13,6 +13,7 @@ const setContentHeightMock = () => {
 const channelsRequestMock = () => {
   console.log('channelsRequestMock');
 };
+const likesPostRequestMock = () => {};
 
 test('has right number of <Panel>', (t) => {
   const wrapper = shallow(
@@ -20,6 +21,7 @@ test('has right number of <Panel>', (t) => {
       channels={defaultChannelsMock}
       setContentHeight={setContentHeightMock}
       channelsRequest={channelsRequestMock}
+      likesPostRequest={likesPostRequestMock}
     />,
   );
   t.is(wrapper.find(Panel).length, 4);

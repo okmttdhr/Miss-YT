@@ -7,7 +7,7 @@ import {not, contains} from 'ramda';
 import Config from '../Config/DebugSettings';
 import ReduxPersist from '../Config/ReduxPersist';
 import RehydrationServices from '../Services/RehydrationServices';
-import {firebaseSubscribe} from '../Services/';
+import {subscribeFirebase} from '../Sagas/subscribe';
 
 export default (rootReducer, rootSaga) => {
   /* ------------- Redux Configuration ------------- */
@@ -53,7 +53,7 @@ export default (rootReducer, rootSaga) => {
   }
 
   sagaMiddleware.run(rootSaga);
-  firebaseSubscribe(store);
+  subscribeFirebase(store);
 
   return store;
 };
