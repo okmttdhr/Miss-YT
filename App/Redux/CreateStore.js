@@ -7,7 +7,7 @@ import {not, contains} from 'ramda';
 import Config from '../Config/DebugSettings';
 import ReduxPersist from '../Config/ReduxPersist';
 import RehydrationServices from '../Services/RehydrationServices';
-import {firebaseSubscribe} from '../Services/';
+import {firebaseSubscribe} from '../Sagas/subscribe';
 
 export default (rootReducer, rootSaga) => {
   /* ------------- Redux Configuration ------------- */
