@@ -3,7 +3,6 @@ import { call } from 'redux-saga/effects';
 import type {TLike, TLikeWithKey} from '../../types/';
 import {isSuccess,
   isNotFound,
-  firebaseServiceResponse,
   firebaseTxServiceResponse,
   handleServerError,
   likesRef,
@@ -11,7 +10,7 @@ import {isSuccess,
   getLikeWithChannelId,
 } from '../../Services/';
 
-const test2 = (uid, likeKey, count) => {
+export const increaseOnFirebase = (uid: string, likeKey: string, count: number) => {
   return firebaseTxServiceResponse(
     likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + count),
   );
@@ -28,10 +27,10 @@ export const likesPostToFirebase = {
     );
     return promise;
   },
-  likesIncrease: function* test<T>(
+  increase: function* increase<T>(
     channelId: string, count: number, uid: string,
   ): Generator<T, any, any> {
-    console.log('likesIncrease');
+    console.log('increase');
     const isLikeOnServer = yield call(getLikeWithChannelId, uid, channelId);
     if (isNotFound(isLikeOnServer)) {
       yield call(likesPostToFirebase.likesNew, channelId, count, uid);
@@ -41,9 +40,9 @@ export const likesPostToFirebase = {
       yield isLikeOnServer;
       return;
     }
-    const like: TLike = isLikeOnServer.snapshot.val();
+    const like: TLikeWithKey = isLikeOnServer.snapshot.val();
     const likeKey: string = Object.keys(like)[0];
-    yield call(test2, uid, likeKey, count);
+    yield call(increaseOnFirebase, uid, likeKey, count);
   },
   likesSync: async (channelId: string, count: number, uid: string) => {
     console.log('likesSync');

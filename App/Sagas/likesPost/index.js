@@ -68,6 +68,6 @@ export function* likesPostIncrease<T>({channel}: {channel: TChannelStore}): Gene
 
   yield call(likesPostToFirebase.channels, channelId, 1);
   if (uid) {
-    yield call(likesPostToFirebase.likesIncrease, channelId, 1, uid);
+    yield call(likesPostToFirebase.increase, channelId, 1, uid);
   }
 }

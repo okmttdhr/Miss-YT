@@ -51,7 +51,7 @@ test.serial.group('Normal: increase', () => {
   test('could make promises for all liked channels', (t) => {
     t.deepEqual(
       generator.next('uid').value,
-      call(likesPostToFirebase.likesIncrease, 'ID0', 1, 'uid'),
+      call(likesPostToFirebase.increase, 'ID0', 1, 'uid'),
     );
   });
 });
