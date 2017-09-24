@@ -1,9 +1,9 @@
 // @flow
-import type {TChannel, TLike} from '../../types/';
-import {channelsActions, userActions, defaultUser, likedChannelsActions} from '../../Redux/';
-import {channelsRef, likesRef} from './ref';
-import {firebaseApp} from './init';
-import {convertUserFromFirebaseToStore} from './index';
+import type {TChannel, TLike} from '../../../types/';
+import {channelsActions, userActions, defaultUser, likedChannelsActions} from '../../../Redux/';
+import {channelsRef, likesRef} from '../ref';
+import {firebaseApp} from '../init';
+import {convertUserFromFirebaseToStore} from '../index';
 
 const likes = (store: any, uid: string) => {
   const {dispatch, getState} = store;
