@@ -5,10 +5,10 @@ import {call} from 'redux-saga/effects';
 import {likeWithKeyMock} from '../../../../Tests/mock/';
 import { getLikeWithChannelId } from '../../../Services';
 import {_new} from './new';
-import {increase, increaseOnFirebase} from './increase';
+import {sync, syncOnFirebase} from './sync';
 
 test.serial.group('Normal', () => {
-  const generator = increase('channelId', 1, 'uid');
+  const generator = sync('channelId', 20, 'uid');
 
   test('could check if the target like is already on server', (t) => {
     t.deepEqual(
@@ -17,22 +17,38 @@ test.serial.group('Normal', () => {
     );
   });
 
-  test('could increase count', (t) => {
+  test('could sync count', (t) => {
     t.deepEqual(
       generator.next({
         status: 200,
         message: '',
         snapshot: {val: () => {
-          return likeWithKeyMock();
+          return likeWithKeyMock(10);
         }},
       }).value,
-      call(increaseOnFirebase, 'uid', 'KEY0', 1),
+      call(syncOnFirebase, 'uid', 'KEY10', 20),
     );
   });
 });
 
+test.serial.group('Normal', () => {
+  const generator = sync('channelId', 10, 'uid');
+  generator.next();
+
+  test("doesn't sync count if no difference", (t) => {
+    const response = {
+      status: 200,
+      message: '',
+      snapshot: {val: () => {
+        return likeWithKeyMock(10);
+      }},
+    };
+    t.deepEqual(generator.next(response).value, response);
+  });
+});
+
 test.serial.group('Abnormal', () => {
-  const generator = increase('channelId', 1, 'uid');
+  const generator = sync('channelId', 1, 'uid');
   generator.next();
 
   test('could push new like to Firebase', (t) => {
@@ -48,7 +64,7 @@ test.serial.group('Abnormal', () => {
 });
 
 test.serial.group('Abnormal', () => {
-  const generator = increase('channelId', 1, 'uid');
+  const generator = sync('channelId', 1, 'uid');
   generator.next();
 
   test("could return response when it couldn't get like", (t) => {
