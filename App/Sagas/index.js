@@ -10,7 +10,7 @@ import { StartupTypes } from '../Redux/StartupRedux';
 import { startup } from './StartupSagas';
 import { getChannels } from './channels';
 import { getLikedChannels } from './likedChannels';
-import { likesPostIncrease } from './likesPost';
+import { likesPostIncrease, likesSync } from './likesPost';
 import { login, createUser, updateProfile, sendEmailVerification, reload, sendPasswordResetEmail } from './UserSagas';
 import { likesChanged } from './subscribe';
 
@@ -25,6 +25,7 @@ export default function* root() {
     takeLatest(likedChannelsTypes.LIKED_CHANNELS_REQUEST, getLikedChannels),
     takeLatest(likedChannelsTypes.LIKED_CHANNELS_LIKES_POST_REQUEST, likesPostIncrease),
     takeLatest(likedChannelsTypes.LIKES_CHANGED, likesChanged),
+    takeLatest(likedChannelsTypes.LIKES_SYNC, likesSync),
 
     takeLatest(userTypes.USER_LOGIN, login),
     takeLatest(userTypes.USER_CREATE, createUser),
