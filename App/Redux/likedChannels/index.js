@@ -17,7 +17,8 @@ const { Types, Creators } = createActions({
   likedChannelsRemoved: ['item'],
   likedChannelsSetContentHeight: ['contentHeight'],
   likedChannelsPaginate: null,
-  likesChanged: ['item'],
+  likesChanged: ['snapshot'],
+  likesChangedSuccess: ['item'],
   ...likesPostActions('likedChannels'),
 });
 export const likedChannelsTypes = Types;
@@ -62,7 +63,7 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
     const newItem = state.items.without(item.id);
     return state.merge({items: newItem});
   },
-  [Types.LIKES_CHANGED]: (state: Object, { item }: {item: TLike}) => {
+  [Types.LIKES_CHANGED_SUCCESS]: (state: Object, { item }: {item: TLike}) => {
     return state.merge({items: {[item.channelId]: {
       rank: item.rank,
       likeCount: item.count,

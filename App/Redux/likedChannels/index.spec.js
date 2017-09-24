@@ -71,7 +71,7 @@ test("could update liked Channels with likes' CHANGED event", (t) => {
   const DEFAULT_CHANNELS_MOCK = Immutable(defaultChannelsMock);
   const state = likedChannelsReducer(
     DEFAULT_CHANNELS_MOCK,
-    likedChannelsActions.likesChanged(likeMock()),
+    likedChannelsActions.likesChangedSuccess(likeMock()),
   );
   t.deepEqual(state, DEFAULT_CHANNELS_MOCK.merge({items: {CHANNELID0: {
     rank: 0,
