@@ -1,5 +1,5 @@
 // @flow
-// import { call } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 import type {TLikeWithKey} from '../../../types/';
 import {isSuccess,
   isNotFound,
@@ -11,25 +11,35 @@ import {isSuccess,
 import {increase} from './increase';
 import {_new} from './new';
 
+export const syncOnFirebase = (uid: string, likeKey: string, count: number) => {
+  return firebaseTxServiceResponse(
+    likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + (count - c)),
+  );
+};
+
 export const likesPostToFirebase = {
   increase,
-  likesSync: async (channelId: string, count: number, uid: string) => {
-    console.log('likesSync');
-    const likeResponse = await getLikeWithChannelId(uid, channelId);
-    if (isNotFound(likeResponse)) {
-      return _new(channelId, count, uid);
+  sync: function* test<T>(
+    channelId: string, count: number, uid: string,
+  ): Generator<T, any, any> {
+    console.log('sync');
+    const isLikeOnServer = yield call(getLikeWithChannelId, uid, channelId);
+    if (isNotFound(isLikeOnServer)) {
+      yield call(_new, channelId, count, uid);
+      return;
     }
-    if (!isSuccess(likeResponse)) {
-      return likeResponse;
+    if (!isSuccess(isLikeOnServer)) {
+      yield isLikeOnServer;
+      return;
     }
-    const like: TLikeWithKey = likeResponse.snapshot.val();
+    const like: TLikeWithKey = isLikeOnServer.snapshot.val();
     const likeKey: string = Object.keys(like)[0];
     const isDiff = count > like[likeKey].count;
     if (isDiff) {
-      const tx = await firebaseTxServiceResponse(likesRef.child(`${uid}/${likeKey}/count`).transaction(c => c + (count - c)));
-      return tx;
+      yield call(syncOnFirebase, uid, likeKey, count);
+      return;
     }
-    return {status: 200, message: ''};
+    yield isLikeOnServer;
   },
   channels: async (channelId: string, count: number) => {
     return firebaseTxServiceResponse(channelsRef.child(`${channelId}/likeCount`).transaction((c) => {
