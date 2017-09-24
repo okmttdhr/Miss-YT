@@ -6,7 +6,7 @@ import {likeWithKeyMock} from '../../../Tests/mock/';
 import { getLikeWithChannelId } from '../../Services';
 import {likesPostToFirebase, increaseOnFirebase} from './firebase';
 
-test.serial.group('Normal: increase', () => {
+test.serial.group('Normal', () => {
   const generator = likesPostToFirebase.increase('channelId', 1, 'uid');
 
   test('could check if the target like is already on server', (t) => {
@@ -27,5 +27,35 @@ test.serial.group('Normal: increase', () => {
       }).value,
       call(increaseOnFirebase, 'uid', 'KEY0', 1),
     );
+  });
+});
+
+test.serial.group('Abnormal', () => {
+  const generator = likesPostToFirebase.increase('channelId', 1, 'uid');
+  generator.next();
+
+  test('could push new like to Firebase', (t) => {
+    t.deepEqual(
+      generator.next({
+        status: 404,
+        message: '',
+        snapshot: null,
+      }).value,
+      call(likesPostToFirebase.likesNew, 'channelId', 1, 'uid'),
+    );
+  });
+});
+
+test.serial.group('Abnormal', () => {
+  const generator = likesPostToFirebase.increase('channelId', 1, 'uid');
+  generator.next();
+
+  test("could return response when it couldn't get like", (t) => {
+    const response = {
+      status: 500,
+      message: '',
+      snapshot: null,
+    };
+    t.deepEqual(generator.next(response).value, response);
   });
 });
