@@ -1,19 +1,17 @@
 // @flow
 import Promise from 'bluebird';
 import { assign } from 'lodash';
-import { call, put, select, fork } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
-import type {TChannel, TChannelStore, APIResponse, TRootState, TLike} from '../../types/';
+import type {TChannel, TChannelStore, APIResponse, TRootState, TLike, TChannelStoreWithKey} from '../../types/';
 import {PER_PAGE} from '../../constants';
 import {likedChannelsActions} from '../../Redux/';
 import {likesRef, channelsRef, isSuccess, channelStoreArrayToActiveObject, firebaseServiceResponse} from '../../Services/';
-import {syncLikes} from '../likesPost';
 import {uidSelector} from '../selector';
 
 export const getStartAt = (state: TRootState) => state.likedChannels.startAt;
 
 export const getLikesFromFirebase = (uid: string, startAt: number) => {
-  console.log(uid);
   return firebaseServiceResponse(
       likesRef
         .child(uid)
@@ -39,7 +37,6 @@ export const getChannels = (snapshot: any): Array<Promise<TChannelStore>> => {
         }
         const channel: {[key: string]: TChannel} = responce.snapshot.val();
         const key: string = Object.keys(channel)[0];
-        console.log('like', like);
         return assign({}, channel[key], {
           isLiked: true,
           rank: like.rank,
@@ -58,6 +55,10 @@ export const getChannels = (snapshot: any): Array<Promise<TChannelStore>> => {
 export function* getLikedChannels<T>(): Generator<T, any, any> {
   const startAt = yield select(getStartAt);
   const uid = yield select(uidSelector);
+  if (!uid) {
+    yield put(likedChannelsActions.likedChannelsSuccess({}));
+    return;
+  }
   const responce: APIResponse = yield call(getLikesFromFirebase, uid, startAt);
   if (!isSuccess(responce)) {
     yield put(likedChannelsActions.likedChannelsFailure());
@@ -65,8 +66,7 @@ export function* getLikedChannels<T>(): Generator<T, any, any> {
   }
   const channelsPromise: Array<Promise<TChannelStore>> = yield call(getChannels, responce.snapshot);
   const channelsArray: TChannelStore[] = yield call(Promise.all, channelsPromise);
-  const channels: {[key: string]: TChannelStore} = channelStoreArrayToActiveObject(channelsArray);
-  yield fork(syncLikes, channels);
+  const channels: TChannelStoreWithKey = channelStoreArrayToActiveObject(channelsArray);
   yield put(likedChannelsActions.likedChannelsSuccess(channels));
   yield put(likedChannelsActions.likedChannelsPaginate());
 }

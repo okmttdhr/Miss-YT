@@ -22,4 +22,5 @@ export type TLikedChannelsActions = TLikedChannelsLikesPostActions & {
   likedChannelsPaginate: () => void,
   likesChanged: (snapshot: any) => void,
   likesChangedSuccess: (item: TLike) => void,
+  likesSync: () => void,
 }

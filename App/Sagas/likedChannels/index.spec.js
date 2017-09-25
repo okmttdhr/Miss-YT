@@ -1,13 +1,12 @@
 // @flow
 import test from 'ava-spec';
 import Promise from 'bluebird';
-import { call, put, select, fork } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 import { firebaseLikesResponse, channelsStoreMock, channelsStoreWithKeyMock } from '../../../Tests/mock/';
 import { likedChannelsActions } from '../../Redux/';
 import { statusCode } from '../../Services/';
 import { getLikedChannels, getLikesFromFirebase, getStartAt, getChannels } from './index';
-import {syncLikes} from '../likesPost';
 import {uidSelector} from '../selector';
 
 test.serial.group('Normal', () => {
@@ -54,13 +53,6 @@ test.serial.group('Normal', () => {
     );
   });
 
-  test('could sync to server', (t) => {
-    t.deepEqual(
-      generator.next(channelsStoreMock).value,
-      fork(syncLikes, channelsStoreWithKeyMock()),
-    );
-  });
-
   test('could send ChannelStore to action', (t) => {
     t.deepEqual(
       generator.next(channelsStoreMock).value,
@@ -81,7 +73,7 @@ test.serial.group('Abnormal', () => {
     const errorResponce = firebaseLikesResponse(statusCode.InternalError);
     generator.next();
     generator.next();
-    generator.next();
+    generator.next('uid');
     t.deepEqual(
       generator.next(errorResponce).value,
       put(likedChannelsActions.likedChannelsFailure()),

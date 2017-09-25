@@ -16,7 +16,7 @@ export const subscribeFirebase = (store: any) => {
     }
     const user = convertUserFromFirebaseToStore(firebaseUser);
     dispatch(userActions.userSuccess(user));
-    dispatch(likedChannelsActions.syncLikes());
+    dispatch(likedChannelsActions.likesSync());
 
     likesRef.child(user.uid).on('child_changed', (snapshot) => {
       console.log('likesRef child_changed');

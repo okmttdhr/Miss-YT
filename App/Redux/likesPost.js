@@ -7,6 +7,7 @@ export const likesPostActions = (type: string) => {
   return {
     [`${type}LikesPostRequest`]: ['channel'],
     [`${type}LikesPostIncrease`]: ['channelId'],
+    likesSync: null,
   };
 };
 
