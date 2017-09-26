@@ -1,16 +1,21 @@
 // @flow
+import { call } from 'redux-saga/effects';
 import {
   handleServerError,
   likesRef,
 } from '../../../Services/';
 
-export const _new = async (channelId: string, count: number, uid: string) => {
-  const promise = await handleServerError(
+export const createOnFirebase = (channelId: string, count: number, uid: string) => {
+  return handleServerError(
     likesRef.child(uid)
       .push({channelId, rank: 0, count})
       .then(() => {
         return {status: 200, message: '', snapshot: null};
       }),
   );
-  return promise;
 };
+
+export function* _new<T>(channelId: string, count: number, uid: string): Generator<T, any, any> {
+  const response = yield call(createOnFirebase, channelId, count, uid);
+  return response;
+}
