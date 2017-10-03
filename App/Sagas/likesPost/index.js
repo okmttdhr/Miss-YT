@@ -23,6 +23,7 @@ export function* mergeLikedChannelToLocal<T>(
 
   if (!isSuccess(isLikeOnServer)) {
     console.log('mergeLikedChannelToLocal: new');
+
     const length = Object.keys(localLikedChannels).length;
     const rank = length === 0 ? 1 : length + 1;
 

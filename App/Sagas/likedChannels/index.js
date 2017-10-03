@@ -1,6 +1,6 @@
 // @flow
 import Promise from 'bluebird';
-import { assign } from 'lodash';
+import {merge} from 'lodash';
 import { call, put, select } from 'redux-saga/effects';
 
 import type {TChannel, TChannelStore, APIResponse, TRootState, TLike, TChannelStoreWithKey} from '../../types/';
@@ -37,10 +37,15 @@ export const getChannels = (snapshot: any): Array<Promise<TChannelStore>> => {
         }
         const channel: {[key: string]: TChannel} = responce.snapshot.val();
         const key: string = Object.keys(channel)[0];
-        return assign({}, channel[key], {
+        const update = {
           isLiked: true,
-          rank: like.rank,
           likeCount: like.count,
+        };
+        if (like.rank === 0) {
+          return merge({}, channel[key], update);
+        }
+        return merge({}, channel[key], update, {
+          rank: like.rank,
         });
       })
       .catch(() => {

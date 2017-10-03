@@ -16,6 +16,5 @@ export const createOnFirebase = (channelId: string, count: number, uid: string) 
 };
 
 export function* _new<T>(channelId: string, count: number, uid: string): Generator<T, any, any> {
-  const response = yield call(createOnFirebase, channelId, count, uid);
-  return response;
+  yield call(createOnFirebase, channelId, count, uid);
 }
