@@ -2,8 +2,6 @@
 import test from 'ava-spec';
 import {call} from 'redux-saga/effects';
 
-// import {likeWithKeyMock} from '../../../../Tests/mock/';
-// import { getLikeWithChannelId } from '../../../Services';
 import {_new, createOnFirebase} from './new';
 
 test.serial.group('Normal', () => {
