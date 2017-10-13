@@ -76,7 +76,7 @@ test.serial.group('Abnormal', () => {
     generator.next('uid');
     t.deepEqual(
       generator.next(errorResponce).value,
-      put(likedChannelsActions.likedChannelsFailure()),
+      put(likedChannelsActions.likedChannelsFailure('')),
     );
     t.true(generator.next().done);
   });
