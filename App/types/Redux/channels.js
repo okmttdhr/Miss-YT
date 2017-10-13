@@ -1,5 +1,5 @@
 // @flow
-import type {TChannelStore} from '../Channel';
+import type {TChannelStore, TChannelStoreWithKey} from '../Channel';
 
 export type TDefaultChannels = {
   items: {[key: string]: TChannelStore},
@@ -18,7 +18,7 @@ export type TChannelsLikesPostActions = {
 
 export type TChannelsActions = TChannelsLikesPostActions & {
   channelsRequest: () => any,
-  channelsSuccess: () => any,
+  channelsSuccess: (items: TChannelStoreWithKey) => void,
   channelsFailure: (errorMessage: string) => void,
   channelsChanged: () => any,
   channelsRemoved: () => any,
