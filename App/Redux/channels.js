@@ -11,7 +11,7 @@ import {likesPostActions, likesPostReducer} from './likesPost';
 const { Types, Creators } = createActions({
   channelsRequest: ['startAt'],
   channelsSuccess: ['items'],
-  channelsFailure: null,
+  channelsFailure: ['errorMessage'],
   channelsChanged: ['item'],
   channelsRemoved: ['item'],
   setContentHeight: ['contentHeight'],
@@ -45,8 +45,8 @@ export const channelsReducer = createReducer(DEFAULT_CHANNELS, {
       startAt: state.startAt + PER_PAGE,
     });
   },
-  [Types.CHANNELS_FAILURE]: (state: Object) =>
-    state.merge({ isFetching: false, errorMessage: 'error' }),
+  [Types.CHANNELS_FAILURE]: (state: Object, { errorMessage }: {errorMessage: string}) =>
+    state.merge({ isFetching: false, errorMessage }),
   [Types.CHANNELS_CHANGED]: (state: Object, { item }: {item: TChannel}) => {
     return state.merge({items: {[item.id]: item}}, {deep: true});
   },
