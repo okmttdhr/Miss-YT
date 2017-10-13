@@ -3,19 +3,22 @@
 * Standard compliant React Native App Utilizing [Ignite](https://github.com/infinitered/ignite)
 * [Ignite Documentation](https://github.com/infinitered/ignite/wiki)
 
-## How to Setup
-
-1. git clone this repo
-2. cd to the repo
-3. `npm install`
-
-## How to Run App
+## Setup
 
 ```sh
+yarn install
 yarn start
 ```
 
-## Command
+## Debugging
+
+```sh
+yarn debug
+```
+
+## Testing
+
+### Lint
 
 ```sh
 yarn lint

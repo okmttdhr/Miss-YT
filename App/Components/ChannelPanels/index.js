@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { View, ScrollView, Dimensions } from 'react-native';
+import { View, ScrollView, Dimensions, Text } from 'react-native';
 import { chunk, orderBy } from 'lodash';
 
 import styles from './style';
@@ -44,7 +44,7 @@ const getPanels = (items, likesPostRequest) => {
 export const ChannelPanels = (
   {channels, setContentHeight, channelsRequest, likesPostRequest}: TChannelPanels,
 ) => {
-  const {items, contentHeight, isFetching} = channels;
+  const {items, contentHeight, isFetching, errorMessage} = channels;
   const channelsItem = orderBy(Object.values(items), ['rank'], ['asc']);
   return (
     <View style={styles.channelPanels}>
@@ -59,6 +59,10 @@ export const ChannelPanels = (
             const panels = getPanels(chunkedItems, likesPostRequest);
             return (<View style={styles.panelWrapper} key={chunkedItems[0].id}>{panels}</View>);
           }) : null}
+        {errorMessage ?
+          <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+        {!isFetching && !errorMessage && channelsItem.length === 0 ?
+          <Text style={styles.errorMessage}>データがありません</Text> : null}
         <Loading isShow={isFetching} />
       </ScrollView>
     </View>

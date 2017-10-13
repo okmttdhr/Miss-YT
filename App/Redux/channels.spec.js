@@ -20,7 +20,7 @@ test('could update Channels', (t) => {
 });
 
 test('could update errorMessage', (t) => {
-  const state = channelsReducer(DEFAULT_CHANNELS, channelsActions.channelsFailure());
+  const state = channelsReducer(DEFAULT_CHANNELS, channelsActions.channelsFailure('error'));
   t.false(state.isFetching);
   t.is(state.errorMessage, 'error');
 });

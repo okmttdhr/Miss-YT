@@ -1,10 +1,12 @@
 // @flow
 import type {APIResponse, TChannelStore, TFirebaseServiceResponse} from '../types/';
 import {statusCode} from './resources';
+import {errorMessages} from './config';
 
 export * from './firebase';
 export * from './resources';
 export * from './batches';
+export * from './config';
 export * from './styles';
 
 export const snapshotExists = (snapshot) => {
@@ -20,7 +22,7 @@ export const firebaseServiceError = (promise: Promise<any>): Promise<APIResponse
       console.log(e);
       return {
         status: statusCode.InternalError,
-        message: '',
+        message: errorMessages.internalError,
         snapshot: null,
       };
     })
@@ -32,7 +34,7 @@ export const firebaseServiceResponse =
   const p = promise.then((snapshot): APIResponse => {
     return {
       status: snapshotExists(snapshot) ? statusCode.Ok : statusCode.NotFound,
-      message: '',
+      message: snapshotExists(snapshot) ? '' : errorMessages.notFound,
       snapshot,
     };
   });
@@ -53,7 +55,7 @@ export const handleServerError = (promise: Promise<any>): Promise<APIResponse> =
     .catch(() => {
       return {
         status: statusCode.InternalError,
-        message: '',
+        message: errorMessages.internalError,
       };
     })
     ;

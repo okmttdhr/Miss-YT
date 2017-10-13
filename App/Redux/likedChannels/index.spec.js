@@ -37,7 +37,7 @@ test('could update where next page startAt', (t) => {
 test('could update errorMessage', (t) => {
   const state = likedChannelsReducer(
     DEFAULT_LIKED_CHANNELS,
-    likedChannelsActions.likedChannelsFailure(),
+    likedChannelsActions.likedChannelsFailure('error'),
   );
   t.false(state.isFetching);
   t.is(state.errorMessage, 'error');

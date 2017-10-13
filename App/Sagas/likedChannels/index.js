@@ -66,7 +66,7 @@ export function* getLikedChannels<T>(): Generator<T, any, any> {
   }
   const responce: APIResponse = yield call(getLikesFromFirebase, uid, startAt);
   if (!isSuccess(responce)) {
-    yield put(likedChannelsActions.likedChannelsFailure());
+    yield put(likedChannelsActions.likedChannelsFailure(responce.message));
     return;
   }
   const channelsPromise: Array<Promise<TChannelStore>> = yield call(getChannels, responce.snapshot);

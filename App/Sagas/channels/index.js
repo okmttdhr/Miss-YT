@@ -8,28 +8,19 @@ import {PER_PAGE} from '../../constants';
 import {
   channelsRef,
   likesRef,
-  statusCode,
   snapshotExists,
   channelStoreArrayToActiveObject,
+  firebaseServiceResponse,
+  isSuccess,
 } from '../../Services/';
 import {channelsActions} from '../../Redux/';
 
 export const getStartAt = (state: TRootState) => state.channels.startAt;
 
 export const getFromFirebase = (startAt: number) => {
-  return channelsRef.orderByChild('rank').startAt(startAt).limitToFirst(PER_PAGE)
-    .once('value')
-    .then((snapshot): APIResponse => {
-      return {
-        status: snapshotExists(snapshot) ? statusCode.Ok : statusCode.NotFound,
-        message: '',
-        snapshot,
-      };
-    })
-    .catch((): APIResponse => ({
-      status: statusCode.InternalError,
-      message: '',
-    }));
+  return firebaseServiceResponse(
+    channelsRef.orderByChild('rank').startAt(startAt).limitToFirst(PER_PAGE).once('value'),
+  );
 };
 
 const getLikeWithChannelId = (uid: string, channelId: string) => {
@@ -55,13 +46,12 @@ export const createIsLikedPromises = (snapshot: any): Promise<Array<TChannelStor
 export function* getChannels<T>(): Generator<T, any, any> {
   const startAt = yield select(getStartAt);
   const responce: APIResponse = yield call(getFromFirebase, startAt);
-
-  if (responce.status !== statusCode.Ok) {
-    yield put(channelsActions.channelsFailure());
-  } else {
-    const isLikedPromises = createIsLikedPromises(responce.snapshot);
-    const channelsArray: TChannelStore[] = yield call(Promise.all, isLikedPromises);
-    const channels: {[key: string]: TChannelStore} = channelStoreArrayToActiveObject(channelsArray);
-    yield put(channelsActions.channelsSuccess(channels));
+  if (!isSuccess(responce)) {
+    yield put(channelsActions.channelsFailure(responce.message));
+    return;
   }
+  const isLikedPromises = createIsLikedPromises(responce.snapshot);
+  const channelsArray: TChannelStore[] = yield call(Promise.all, isLikedPromises);
+  const channels: {[key: string]: TChannelStore} = channelStoreArrayToActiveObject(channelsArray);
+  yield put(channelsActions.channelsSuccess(channels));
 }

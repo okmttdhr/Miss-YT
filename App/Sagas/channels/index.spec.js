@@ -50,7 +50,7 @@ test.serial.group('Abnormal', () => {
     generator.next();
     t.deepEqual(
       generator.next(errorResponce).value,
-      put(channelsActions.channelsFailure()),
+      put(channelsActions.channelsFailure('')),
     );
   });
 });
