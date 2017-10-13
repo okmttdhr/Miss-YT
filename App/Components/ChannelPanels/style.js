@@ -1,7 +1,7 @@
 // @flow
 import { StyleSheet } from 'react-native';
 import { viewportWidth } from '../../Services/';
-import { flexRowCenter } from '../../Themes/';
+import { flexRowCenter, metrics, fontSize } from '../../Themes/';
 
 const HEADER_HEIGHT = 66;
 const FOOTER_HEIGHT = 52;
@@ -18,4 +18,9 @@ export default StyleSheet.create({
     width: viewportWidth(100),
   },
   panelWrapper: flexRowCenter,
+  errorMessage: {
+    marginTop: metrics.doubleBaseMargin,
+    fontSize: fontSize.small,
+    textAlign: 'center',
+  },
 });
