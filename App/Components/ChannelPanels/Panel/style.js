@@ -56,10 +56,14 @@ export default StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
+  likeCount: {
+    justifyContent: 'flex-end',
+    marginRight: 5,
+  },
   icon: {
     width: 20,
     height: 20,
-    marginRight: 5,
+    marginRight: 2,
     justifyContent: 'flex-end',
   },
 });

@@ -34,6 +34,7 @@ export const Panel = ({channel, isMargin, likesPostRequest}: TChannelPanel) => (
             }}
           />
         </View>
+        <Text style={styles.likeCount}>{channel.likeCount}</Text>
       </View>
     </View>
   </View>
