@@ -27,20 +27,22 @@ const getLikeWithChannelId = (uid: string, channelId: string) => {
   return likesRef.child(uid).orderByChild('channelId').equalTo(channelId).once('value');
 };
 
-const getIsLiked = (userId: string, channelId: string) =>
-  getLikeWithChannelId(userId, channelId)
+const getIsLiked = (userId: string, channelId: string) => {
+  // if (!uid) => ローカルのstateに該当のchannelがぞんざいしているか => boolean
+  return getLikeWithChannelId(userId, channelId)
     .then(snapshotExists)
     .catch(() => false);
+};
 
-export const createIsLikedPromises = (snapshot: any): Promise<Array<TChannelStore>> => {
-  const isLikedPromises = [];
+export const createChannelsWithIsLikedPromises = (snapshot: any): Promise<Array<TChannelStore>> => {
+  const channelsWithIsLikedPromises = [];
   snapshot.forEach((s) => {
     const channel: TChannel = s.val();
-    const isLikedPromise = getIsLiked('userId', s.key)
+    const isLikedPromise = getIsLiked('userId', channel.id)
       .then((isLiked: boolean): TChannelStore => assign({}, channel, {isLiked}));
-    isLikedPromises.push(isLikedPromise);
+    channelsWithIsLikedPromises.push(isLikedPromise);
   });
-  return isLikedPromises;
+  return channelsWithIsLikedPromises;
 };
 
 export function* getChannels<T>(): Generator<T, any, any> {
@@ -50,8 +52,8 @@ export function* getChannels<T>(): Generator<T, any, any> {
     yield put(channelsActions.channelsFailure(responce.message));
     return;
   }
-  const isLikedPromises = createIsLikedPromises(responce.snapshot);
-  const channelsArray: TChannelStore[] = yield call(Promise.all, isLikedPromises);
+  const channelsWithIsLikedPromises = createChannelsWithIsLikedPromises(responce.snapshot);
+  const channelsArray: TChannelStore[] = yield call(Promise.all, channelsWithIsLikedPromises);
   const channels: {[key: string]: TChannelStore} = channelStoreArrayToActiveObject(channelsArray);
   yield put(channelsActions.channelsSuccess(channels));
 }
