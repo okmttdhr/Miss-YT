@@ -21,6 +21,7 @@ export const Panel = ({channel, isMargin, likesPostRequest}: TChannelPanel) => (
       </View>
       <View style={styles.panelInfo}>
         <Text style={styles.name}>{channel.youtube.name}</Text>
+        <Text style={styles.likeCount}>{channel.likeCount}</Text>
         <View
           style={styles.icon}
         >
@@ -29,7 +30,6 @@ export const Panel = ({channel, isMargin, likesPostRequest}: TChannelPanel) => (
             likesPostRequest={likesPostRequest}
           />
         </View>
-        <Text style={styles.likeCount}>{channel.likeCount}</Text>
       </View>
     </View>
   </View>
