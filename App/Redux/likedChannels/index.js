@@ -64,6 +64,11 @@ export const likedChannelsReducer = createReducer(DEFAULT_LIKED_CHANNELS, {
     return state.merge({items: newItem});
   },
   [Types.LIKES_CHANGED_SUCCESS]: (state: Object, { item }: {item: TLike}) => {
+    if (item.rank === 0) {
+      return state.merge({items: {[item.channelId]: {
+        likeCount: item.count,
+      }}}, {deep: true});
+    }
     return state.merge({items: {[item.channelId]: {
       rank: item.rank,
       likeCount: item.count,

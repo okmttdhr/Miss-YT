@@ -20,13 +20,12 @@ export function* mergeLikedChannelToLocal<T>(
 ): Generator<T, any, any> {
   console.log('mergeLikedChannelToLocal');
   const isLikeOnServer = uid ? yield call(getLikeWithChannelId, uid, channel.id) : {status: 500, message: ''};
+  const localLikedChannelsLength = Object.keys(localLikedChannels).length;
+  const lastIndex = localLikedChannelsLength + 1;
 
   if (!isSuccess(isLikeOnServer)) {
     console.log('mergeLikedChannelToLocal: new');
-
-    const length = Object.keys(localLikedChannels).length;
-    const rank = length === 0 ? 1 : length + 1;
-
+    const rank = localLikedChannelsLength === 0 ? 1 : lastIndex;
     yield put(likedChannelsActions.likedChannelsSuccess(
       merge({}, {[channel.id]: channel}, {[channel.id]: {
         isLiked: true,
@@ -39,13 +38,13 @@ export function* mergeLikedChannelToLocal<T>(
 
   console.log('mergeLikedChannelToLocal: existing');
   const like: TLikeWithKey = (isLikeOnServer: any).snapshot.val();
-  console.log('like', like);
   const likeKey: string = Object.keys(like)[0];
+  const rank = like[likeKey].rank === 0 ? lastIndex : like[likeKey].rank;
 
   yield put(likedChannelsActions.likedChannelsSuccess(
     merge({}, {[channel.id]: channel}, {[channel.id]: {
       isLiked: true,
-      rank: like[likeKey].rank,
+      rank,
       likeCount: like[likeKey].count,
     }}),
   ));
@@ -59,7 +58,6 @@ export function* likesPostIncrease<T>({channel}: {channel: TChannelStore}): Gene
   const existOnLocal = likedChannels[channelId];
 
   if (!existOnLocal) {
-    console.log('prepare');
     yield fork(mergeLikedChannelToLocal, channel, uid, likedChannels);
     yield take(likedChannelsTypes.LIKED_CHANNELS_SUCCESS);
   }

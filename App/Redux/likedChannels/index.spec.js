@@ -74,7 +74,6 @@ test("could update liked Channels with likes' CHANGED event", (t) => {
     likedChannelsActions.likesChangedSuccess(likeMock()),
   );
   t.deepEqual(state, DEFAULT_CHANNELS_MOCK.merge({items: {CHANNELID0: {
-    rank: 0,
     likeCount: 0,
   }}}, {deep: true}));
 });
