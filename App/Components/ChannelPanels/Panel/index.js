@@ -26,7 +26,7 @@ export const Panel = ({channel, isMargin, likesPostRequest}: TChannelPanel) => (
           style={styles.icon}
         >
           <Icon
-            name={channel.isLiked ? 'favorite' : 'favorite'}
+            name={channel.isLiked ? 'favorite' : 'favorite-border'}
             size={20}
             color={COLOR_RED}
             onPress={() => {

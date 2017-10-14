@@ -6,7 +6,11 @@ import styles from './style';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-export class Loading extends Component {
+type TLoading = {
+  isShow: boolean;
+}
+
+export class Loading extends Component<TLoading, void> {
   constructor() {
     super();
     this.spinValue = new Animated.Value(0);

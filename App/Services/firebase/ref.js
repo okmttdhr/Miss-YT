@@ -5,7 +5,7 @@ import {firebaseApp} from './init';
 export type TChannelsRef = {
   child: () => TChannelsRef;
   startAt: (startAt: number) => TChannelsRef;
-  equalTo: () => TChannelsRef;
+  equalTo: (value: any) => TChannelsRef;
   limitToFirst: (limit: number) => TChannelsRef;
   orderByChild: (path: string) => TChannelsRef;
   push: (channel: TChannel) => void;
