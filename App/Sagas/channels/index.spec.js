@@ -26,10 +26,19 @@ test.serial.group('Normal', () => {
 
   test('could make a request to know channel is liked by user', (t) => {
     const responce = firebaseChannelsResponse();
-    const isLikedPromises = createChannelsWithIsLikedPromises(responce.snapshot);
+    generator.next(responce);
+    generator.next('uid');
     t.deepEqual(
-      generator.next(responce).value,
-      call(Promise.all, isLikedPromises),
+      generator.next(channelsStoreWithKeyMock()).value,
+      call(createChannelsWithIsLikedPromises, responce.snapshot, channelsStoreWithKeyMock(), 'uid'),
+    );
+  });
+
+  test('could resolve Promise', (t) => {
+    const promises = new Promise(r => r(channelsStoreMock));
+    t.deepEqual(
+      generator.next(promises).value,
+      call(Promise.all, promises),
     );
   });
 
