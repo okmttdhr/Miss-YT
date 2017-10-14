@@ -23,7 +23,7 @@ export const likesPostReducer = (TYPE: string) => {
     },
     [`${TYPE}_LIKES_POST_INCREASE`]: (state: Object, { channelId }: Object) => {
       const increasedlikeCount = state.items[channelId].likeCount + 1;
-      const update = {[channelId]: {likeCount: increasedlikeCount}};
+      const update = {[channelId]: {likeCount: increasedlikeCount, isLiked: true}};
       return state.merge({
         items: update,
       }, {deep: true});
