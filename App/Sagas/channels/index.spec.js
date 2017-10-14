@@ -5,7 +5,7 @@ import { call, put, select } from 'redux-saga/effects';
 import { firebaseChannelsResponse, channelsStoreMock, channelsStoreWithKeyMock } from '../../../Tests/mock/';
 import { channelsActions } from '../../Redux/channels';
 import { statusCode } from '../../Services/';
-import { getChannels, getFromFirebase, createIsLikedPromises, getStartAt } from './index';
+import { getChannels, getFromFirebase, createChannelsWithIsLikedPromises, getStartAt } from './index';
 
 test.serial.group('Normal', () => {
   const generator = getChannels();
@@ -26,10 +26,19 @@ test.serial.group('Normal', () => {
 
   test('could make a request to know channel is liked by user', (t) => {
     const responce = firebaseChannelsResponse();
-    const isLikedPromises = createIsLikedPromises(responce.snapshot);
+    generator.next(responce);
+    generator.next('uid');
     t.deepEqual(
-      generator.next(responce).value,
-      call(Promise.all, isLikedPromises),
+      generator.next(channelsStoreWithKeyMock()).value,
+      call(createChannelsWithIsLikedPromises, responce.snapshot, channelsStoreWithKeyMock(), 'uid'),
+    );
+  });
+
+  test('could resolve Promise', (t) => {
+    const promises = new Promise(r => r(channelsStoreMock));
+    t.deepEqual(
+      generator.next(promises).value,
+      call(Promise.all, promises),
     );
   });
 

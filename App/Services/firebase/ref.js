@@ -3,15 +3,15 @@ import type {TChannel} from '../../types/Channel';
 import {firebaseApp} from './init';
 
 export type TChannelsRef = {
-  child: () => TChannelsRef;
+  child: (path: string) => TChannelsRef;
   startAt: (startAt: number) => TChannelsRef;
-  equalTo: () => TChannelsRef;
+  equalTo: (value: any) => TChannelsRef;
   limitToFirst: (limit: number) => TChannelsRef;
   orderByChild: (path: string) => TChannelsRef;
   push: (channel: TChannel) => void;
   update: () => Promise<any>;
   once: (eventType: string) => Promise<any>;
-  transaction: () => Promise<any>;
+  transaction: (callback: any) => Promise<any>;
   on: () => void;
 }
 

@@ -3,17 +3,17 @@ import Promise from 'bluebird';
 import { assign } from 'lodash';
 import { call, put, select } from 'redux-saga/effects';
 
-import type {TChannel, TChannelStore, TRootState, APIResponse} from '../../types/';
+import type {TChannel, TChannelStore, TRootState, APIResponse, TChannelStoreWithKey} from '../../types/';
 import {PER_PAGE} from '../../constants';
 import {
   channelsRef,
-  likesRef,
-  snapshotExists,
   channelStoreArrayToActiveObject,
   firebaseServiceResponse,
   isSuccess,
+  getLikeWithChannelId,
 } from '../../Services/';
 import {channelsActions} from '../../Redux/';
+import {uidSelector, likedChannelsSelector} from '../selector';
 
 export const getStartAt = (state: TRootState) => state.channels.startAt;
 
@@ -23,24 +23,30 @@ export const getFromFirebase = (startAt: number) => {
   );
 };
 
-const getLikeWithChannelId = (uid: string, channelId: string) => {
-  return likesRef.child(uid).orderByChild('channelId').equalTo(channelId).once('value');
+const getIsLiked = (
+  channelId: string,
+  uid: string,
+  localLikedChannels: TChannelStoreWithKey,
+): Promise<boolean> => {
+  if (!uid) {
+    return new Promise(resolve => resolve(!!localLikedChannels[channelId]));
+  }
+  return getLikeWithChannelId(uid, channelId).then(response => console.log('response', response) || isSuccess(response));
 };
 
-const getIsLiked = (userId: string, channelId: string) =>
-  getLikeWithChannelId(userId, channelId)
-    .then(snapshotExists)
-    .catch(() => false);
-
-export const createIsLikedPromises = (snapshot: any): Promise<Array<TChannelStore>> => {
-  const isLikedPromises = [];
+export const createChannelsWithIsLikedPromises = (
+  snapshot: any,
+  localLikedChannels: TChannelStoreWithKey,
+  uid: string,
+): Promise<Array<TChannelStore>> => {
+  const channelsWithIsLikedPromises = [];
   snapshot.forEach((s) => {
     const channel: TChannel = s.val();
-    const isLikedPromise = getIsLiked('userId', s.key)
+    const isLikedPromise = getIsLiked(channel.id, uid, localLikedChannels)
       .then((isLiked: boolean): TChannelStore => assign({}, channel, {isLiked}));
-    isLikedPromises.push(isLikedPromise);
+    channelsWithIsLikedPromises.push(isLikedPromise);
   });
-  return isLikedPromises;
+  return channelsWithIsLikedPromises;
 };
 
 export function* getChannels<T>(): Generator<T, any, any> {
@@ -50,8 +56,11 @@ export function* getChannels<T>(): Generator<T, any, any> {
     yield put(channelsActions.channelsFailure(responce.message));
     return;
   }
-  const isLikedPromises = createIsLikedPromises(responce.snapshot);
-  const channelsArray: TChannelStore[] = yield call(Promise.all, isLikedPromises);
+  const uid = yield select(uidSelector);
+  const localLikedChannels: TChannelStoreWithKey = yield select(likedChannelsSelector);
+  const channelsWithIsLikedPromises =
+    yield call(createChannelsWithIsLikedPromises, responce.snapshot, localLikedChannels, uid);
+  const channelsArray: TChannelStore[] = yield call(Promise.all, channelsWithIsLikedPromises);
   const channels: {[key: string]: TChannelStore} = channelStoreArrayToActiveObject(channelsArray);
   yield put(channelsActions.channelsSuccess(channels));
 }

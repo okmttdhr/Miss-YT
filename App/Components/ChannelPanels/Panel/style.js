@@ -8,6 +8,7 @@ import { viewportWidth } from '../../../Services/';
 const PANEL_MARGIN = 2;
 const THUMBNAIL_WIDTH = viewportWidth(50) - PANEL_MARGIN;
 const PANEL_WIDTH = THUMBNAIL_WIDTH + 30;
+const INFO_MARGIN = 5;
 
 const panelContent = {
   flex: 1,
@@ -51,15 +52,19 @@ export default StyleSheet.create({
   },
   name: {
     flex: 1,
-    marginTop: 5,
-    marginLeft: 5,
+    marginTop: INFO_MARGIN,
+    marginLeft: INFO_MARGIN,
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  likeCount: {
+    justifyContent: 'flex-end',
+    marginRight: 2,
   },
   icon: {
     width: 20,
     height: 20,
-    marginRight: 5,
+    marginRight: INFO_MARGIN,
     justifyContent: 'flex-end',
   },
 });

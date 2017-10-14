@@ -1,11 +1,10 @@
 // @flow
 import React from 'react';
 import { Text, View, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import type {TChannelStore} from '../../../types/Channel';
-import {COLOR_RED} from '../../../constants';
 import styles from './style';
+import type {TChannelStore} from '../../../types/Channel';
+import {LikedIcon} from './LikedIcon';
 
 type TChannelPanel = {
   channel: TChannelStore,
@@ -22,16 +21,13 @@ export const Panel = ({channel, isMargin, likesPostRequest}: TChannelPanel) => (
       </View>
       <View style={styles.panelInfo}>
         <Text style={styles.name}>{channel.youtube.name}</Text>
+        <Text style={styles.likeCount}>{channel.likeCount}</Text>
         <View
           style={styles.icon}
         >
-          <Icon
-            name={channel.isLiked ? 'favorite' : 'favorite'}
-            size={20}
-            color={COLOR_RED}
-            onPress={() => {
-              likesPostRequest(channel);
-            }}
+          <LikedIcon
+            channel={channel}
+            likesPostRequest={likesPostRequest}
           />
         </View>
       </View>
