@@ -6,7 +6,7 @@ import {ChannelsResource, channelsRef, logFinished, snapshotExists} from '../ind
 import type {TChannel} from '../../types/Channel';
 import type {TChannelResponse} from '../../types/ChannelResponse';
 
-// add CHANNEL_IDS before dispatching batch
+// add CHANNEL_IDS before running batch
 const CHANNEL_IDS = `
   UC2rbyOa3Jo7vGSibqKcRjqw, UCI5qMix97T3tVZfxmHObDjA, UC0elp2101KAxbaAMzInGerA, UCB10yM5qyQpNsMNDQ1VHxKg, UCiOm_FmFK4jxB9VRuFC1pag,
   UCCuizDTLsr-mNm_PEGdChVg, UCRdQOBEzSpAOtZ_yitD7GpA, UCFTVNLC7ysej-sD5lkLqNGA, UC__AsSnEuyVgO9TWvZE_ziA, UCOZ7Kq5_VWBC-TtteAcsRBg,
@@ -16,7 +16,7 @@ const CHANNEL_IDS = `
   UCsTM1roCxoot1-03EO5zQxg, UCIyMwXronD5pT5cx-G_KSHA, UCmsA3A5_HKBwI9OktSttTFg, UC8X6Cb-pumA1CNkd3K-lCyA, UCZvbol2FjFRiqc0hwIvpmMQ,
   UCN559lrbV9wt46NwlnPJtPw, UCNIwy_Q7EjUxLlsewfuhjgg, UC7fN-mbfjZVUo755gu-1VuQ, UChhn3SKUYAcajcG9mn7dGqA, UCHPARXha7xQNbfzwzY7NzUw,
   UClW0iupPReSXYDmlvwYfQhg, UC7rqz5As19qYWl2Rc4z-iig, UCMyArXimoNAZjE1P2xLES7A, UCNS93jTKjnzNG7pYUCN5PrQ, UCDRWhpjy_lU_phS3O31AjRQ,
-  UCBexcfMCBFzbb02OikUJD6A, UCsVtT0DHmb5GXCZZ7-4PRhg, 
+  UCBexcfMCBFzbb02OikUJD6A, UCsVtT0DHmb5GXCZZ7-4PRhg,
 `;
 
 const createChannel = (channel: TChannelResponse): TChannel => {

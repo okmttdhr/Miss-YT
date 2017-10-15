@@ -5225,9 +5225,9 @@ react-native-animatable@^0.6.0:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-0.6.1.tgz#bd85023d42ad0ceb3cc98d7b490f7d6dd6ba11b0"
 
-react-native-config@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.4.2.tgz#42ee30835c6aa293a91f4487c85a3e9f15204f56"
+react-native-config@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.8.1.tgz#7b2467e746d3497051633804760535c63bde91cf"
 
 react-native-device-info@^0.9.6:
   version "0.9.9"

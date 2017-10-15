@@ -18,6 +18,18 @@ yarn debug
 
 ## Testing
 
+### All
+
+```sh
+yarn test
+```
+
+### Unit
+
+```sh
+yarn test:unit
+```
+
 ### Lint
 
 ```sh
@@ -56,3 +68,7 @@ npm start -- --scheme YOUR_APP_SCHEMA_FOR_ENVIRONMENTS
 ```
 
 About `Scheme`, see [Different environments](https://github.com/luggit/react-native-config#different-environments) iOS section.
+
+## Icon
+
+[react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
