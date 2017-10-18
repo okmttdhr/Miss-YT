@@ -10,7 +10,7 @@ import ReduxPersist from '../Config/ReduxPersist';
 
 import styles from './Styles/RootContainerStyle';
 
-class RootContainer extends Component {
+class RootContainer extends Component<any, void> {
   componentDidMount() {
     if (!ReduxPersist.active) {
       this.props.startup();

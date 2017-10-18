@@ -5225,9 +5225,9 @@ react-native-animatable@^0.6.0:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-0.6.1.tgz#bd85023d42ad0ceb3cc98d7b490f7d6dd6ba11b0"
 
-react-native-config@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.4.2.tgz#42ee30835c6aa293a91f4487c85a3e9f15204f56"
+react-native-config@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.8.1.tgz#7b2467e746d3497051633804760535c63bde91cf"
 
 react-native-device-info@^0.9.6:
   version "0.9.9"
@@ -5253,10 +5253,6 @@ react-native-experimental-navigation@0.26.x:
 react-native-i18n@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-0.1.1.tgz#7fdc7512e71c9f5057d5f9ee8d559fc4801a1c14"
-
-react-native-maps@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.11.0.tgz#8baa56eef83e9f2f04a70b192624b7bc9c56289d"
 
 react-native-mock@^0.2.8:
   version "0.2.9"

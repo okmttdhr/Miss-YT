@@ -1,12 +1,15 @@
 // @flow
 import { StyleSheet } from 'react-native';
 import {viewportWidth} from '../../Services/';
-import {flexColumnCenter, fontSize} from '../../Themes/';
+import {fontSize} from '../../Themes/';
 
 export default StyleSheet.create({
   container: {
-    ...flexColumnCenter,
     width: viewportWidth(80),
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    marginTop: 60,
   },
   containerInfo: {
   },
