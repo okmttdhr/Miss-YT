@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 // import Secrets from 'react-native-config';
 
 import styles from './style';
@@ -20,7 +20,9 @@ export const ChannelDetailScreen = (props: IChannelDetailScreen) => {
   console.log(props);
   return (
     <View style={styles.container}>
-      ChannelDetailScreen
+      <Text>
+        ChannelDetailScreen
+      </Text>
     </View>
   );
 };

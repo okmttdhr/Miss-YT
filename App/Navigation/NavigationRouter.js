@@ -19,8 +19,8 @@ const NavigationRouter = () => (
         <Scene key="Ranking" title="Ranking" component={ConnectedRankingScreen} icon={TabIcon} />
         <Scene key="MyRanking" title="My Ranking" component={ConnectedMyRankingScreen} icon={TabIcon} />
         <Scene key="Account" title="Account" component={ConnectedAccountScreen} icon={TabIcon} />
-        <Scene key="ChannelDetail" title="ChannelDetail" component={ConnectedChannelDetailScreen} icon={TabIcon} />
       </Scene>
+      <Scene key="ChannelDetail" title="ChannelDetail" component={ConnectedChannelDetailScreen} />
     </Scene>
   </Router>
 );
