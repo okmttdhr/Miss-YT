@@ -3,7 +3,7 @@ import Promise from 'bluebird';
 import {firebaseApp} from '../firebase/';
 
 import {ChannelsResource, channelsRef, logFinished, snapshotExists} from '../index';
-import type {TChannel} from '../../types/Channel';
+import type {TChannel} from '../../types/channel';
 import type {TChannelResponse} from '../../types/ChannelResponse';
 
 // add CHANNEL_IDS before running batch

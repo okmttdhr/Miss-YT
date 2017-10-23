@@ -4,7 +4,7 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import styles from './style';
-import type {TChannelStore} from '../../../types/Channel';
+import type {TChannelStore} from '../../../types/channel';
 import {LikedIcon} from './LikedIcon';
 
 type TChannelPanel = {
