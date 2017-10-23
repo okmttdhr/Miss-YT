@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { Animated, Easing } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import type {TChannelStore} from '../../../../types/Channel';
+import type {TChannelStore} from '../../../../types/channel';
 import {COLOR_RED} from '../../../../constants';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);

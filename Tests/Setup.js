@@ -30,6 +30,11 @@ mockery.registerMock('react-native-config', {
 mockery.registerMock('react-native-i18n', {
   t: key => key,
 });
+mockery.registerMock('react-native-router-flux', {
+  Actions: {
+    ChannelDetail: () => {},
+  },
+});
 mockery.registerMock('firebase', firebaseMock);
 
 // Mock all images for React Native

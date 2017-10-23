@@ -1,6 +1,6 @@
 // @flow
 import {range} from 'lodash';
-import type {TChannelStore, TChannel} from '../../App/types/Channel';
+import type {TChannelStore, TChannel} from '../../App/types/channel';
 import {channelStoreArrayToActiveObject} from '../../App/Services';
 
 export const channelMock = (i: number = 0): TChannel => ({

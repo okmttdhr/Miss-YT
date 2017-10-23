@@ -4,7 +4,7 @@ import {toString, merge} from 'lodash';
 import {firebaseApp} from '../firebase/';
 
 import {ChannelsResource, channelsRef, logFinished} from '../index';
-import type {TChannel} from '../../types/Channel';
+import type {TChannel} from '../../types/channel';
 import type {TChannelResponse} from '../../types/ChannelResponse';
 
 // the parameter limit of TwitterUsersLookupResource's `screen_name`

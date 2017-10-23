@@ -4,7 +4,7 @@ import { View, ScrollView, Dimensions, Text } from 'react-native';
 import { chunk, orderBy } from 'lodash';
 
 import styles from './style';
-import type {TChannelStore} from '../../types/Channel';
+import type {TChannelStore} from '../../types/channel';
 import type {TDefaultChannels} from '../../types/Redux/channels';
 import {Panel} from './Panel';
 import {Loading} from '../Loading/';

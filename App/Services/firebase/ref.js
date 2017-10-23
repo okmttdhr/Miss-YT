@@ -1,5 +1,5 @@
 // @flow
-import type {TChannel} from '../../types/Channel';
+import type {TChannel} from '../../types/channel';
 import {firebaseApp} from './init';
 
 export type TChannelsRef = {

@@ -7,6 +7,7 @@ import {
   ConnectedAccountScreen,
   ConnectedRankingScreen,
   ConnectedMyRankingScreen,
+  ConnectedChannelDetailScreen,
 } from '../Containers';
 import { TabIcon } from '../Components';
 import { TabBarStyle } from './Styles';
@@ -19,6 +20,7 @@ const NavigationRouter = () => (
         <Scene key="MyRanking" title="My Ranking" component={ConnectedMyRankingScreen} icon={TabIcon} />
         <Scene key="Account" title="Account" component={ConnectedAccountScreen} icon={TabIcon} />
       </Scene>
+      <Scene key="ChannelDetail" title="ChannelDetail" component={ConnectedChannelDetailScreen} />
     </Scene>
   </Router>
 );
