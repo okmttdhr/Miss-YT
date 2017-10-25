@@ -1,4 +1,5 @@
 // @flow
+export * from './channel';
 export * from './channels';
 export * from './UserRedux';
 export * from './likedChannels';

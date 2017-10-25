@@ -1,5 +1,5 @@
 // @flow
-import type {APIResponse, TChannelStore, TFirebaseServiceResponse} from '../types/';
+import type {APIResponse, TChannelStore, TFirebaseServiceResponse, TChannelStoreWithKey} from '../types/';
 import {statusCode} from './resources';
 import {errorMessages} from './config';
 
@@ -81,6 +81,6 @@ export const activeChannelStoreArray = (channelsArray: TChannelStore[]) => {
 };
 
 export const channelStoreArrayToActiveObject =
-(channelsArray: TChannelStore[]): {[key: string]: TChannelStore} => {
+(channelsArray: TChannelStore[]): TChannelStoreWithKey => {
   return channelStoreArrayToObject(activeChannelStoreArray(channelsArray));
 };

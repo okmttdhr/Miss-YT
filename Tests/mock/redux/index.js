@@ -4,6 +4,8 @@ import {channelsStoreWithKeyMock} from '../channel';
 import {userMock} from '../user';
 import {noop} from '../utils';
 
+export * from './channel';
+
 export const defaultChannelsMock: TDefaultChannels = {
   items: channelsStoreWithKeyMock(),
   isFetching: false,
