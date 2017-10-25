@@ -2,4 +2,4 @@
 export * from './channels';
 export * from './likedChannels';
 export * from './UserRedux';
-export * from './Root';
+export * from './root';
