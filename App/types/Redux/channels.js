@@ -1,5 +1,5 @@
 // @flow
-import type {TChannelStore, TChannelStoreWithKey} from '../Channel';
+import type {TChannelStore, TChannelStoreWithKey} from '../channel';
 
 export type TDefaultChannels = {
   items: {[key: string]: TChannelStore},

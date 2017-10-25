@@ -1,6 +1,6 @@
 // @flow
 import type {TDefaultChannels} from './channels';
-import type {TChannelStore, TChannel} from '../Channel';
+import type {TChannelStore, TChannel} from '../channel';
 import type {TLike} from '../like';
 
 export type TDefaultLikedChannels = TDefaultChannels
