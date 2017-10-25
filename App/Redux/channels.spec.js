@@ -3,7 +3,7 @@ import test from 'ava';
 import Immutable from 'seamless-immutable';
 import {assign} from 'lodash';
 import { channelsActions, channelsReducer, DEFAULT_CHANNELS } from './channels';
-import {defaultChannelsMock, firebaseChannelMock} from '../../Tests/mock/';
+import {defaultChannelsMock, firebaseChannelMock, channelsStoreWithKeyMock} from '../../Tests/mock/';
 
 test('could make a request to get Channels', (t) => {
   const state = channelsReducer(DEFAULT_CHANNELS, channelsActions.channelsRequest());
@@ -11,10 +11,12 @@ test('could make a request to get Channels', (t) => {
 });
 
 test('could update Channels', (t) => {
-  const channelsMock = { isMock: true };
-  const state = channelsReducer(DEFAULT_CHANNELS, channelsActions.channelsSuccess(channelsMock));
+  const state = channelsReducer(
+    DEFAULT_CHANNELS,
+    channelsActions.channelsSuccess(channelsStoreWithKeyMock()),
+  );
   t.deepEqual(state, assign({}, DEFAULT_CHANNELS, {
-    items: channelsMock,
+    items: channelsStoreWithKeyMock(),
     startAt: 11,
   }));
 });
