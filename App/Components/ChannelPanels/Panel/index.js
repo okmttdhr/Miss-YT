@@ -4,19 +4,25 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import styles from './style';
-import type {TChannelStore} from '../../../types/channel';
+import type {TChannelStore, TChannelActions} from '../../../types/';
 import {LikedIcon} from './LikedIcon';
 
 type TChannelPanel = {
   channel: TChannelStore,
   isMargin: boolean,
   likesPostRequest: (channel: TChannelStore) => void,
+  channelActions: TChannelActions,
 }
 
-export const Panel = ({channel, isMargin, likesPostRequest}: TChannelPanel) => (
+export const Panel = ({channel, isMargin, likesPostRequest, channelActions}: TChannelPanel) => (
   <View style={styles.panel}>
     <View style={isMargin ? styles.panelContentEven : styles.panelContentOdd}>
-      <TouchableOpacity activeOpacity={0.8} onPress={Actions.ChannelDetail} >
+      <TouchableOpacity
+        activeOpacity={0.8} onPress={() => {
+          channelActions.channelSelect(channel);
+          Actions.ChannelDetail();
+        }}
+      >
         <Image style={styles.thumbnail} source={{uri: `${channel.youtube.thumbnail}`}} />
       </TouchableOpacity>
       <View style={styles.rank}>

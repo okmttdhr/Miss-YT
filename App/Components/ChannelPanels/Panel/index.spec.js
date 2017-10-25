@@ -4,11 +4,16 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { Panel } from './index';
-import { channelStoreMock } from '../../../../Tests/mock/';
+import { channelStoreMock, channelActionsMock } from '../../../../Tests/mock/';
 
 const likesPostRequestMock = () => {};
 const wrapper = shallow(
-  <Panel channel={channelStoreMock()} isMargin={false} likesPostRequest={likesPostRequestMock} />,
+  <Panel
+    channel={channelStoreMock()}
+    isMargin={false}
+    likesPostRequest={likesPostRequestMock}
+    channelActions={channelActionsMock}
+  />,
 );
 
 test('displays data of channel', (t) => {

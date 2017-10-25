@@ -4,17 +4,9 @@ import { View, ScrollView, Dimensions, Text } from 'react-native';
 import { chunk, orderBy } from 'lodash';
 
 import styles from './style';
-import type {TChannelStore} from '../../types/channel';
-import type {TDefaultChannels} from '../../types/Redux/channels';
+import type {TChannelStore, TDefaultChannels, TChannelActions} from '../../types/';
 import {Panel} from './Panel';
 import {Loading} from '../Loading/';
-
-type TChannelPanels = {
-  channels: TDefaultChannels,
-  setContentHeight: (height: number) => void,
-  channelsRequest: () => void,
-  likesPostRequest: (channel: TChannelStore) => void,
-}
 
 const onScroll = (event, contentHeight, channelsRequest) => {
   const windowScroll = Dimensions.get('window').height + event.nativeEvent.contentOffset.y;
@@ -23,7 +15,7 @@ const onScroll = (event, contentHeight, channelsRequest) => {
   }
 };
 
-const getPanels = (items, likesPostRequest) => {
+const getPanels = (items, likesPostRequest, channelActions) => {
   return items.map((item, i) => {
     const isSingle = items.length === 1;
     if (isSingle) {
@@ -36,13 +28,22 @@ const getPanels = (items, likesPostRequest) => {
         channel={item}
         isMargin={isEven}
         likesPostRequest={likesPostRequest}
+        channelActions={channelActions}
       />
     );
   });
 };
 
+type TChannelPanels = {
+  channels: TDefaultChannels,
+  setContentHeight: (height: number) => void,
+  channelsRequest: () => void,
+  likesPostRequest: (channel: TChannelStore) => void,
+  channelActions: TChannelActions,
+}
+
 export const ChannelPanels = (
-  {channels, setContentHeight, channelsRequest, likesPostRequest}: TChannelPanels,
+  {channels, setContentHeight, channelsRequest, likesPostRequest, channelActions}: TChannelPanels,
 ) => {
   const {items, contentHeight, isFetching, errorMessage} = channels;
   const channelsItem = orderBy(Object.values(items), ['rank'], ['asc']);
@@ -56,7 +57,7 @@ export const ChannelPanels = (
       >
         {channelsItem.length > 0
           ? chunk(channelsItem, 2).map((chunkedItems: TChannelStore[]) => {
-            const panels = getPanels(chunkedItems, likesPostRequest);
+            const panels = getPanels(chunkedItems, likesPostRequest, channelActions);
             return (<View style={styles.panelWrapper} key={chunkedItems[0].id}>{panels}</View>);
           }) : null}
         {errorMessage ?
