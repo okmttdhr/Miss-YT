@@ -1,21 +1,22 @@
 // @flow
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View } from 'react-native';
 
-import type {TDefaultLikedChannels, TLikedChannelsActions} from '../../types/Redux/';
+import type {TDefaultLikedChannels, TLikedChannelsActions, TChannelActions} from '../../types/Redux/';
 
 import styles from './style';
-import {likedChannelsActions} from '../../Redux/';
+import {likedChannelsActions, channelActions} from '../../Redux/';
 import {ChannelPanels} from '../../Components';
 
 type IMyRankingScreen = {
+  channelActions: TChannelActions,
   likedChannels: TDefaultLikedChannels,
   likedChannelsActions: TLikedChannelsActions
 }
 
-export class MyRankingScreen extends React.Component {
+export class MyRankingScreen extends Component<IMyRankingScreen, void> {
   componentDidMount() {
     if (this.props.likedChannels.startAt === 1) {
       this.props.likedChannelsActions.likedChannelsRequest();
@@ -30,6 +31,7 @@ export class MyRankingScreen extends React.Component {
           setContentHeight={this.props.likedChannelsActions.likedChannelsSetContentHeight}
           channelsRequest={this.props.likedChannelsActions.likedChannelsRequest}
           likesPostRequest={this.props.likedChannelsActions.likedChannelsLikesPostRequest}
+          channelActions={this.props.channelActions}
         />
       </View>
     );
@@ -42,6 +44,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   likedChannelsActions: bindActionCreators(likedChannelsActions, dispatch),
+  channelActions: bindActionCreators(channelActions, dispatch),
 });
 
 export const ConnectedMyRankingScreen =
