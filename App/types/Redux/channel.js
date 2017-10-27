@@ -9,4 +9,5 @@ export type TDefaultChannel = {
 
 export type TChannelActions = {
   channelSelect: (item: TChannelStore) => void,
+  channelLikesPostIncrease: () => void,
 }

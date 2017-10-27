@@ -6,33 +6,39 @@ import { Text, View } from 'react-native';
 // import Secrets from 'react-native-config';
 
 import styles from './style';
-import type {TUserActions, TDefaultUser} from '../../types/';
-// import {addChannels, updateChannels, updateLikes} from '../../Services/';
-// import {ChannelDetailInfo, ChannelDetailForm} from '../../Components/';
-import {userActions} from '../../Redux/';
+import type {TChannelActions, TDefaultChannel, TChannelsActions} from '../../types/';
+import {ChannelDetail} from '../../Components/';
+import {channelActions, channelsActions} from '../../Redux/';
 
 type IChannelDetailScreen = {
-  user: TDefaultUser;
-  userActions: TUserActions;
+  channel: TDefaultChannel,
+  channelActions: TChannelActions,
+  channelsActions: TChannelsActions,
 }
 
 export const ChannelDetailScreen = (props: IChannelDetailScreen) => {
   console.log(props);
+  const {channel} = props;
   return (
     <View style={styles.container}>
       <Text>
-        ChannelDetailScreen
+        <ChannelDetail
+          channel={channel}
+          channelActions={props.channelActions}
+          likesPostRequest={props.channelsActions.channelsLikesPostRequest}
+        />
       </Text>
     </View>
   );
 };
 
 const mapStateToProps = state => ({
-  user: state.user,
+  channel: state.channel,
 });
 
 const mapDispatchToProps = dispatch => ({
-  userActions: bindActionCreators(userActions, dispatch),
+  channelActions: bindActionCreators(channelActions, dispatch),
+  channelsActions: bindActionCreators(channelsActions, dispatch),
 });
 
 export const ConnectedChannelDetailScreen =

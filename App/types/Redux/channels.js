@@ -11,8 +11,6 @@ export type TDefaultChannels = {
 
 export type TChannelsLikesPostActions = {
   channelsLikesPostRequest: (channel: TChannelStore) => void,
-  likesPostSuccess: (channel: TChannelStore) => void,
-  likesPostFailure: (channelId: string, errorMessage: string) => void,
   channelsLikesPostIncrease: (channelId: string) => void,
 }
 
