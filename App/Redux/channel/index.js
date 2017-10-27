@@ -8,6 +8,7 @@ import type {TDefaultChannel, TChannelActions, TChannelStore} from '../../types/
 
 const { Types, Creators } = createActions({
   channelSelect: ['item'],
+  channelLikesPostIncrease: null,
   // ...channelVideosActions,
 });
 export const channelTypes = Types;
@@ -54,6 +55,13 @@ export const channelReducer = createReducer(DEFAULT_CHANNEL, {
       errorMessage: '',
       item,
     });
+  },
+  [Types.CHANNEL_LIKES_POST_INCREASE]: (state) => {
+    return state.merge({
+      item: {
+        likeCount: state.item.likeCount + 1,
+      },
+    }, {deep: true});
   },
   // ...channelVideosReducer,
 });

@@ -3,7 +3,7 @@ import { call, select, fork, put, take } from 'redux-saga/effects';
 import { merge } from 'lodash';
 
 import type {TChannelStore, TLikeWithKey, TChannelStoreWithKey} from '../../types/';
-import {likedChannelsActions, channelsActions, likedChannelsTypes} from '../../Redux/';
+import {likedChannelsActions, channelsActions, channelActions, likedChannelsTypes} from '../../Redux/';
 import {
   getLikeWithChannelId,
   isSuccess,
@@ -62,6 +62,7 @@ export function* likesPostIncrease<T>({channel}: {channel: TChannelStore}): Gene
     yield take(likedChannelsTypes.LIKED_CHANNELS_SUCCESS);
   }
 
+  yield put(channelActions.channelLikesPostIncrease());
   yield put(channelsActions.channelsLikesPostIncrease(channelId));
   yield put(likedChannelsActions.likedChannelsLikesPostIncrease(channelId));
 

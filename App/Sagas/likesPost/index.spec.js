@@ -4,7 +4,7 @@ import test from 'ava-spec';
 import { call, select, put, take, fork } from 'redux-saga/effects';
 
 import {channelStoreMock, channelsStoreWithKeyMock, likeWithKeyMock} from '../../../Tests/mock/';
-import { likedChannelsActions, channelsActions, likedChannelsTypes } from '../../Redux/';
+import { likedChannelsActions, channelsActions, channelActions, likedChannelsTypes } from '../../Redux/';
 import { getLikeWithChannelId } from '../../Services';
 import {uidSelector, likedChannelsSelector} from '../selector';
 import { likesPostIncrease, mergeLikedChannelToLocal } from '../likesPost';
@@ -27,14 +27,21 @@ test.serial.group('Normal: increase', () => {
     );
   });
 
-  test('could increase channels likeCount', (t) => {
+  test("could increase channel detail's likeCount", (t) => {
     t.deepEqual(
       generator.next(channelsStoreWithKeyMock()).value,
+      put(channelActions.channelLikesPostIncrease()),
+    );
+  });
+
+  test("could increase channels' likeCount", (t) => {
+    t.deepEqual(
+      generator.next().value,
       put(channelsActions.channelsLikesPostIncrease('ID0')),
     );
   });
 
-  test('could increase likedChannels likeCount', (t) => {
+  test("could increase likedChannels' likeCount", (t) => {
     t.deepEqual(
       generator.next().value,
       put(likedChannelsActions.likedChannelsLikesPostIncrease('ID0')),
@@ -77,6 +84,7 @@ test.serial.group('Normal: add', () => {
   });
 
   test('could finish generator', (t) => {
+    generator.next();
     generator.next();
     generator.next();
     generator.next();

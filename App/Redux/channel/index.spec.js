@@ -13,3 +13,13 @@ test('could select Channel', (t) => {
     item: channelStoreMock(),
   }));
 });
+
+test('could increased likeCount', (t) => {
+  const state = channelReducer(
+    DEFAULT_CHANNEL,
+    channelActions.channelLikesPostIncrease(),
+  );
+  t.deepEqual(state, DEFAULT_CHANNEL.merge({
+    item: {likeCount: 1},
+  }, {deep: true}));
+});

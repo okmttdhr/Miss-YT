@@ -13,9 +13,11 @@ type TChannelPanel = {
 
 export const ChannelDetail = ({channel, likesPostRequest, channelActions}: TChannelPanel) => (
   <View style={styles.container}>
+    <Text onPress={() => likesPostRequest(channel.item)} >いいね</Text>
     <Text>{channel.item.rank}</Text>
     <Text>{String(channel.item.isLiked)}</Text>
     <Text>{channel.item.likeCount}</Text>
+    <Text>{channel.item.youtube.name}</Text>
     <Text>{channel.item.youtube.thumbnail}</Text>
     <Text>{channel.item.youtube.subscriberCount}</Text>
     <Text>{String(channel.isFetching)}</Text>
