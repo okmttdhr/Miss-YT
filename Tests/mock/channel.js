@@ -7,9 +7,9 @@ export const channelMock = (i: number = 0): TChannel => ({
   id: `ID${i}`,
   createdAt: 12345,
   modifiedAt: 12345,
-  rank: 1,
+  rank: i,
   score: i + 1,
-  likeCount: 0,
+  likeCount: i,
   status: i % 2 === 0 ? 'active' : 'inactive',
   youtube: {
     id: `ID${i}`,

@@ -9,7 +9,7 @@ import { channelStoreMock, channelActionsMock } from '../../../../Tests/mock/';
 const likesPostRequestMock = () => {};
 const wrapper = shallow(
   <Panel
-    channel={channelStoreMock()}
+    channel={channelStoreMock(1)}
     isMargin={false}
     likesPostRequest={likesPostRequestMock}
     channelActions={channelActionsMock}
@@ -19,5 +19,5 @@ const wrapper = shallow(
 test('displays data of channel', (t) => {
   t.is(wrapper.length, 1);
   t.is(wrapper.contains(1), true);
-  t.is(wrapper.contains('NAME0'), true);
+  t.is(wrapper.contains('NAME1'), true);
 });
