@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Text, View } from 'react-native';
@@ -10,27 +10,33 @@ import type {TChannelActions, TDefaultChannel, TChannelsActions} from '../../typ
 import {ChannelDetail} from '../../Components/';
 import {channelActions, channelsActions} from '../../Redux/';
 
-type IChannelDetailScreen = {
+type TChannelDetailScreen = {
   channel: TDefaultChannel,
   channelActions: TChannelActions,
   channelsActions: TChannelsActions,
 }
 
-export const ChannelDetailScreen = (props: IChannelDetailScreen) => {
-  console.log(props);
-  const {channel} = props;
-  return (
-    <View style={styles.container}>
-      <Text>
-        <ChannelDetail
-          channel={channel}
-          channelActions={props.channelActions}
-          likesPostRequest={props.channelsActions.channelsLikesPostRequest}
-        />
-      </Text>
-    </View>
-  );
-};
+export class ChannelDetailScreen extends Component<TChannelDetailScreen, void> {
+  componentDidMount() {
+    const {channel} = this.props;
+    this.props.channelActions.channelMyInfoGetRequest(channel.item.id);
+  }
+  render() {
+    console.log(this.props);
+    const {channel} = this.props;
+    return (
+      <View style={styles.container}>
+        <Text>
+          <ChannelDetail
+            channel={channel}
+            channelActions={this.props.channelActions}
+            likesPostRequest={this.props.channelsActions.channelsLikesPostRequest}
+          />
+        </Text>
+      </View>
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   channel: state.channel,

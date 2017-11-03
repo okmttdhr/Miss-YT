@@ -36,7 +36,7 @@ export const firebaseChannelsResponse = (status: number = 200): TFirebaseService
   return responce;
 };
 
-export const firebaseLikeMock = (i: number = 0): TLike => ({
+const firebaseLikeMock = (i: number = 0): TLike => ({
   id: `ID${i}`,
   channelId: `CHANNEL_ID${i}`,
   rank: 0 + i,

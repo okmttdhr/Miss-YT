@@ -1,13 +1,15 @@
 import { takeLatest } from 'redux-saga';
+import { CHANNEL_MY_INFO } from '../constants';
 
 /* ------------- Types ------------- */
 
-import { channelsTypes, userTypes, likedChannelsTypes } from '../Redux/';
+import { channelsTypes, userTypes, likedChannelsTypes, channelTypes } from '../Redux/';
 import { StartupTypes } from '../Redux/StartupRedux';
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas';
+import { channelMyInfoGet } from './channel';
 import { getChannels } from './channels';
 import { getLikedChannels } from './likedChannels';
 import { likesPostIncrease, likesSync } from './likesPost';
@@ -19,6 +21,7 @@ import { likesChanged } from './subscribe';
 export default function* root() {
   yield [
     takeLatest(StartupTypes.STARTUP, startup),
+    takeLatest(channelTypes[CHANNEL_MY_INFO.GET.REQUEST], channelMyInfoGet),
     takeLatest(channelsTypes.CHANNELS_REQUEST, getChannels),
     takeLatest(channelsTypes.CHANNELS_LIKES_POST_REQUEST, likesPostIncrease),
 
