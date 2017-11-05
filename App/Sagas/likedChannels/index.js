@@ -31,11 +31,11 @@ export const getChannels = (snapshot: any): Array<Promise<TChannelStore>> => {
   snapshot.forEach((s) => {
     const like: TLike = s.val();
     const promise = getChannel(like.channelId)
-      .then((responce: APIResponse): TChannelStore => {
-        if (!isSuccess(responce)) {
-          throw responce;
+      .then((response: APIResponse): TChannelStore => {
+        if (!isSuccess(response)) {
+          throw response;
         }
-        const channel: {[key: string]: TChannel} = responce.snapshot.val();
+        const channel: {[key: string]: TChannel} = response.snapshot.val();
         const key: string = Object.keys(channel)[0];
         const update = {
           isLiked: true,
@@ -64,12 +64,12 @@ export function* getLikedChannels<T>(): Generator<T, any, any> {
     yield put(likedChannelsActions.likedChannelsSuccess({}));
     return;
   }
-  const responce: APIResponse = yield call(getLikesFromFirebase, uid, startAt);
-  if (!isSuccess(responce)) {
-    yield put(likedChannelsActions.likedChannelsFailure(responce.message));
+  const response: APIResponse = yield call(getLikesFromFirebase, uid, startAt);
+  if (!isSuccess(response)) {
+    yield put(likedChannelsActions.likedChannelsFailure(response.message));
     return;
   }
-  const channelsPromise: Array<Promise<TChannelStore>> = yield call(getChannels, responce.snapshot);
+  const channelsPromise: Array<Promise<TChannelStore>> = yield call(getChannels, response.snapshot);
   const channelsArray: TChannelStore[] = yield call(Promise.all, channelsPromise);
   const channels: TChannelStoreWithKey = channelStoreArrayToActiveObject(channelsArray);
   yield put(likedChannelsActions.likedChannelsSuccess(channels));

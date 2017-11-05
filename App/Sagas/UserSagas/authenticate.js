@@ -41,9 +41,9 @@ export function* authenticate<T>(
   action: TUserAuthenticateAction,
 ): Generator<T, any, any> {
   yield put(userActions.userRequest());
-  const responce: APIResponse = yield call(authWithFirebase, action);
-  if (!isSuccess(responce)) {
-    yield put(userActions.userFailure(responce.message));
+  const response: APIResponse = yield call(authWithFirebase, action);
+  if (!isSuccess(response)) {
+    yield put(userActions.userFailure(response.message));
     return;
   }
   yield call(sendEmailVerificationWithFirebase);

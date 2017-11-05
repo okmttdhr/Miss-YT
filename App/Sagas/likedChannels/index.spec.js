@@ -34,10 +34,10 @@ test.serial.group('Normal', () => {
   });
 
   test('could make a request to get liked channels', (t) => {
-    const responce = firebaseLikesResponse();
+    const response = firebaseLikesResponse();
     t.deepEqual(
-      generator.next(responce).value,
-      call(getChannels, responce.snapshot),
+      generator.next(response).value,
+      call(getChannels, response.snapshot),
     );
   });
 
@@ -69,13 +69,13 @@ test.serial.group('Normal', () => {
 test.serial.group('Abnormal', () => {
   const generator = getLikedChannels();
 
-  test('could send errorResponce to action', (t) => {
-    const errorResponce = firebaseLikesResponse(statusCode.InternalError);
+  test('could send errorresponse to action', (t) => {
+    const errorresponse = firebaseLikesResponse(statusCode.InternalError);
     generator.next();
     generator.next();
     generator.next('uid');
     t.deepEqual(
-      generator.next(errorResponce).value,
+      generator.next(errorresponse).value,
       put(likedChannelsActions.likedChannelsFailure('')),
     );
     t.true(generator.next().done);

@@ -51,15 +51,15 @@ export const createChannelsWithIsLikedPromises = (
 
 export function* getChannels<T>(): Generator<T, any, any> {
   const startAt = yield select(getStartAt);
-  const responce: APIResponse = yield call(getFromFirebase, startAt);
-  if (!isSuccess(responce)) {
-    yield put(channelsActions.channelsFailure(responce.message));
+  const response: APIResponse = yield call(getFromFirebase, startAt);
+  if (!isSuccess(response)) {
+    yield put(channelsActions.channelsFailure(response.message));
     return;
   }
   const uid = yield select(uidSelector);
   const localLikedChannels: TChannelStoreWithKey = yield select(likedChannelsSelector);
   const channelsWithIsLikedPromises =
-    yield call(createChannelsWithIsLikedPromises, responce.snapshot, localLikedChannels, uid);
+    yield call(createChannelsWithIsLikedPromises, response.snapshot, localLikedChannels, uid);
   const channelsArray: TChannelStore[] = yield call(Promise.all, channelsWithIsLikedPromises);
   const channels: {[key: string]: TChannelStore} = channelStoreArrayToActiveObject(channelsArray);
   yield put(channelsActions.channelsSuccess(channels));

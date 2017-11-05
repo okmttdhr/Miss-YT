@@ -17,16 +17,16 @@ export function* withUpdateUser<T>(
   args: Array<any> = [],
 ): Generator<T, any, any> {
   yield put(userActions.userRequest());
-  const responce: APIResponse = yield call(effect, ...args);
-  if (!isSuccess(responce)) {
-    yield put(userActions.userFailure(responce.message));
+  const response: APIResponse = yield call(effect, ...args);
+  if (!isSuccess(response)) {
+    yield put(userActions.userFailure(response.message));
     return;
   }
-  if (!responce.user) {
+  if (!response.user) {
     yield put(userActions.userSuccess(convertUserFromFirebaseToStore(defaultUser.item)));
     return;
   }
-  yield put(userActions.userSuccess(convertUserFromFirebaseToStore(responce.user)));
+  yield put(userActions.userSuccess(convertUserFromFirebaseToStore(response.user)));
 }
 
 export function* sendEmailVerification<T>(): Generator<T, any, any> {

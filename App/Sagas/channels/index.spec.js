@@ -25,12 +25,12 @@ test.serial.group('Normal', () => {
   });
 
   test('could make a request to know channel is liked by user', (t) => {
-    const responce = firebaseChannelsResponse();
-    generator.next(responce);
+    const response = firebaseChannelsResponse();
+    generator.next(response);
     generator.next('uid');
     t.deepEqual(
       generator.next(channelsStoreWithKeyMock()).value,
-      call(createChannelsWithIsLikedPromises, responce.snapshot, channelsStoreWithKeyMock(), 'uid'),
+      call(createChannelsWithIsLikedPromises, response.snapshot, channelsStoreWithKeyMock(), 'uid'),
     );
   });
 
@@ -53,12 +53,12 @@ test.serial.group('Normal', () => {
 test.serial.group('Abnormal', () => {
   const generator = getChannels();
 
-  test('could send errorResponce to action', (t) => {
-    const errorResponce = firebaseChannelsResponse(statusCode.InternalError);
+  test('could send errorresponse to action', (t) => {
+    const errorresponse = firebaseChannelsResponse(statusCode.InternalError);
     generator.next();
     generator.next();
     t.deepEqual(
-      generator.next(errorResponce).value,
+      generator.next(errorresponse).value,
       put(channelsActions.channelsFailure('')),
     );
   });
