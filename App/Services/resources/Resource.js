@@ -2,16 +2,16 @@
 import apisauce from 'apisauce';
 import {API_TIMEOUT} from '../../constants/';
 
+type IParameter = { [key: string]: any }
 type IApisauce = {
   addMonitor: () => void;
-  get: () => Promise<any>;
-  post: () => Promise<any>;
+  get: (url: string, parameters?: IParameter) => Promise<any>;
+  post: (url: string, parameters: IParameter) => Promise<any>;
 }
 type IResponce = {
   ok: boolean;
   problem: string;
 }
-type IParameter = { [key: string]: any }
 
 export class Resource {
   baseURL: string;
@@ -20,7 +20,7 @@ export class Resource {
     this.baseURL = baseURL;
     this.headers = headers;
   }
-  _createAPI(url: string, method: string): IApisauce {
+  _createAPI(): IApisauce {
     const api = apisauce.create({
       baseURL: this.baseURL,
       headers: this.headers,
@@ -30,11 +30,11 @@ export class Resource {
     return api;
   }
   get(url: string, parameters?: IParameter) {
-    const api = this._createAPI(url, 'GET');
+    const api = this._createAPI();
     return api.get(url, parameters);
   }
   post(url: string, parameters: IParameter) {
-    const api = this._createAPI(url, 'POST');
+    const api = this._createAPI();
     return api.post(url, parameters);
   }
   logging(response: IResponce) {
