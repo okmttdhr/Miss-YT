@@ -7,7 +7,7 @@ import { getLikeWithChannelId } from '../../Services/';
 import {uidSelector, likedChannelsSelector} from '../selector';
 import { channelMyInfoGet } from './myInfo';
 
-test.serial.group('Normal', () => {
+test.serial.group('Normal: from state', () => {
   const generator = channelMyInfoGet({channelId: 'ID2'});
   test('could select likedChannels', (t) => {
     t.deepEqual(
@@ -28,7 +28,7 @@ test.serial.group('Normal', () => {
   });
 });
 
-test.serial.group('Normal', () => {
+test.serial.group('Normal: from server', () => {
   const generator = channelMyInfoGet({channelId: 'ID1'});
   generator.next();
   test('could select uid', (t) => {
@@ -75,5 +75,14 @@ test.serial.group('Abnormal', () => {
       }).value,
       put(channelActions.channelMyInfoGetFailure('errorMessageMyInfo')),
     );
+  });
+});
+
+test.serial.group('Abnormal: no uid', () => {
+  const generator = channelMyInfoGet({channelId: 'ID1'});
+  generator.next();
+  generator.next(channelsStoreWithKeyMock());
+  test('could stop requesting if no uid', (t) => {
+    t.true(generator.next().done);
   });
 });
