@@ -15,6 +15,6 @@ test('should make a request with CHANNEL_IDS', async (t) => {
       id: CHANNEL_IDS,
     })
     .reply(200, { isMock: true });
-  const res = await channelsResource.get(CHANNEL_IDS);
+  const res = await channelsResource.GET(CHANNEL_IDS);
   t.is(res.data.isMock, true);
 });

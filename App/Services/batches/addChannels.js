@@ -66,7 +66,7 @@ const addToFirebase = (channelsResponse: TChannelResponse[]) => {
 
 export const addChannels = () => {
   const channelsResource = new ChannelsResource();
-  const addChannelsPromise = channelsResource.get(CHANNEL_IDS)
+  const addChannelsPromise = channelsResource.GET(CHANNEL_IDS)
     .then(res => addToFirebase(res.data.items));
   logFinished(addChannelsPromise, 'addChannels');
 };

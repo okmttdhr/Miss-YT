@@ -26,7 +26,7 @@ const getLatestItem = (channelIds) => {
   const channelsResource = new ChannelsResource();
   // change to something like `{channels: item, twitter, item}`,
   // when you add TwitterUsersLookupResource
-  return channelsResource.get(channelIds).then(res => ({channels: res.data.items}));
+  return channelsResource.GET(channelIds).then(res => ({channels: res.data.items}));
 };
 
 const updateChannelWithTimestamp = (key, modifier) => {
