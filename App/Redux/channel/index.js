@@ -64,6 +64,9 @@ export const channelReducer = createReducer(DEFAULT_CHANNEL, {
       item: {
         likeCount: state.item.likeCount + 1,
       },
+      itemMyInfo: {
+        likeCount: state.itemMyInfo.likeCount + 1,
+      },
     }, {deep: true});
   },
   ...channelMyInfoReducer,

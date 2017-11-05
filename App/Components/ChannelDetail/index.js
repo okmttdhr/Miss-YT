@@ -20,6 +20,8 @@ export const ChannelDetail = ({channel, likesPostRequest, channelActions}: TChan
     <Text>{channel.item.youtube.name}</Text>
     <Text>{channel.item.youtube.thumbnail}</Text>
     <Text>{channel.item.youtube.subscriberCount}</Text>
+    <Text>{channel.itemMyInfo.likeCount}</Text>
+    <Text>{channel.itemMyInfo.rank}</Text>
     <Text>{String(channel.isFetching)}</Text>
     <Text>{channel.errorMessage}</Text>
   </View>

@@ -21,5 +21,6 @@ test('could increased likeCount', (t) => {
   );
   t.deepEqual(state, DEFAULT_CHANNEL.merge({
     item: {likeCount: 1},
+    itemMyInfo: {likeCount: 1},
   }, {deep: true}));
 });
