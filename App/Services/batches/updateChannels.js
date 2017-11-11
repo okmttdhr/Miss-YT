@@ -5,7 +5,7 @@ import {firebaseApp} from '../firebase/';
 
 import {ChannelsResource, channelsRef, logFinished} from '../index';
 import type {TChannel} from '../../types/channel';
-import type {TChannelResponse} from '../../types/ChannelResponse';
+import type {TYouTubeChannelResponse} from '../../types/channelResponse';
 
 // the parameter limit of TwitterUsersLookupResource's `screen_name`
 const LIMIT = 100;
@@ -37,7 +37,7 @@ const updateChannelWithTimestamp = (key, modifier) => {
   });
 };
 
-const updateSubscriberCount = (channelsResponse: TChannelResponse[]) => {
+const updateSubscriberCount = (channelsResponse: TYouTubeChannelResponse[]) => {
   console.log('updateSubscriberCount');
   const promiseOnce = channelsResponse.map(channelResponse => channelsRef.orderByChild('youtube/id').equalTo(channelResponse.id).once('value').then((snapshot) => {
     const channels: TChannelsSnapshot = snapshot.val();
@@ -106,7 +106,7 @@ export const updateChannels = () => {
     .then(snapshot => accumulateIds(snapshot))
     .then((ids: {channelIds: string[]}) => toParameter(ids))
     .then((parameters: {channelIds: string}) => getLatestItem(parameters.channelIds))
-    .then((response: {channels: TChannelResponse[]}) => updateSubscriberCount(response.channels))
+    .then((response: {channels: TYouTubeChannelResponse[]}) => updateSubscriberCount(response.channels))
     .then(() => toAll())
     .then(() => updateRank());
 

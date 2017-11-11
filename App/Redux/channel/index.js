@@ -3,7 +3,7 @@ import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 import type {TDefaultChannel, TChannelActions, TChannelStore} from '../../types/';
 import {defaultChannelMyInfo, channelMyInfoActions, channelMyInfoReducer} from './myInfo';
-// import {defaultChannelVideos, channelVideosActions, channelVideosReducer} from './channelVideos';
+import {defaultChannelVideos, channelVideosActions, channelVideosReducer} from './videos';
 
 /* ------------- Types and Action Creators ------------- */
 
@@ -11,7 +11,7 @@ const { Types, Creators } = createActions({
   channelSelect: ['item'],
   channelLikesPostIncrease: null,
   ...channelMyInfoActions,
-  // ...channelVideosActions,
+  ...channelVideosActions,
 });
 export const channelTypes = Types;
 export const channelActions: TChannelActions = Creators;
@@ -45,7 +45,7 @@ const defaultChannel: TDefaultChannel = {
   isFetching: false,
   errorMessage: '',
   ...defaultChannelMyInfo,
-  // ...defaultChannelVideos,
+  ...defaultChannelVideos,
 };
 export const DEFAULT_CHANNEL = Immutable(defaultChannel);
 
@@ -70,5 +70,5 @@ export const channelReducer = createReducer(DEFAULT_CHANNEL, {
     }, {deep: true});
   },
   ...channelMyInfoReducer,
-  // ...channelVideosReducer,
+  ...channelVideosReducer,
 });

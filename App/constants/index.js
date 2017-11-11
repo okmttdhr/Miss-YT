@@ -39,3 +39,4 @@ export const createRESTConstants = (constant: string): IRESTConstants => (
 );
 
 export const CHANNEL_MY_INFO = createRESTConstants('CHANNEL_MY_INFO');
+export const CHANNEL_VIDEOS = createRESTConstants('CHANNEL_VIDEOS');

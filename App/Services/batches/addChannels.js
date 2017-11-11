@@ -4,7 +4,7 @@ import {firebaseApp} from '../firebase/';
 
 import {ChannelsResource, channelsRef, logFinished, snapshotExists} from '../index';
 import type {TChannel} from '../../types/channel';
-import type {TChannelResponse} from '../../types/ChannelResponse';
+import type {TYouTubeChannelResponse} from '../../types/channelResponse';
 
 // add CHANNEL_IDS before running batch
 const CHANNEL_IDS = `
@@ -19,7 +19,7 @@ const CHANNEL_IDS = `
   UCBexcfMCBFzbb02OikUJD6A, UCsVtT0DHmb5GXCZZ7-4PRhg,
 `;
 
-const createChannel = (channel: TChannelResponse): TChannel => {
+const createChannel = (channel: TYouTubeChannelResponse): TChannel => {
   const subscriberCount = Number(channel.statistics.subscriberCount);
   const viewCount = Number(channel.statistics.viewCount);
 
@@ -46,12 +46,12 @@ const createChannel = (channel: TChannelResponse): TChannel => {
   };
 };
 
-const channelExists = (channelResponse: TChannelResponse) =>
+const channelExists = (channelResponse: TYouTubeChannelResponse) =>
   channelsRef.orderByChild('youtube/id').equalTo(channelResponse.id).once('value')
     .then(snapshotExists)
     .catch(() => false);
 
-const addToFirebase = (channelsResponse: TChannelResponse[]) => {
+const addToFirebase = (channelsResponse: TYouTubeChannelResponse[]) => {
   const promiseAdded = channelsResponse.map((channelResponse) => {
     return channelExists(channelResponse).then((exists) => {
       if (exists) {
