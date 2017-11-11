@@ -9,7 +9,7 @@ export class ChannelsResource extends Resource {
   constructor() {
     super(API_ENDPOINT_YOUTUBE);
   }
-  get(channelIDs: string): Promise<any> {
+  GET(channelIDs: string): Promise<any> {
     return super.get(API_ENDPOINT_YOUTUBE_CHANNELS, {
       key: Secrets.YOUTUBE_API_KEY,
       part: YOUTUBE_RESOURCE_PARAMETER_PART,

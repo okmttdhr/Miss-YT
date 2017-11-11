@@ -3,6 +3,7 @@ export const API_TIMEOUT = 10000;
 
 export const API_ENDPOINT_YOUTUBE = 'https://www.googleapis.com/youtube/v3';
 export const API_ENDPOINT_YOUTUBE_CHANNELS = '/channels';
+export const API_ENDPOINT_YOUTUBE_SEARCH = '/search';
 
 export const COLOR_RED = '#ED4956';
 export const PER_PAGE = 10;
@@ -38,3 +39,4 @@ export const createRESTConstants = (constant: string): IRESTConstants => (
 );
 
 export const CHANNEL_MY_INFO = createRESTConstants('CHANNEL_MY_INFO');
+export const CHANNEL_VIDEOS = createRESTConstants('CHANNEL_VIDEOS');

@@ -24,7 +24,7 @@ export type TUserActions = {
   userLogin: TAuthenticate,
   userCreate: TAuthenticate,
   userSuccess: (item: TUser) => any,
-  userFailure: () => any,
+  userFailure: (errorMessage: string) => any,
   userUpdateProfile: TUserUpdateProfile,
   userSendEmailVerification: () => any,
   userReload: () => any,

@@ -4,10 +4,10 @@ const firebaseRefOnceMock = (ref) => {
   let success;
   switch (ref) {
     case 'channels':
-      success = 'success responce';
+      success = 'success response';
       break;
     case 'likes':
-      success = 'success responce';
+      success = 'success response';
       break;
   }
 

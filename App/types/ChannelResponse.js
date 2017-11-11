@@ -1,5 +1,5 @@
 // @flow
-export type TChannelResponse = {
+export type TYouTubeChannelResponse = {
   id: string;
   snippet: {
     title: string;

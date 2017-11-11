@@ -16,7 +16,7 @@ const firebaseChannelsMock: Array<TChannel> =
   range(10).map((i: number): TChannel => firebaseChannelMock(i));
 
 export const firebaseChannelsResponse = (status: number = 200): TFirebaseServiceResponse => {
-  let responce = {
+  let response = {
     status: 200,
     message: '',
     snapshot: [
@@ -25,7 +25,7 @@ export const firebaseChannelsResponse = (status: number = 200): TFirebaseService
   };
   switch (status) {
     case 500:
-      responce = {
+      response = {
         status: 500,
         message: '',
         snapshot: null,
@@ -33,7 +33,7 @@ export const firebaseChannelsResponse = (status: number = 200): TFirebaseService
       break;
     // no default
   }
-  return responce;
+  return response;
 };
 
 const firebaseLikeMock = (i: number = 0): TLike => ({
@@ -47,7 +47,7 @@ const firebaseLikesMock: Array<TChannel> =
   range(10).map((i: number): TLike => firebaseLikeMock(i));
 
 export const firebaseLikesResponse = (status: number = 200): TFirebaseServiceResponse => {
-  let responce = {
+  let response = {
     status: 200,
     message: '',
     snapshot: [
@@ -56,7 +56,7 @@ export const firebaseLikesResponse = (status: number = 200): TFirebaseServiceRes
   };
   switch (status) {
     case 500:
-      responce = {
+      response = {
         status: 500,
         message: '',
         snapshot: null,
@@ -64,5 +64,5 @@ export const firebaseLikesResponse = (status: number = 200): TFirebaseServiceRes
       break;
     // no default
   }
-  return responce;
+  return response;
 };
