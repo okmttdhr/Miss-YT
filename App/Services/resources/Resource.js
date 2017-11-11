@@ -2,16 +2,18 @@
 import apisauce from 'apisauce';
 import {API_TIMEOUT} from '../../constants/';
 
-type IParameter = { [key: string]: any }
-type IApisauce = {
+type TParameter = { [key: string]: any }
+type TApisauce = {
   addMonitor: () => void;
-  get: (url: string, parameters?: IParameter) => Promise<any>;
-  post: (url: string, parameters: IParameter) => Promise<any>;
+  get: (url: string, parameters?: TParameter) => Promise<any>;
+  post: (url: string, parameters: TParameter) => Promise<any>;
 }
-type IResponce = {
-  ok: boolean;
-  problem: string;
-}
+
+const logging = (response) => {
+  if (__DEV__) {
+    console.log(response);
+  }
+};
 
 export class Resource {
   baseURL: string;
@@ -20,26 +22,23 @@ export class Resource {
     this.baseURL = baseURL;
     this.headers = headers;
   }
-  _createAPI(): IApisauce {
+  _createAPI(): TApisauce {
     const api = apisauce.create({
       baseURL: this.baseURL,
       headers: this.headers,
       timeout: API_TIMEOUT,
     });
-    api.addMonitor(response => this.logging(response));
+    api.addMonitor(response => logging(response));
     return api;
   }
-  get(url: string, parameters?: IParameter) {
+  get(url: string, parameters?: TParameter) {
+    console.log('get');
+    console.log(this);
     const api = this._createAPI();
     return api.get(url, parameters);
   }
-  post(url: string, parameters: IParameter) {
+  post(url: string, parameters: TParameter) {
     const api = this._createAPI();
     return api.post(url, parameters);
-  }
-  logging(response: IResponce) {
-    if (__DEV__) {
-      console.log(response);
-    }
   }
 }
