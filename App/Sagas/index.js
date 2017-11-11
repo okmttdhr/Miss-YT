@@ -1,5 +1,5 @@
 import { takeLatest } from 'redux-saga';
-import { CHANNEL_MY_INFO } from '../constants';
+import { CHANNEL_MY_INFO, CHANNEL_VIDEOS } from '../constants';
 
 /* ------------- Types ------------- */
 
@@ -9,7 +9,7 @@ import { StartupTypes } from '../Redux/StartupRedux';
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas';
-import { channelMyInfoGet } from './channel';
+import { channelMyInfoGet, channelVideosGet } from './channel';
 import { getChannels } from './channels';
 import { getLikedChannels } from './likedChannels';
 import { likesPostIncrease, likesSync } from './likesPost';
@@ -22,6 +22,7 @@ export default function* root() {
   yield [
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(channelTypes[CHANNEL_MY_INFO.GET.REQUEST], channelMyInfoGet),
+    takeLatest(channelTypes[CHANNEL_VIDEOS.GET.REQUEST], channelVideosGet),
     takeLatest(channelsTypes.CHANNELS_REQUEST, getChannels),
     takeLatest(channelsTypes.CHANNELS_LIKES_POST_REQUEST, likesPostIncrease),
 
