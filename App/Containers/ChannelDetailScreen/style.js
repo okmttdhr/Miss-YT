@@ -1,13 +1,12 @@
 // @flow
-
 import { StyleSheet } from 'react-native';
+import { HEADER_HEIGHT } from '../../Themes/';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 100,
+    paddingTop: HEADER_HEIGHT,
   },
 });

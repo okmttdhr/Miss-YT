@@ -11,18 +11,17 @@ type TChannelPanel = {
   likesPostRequest: (channel: TChannelStore) => void,
 }
 
-export const ChannelDetail = ({channel, likesPostRequest, channelActions}: TChannelPanel) => (
+export const ChannelDetail = ({channel, likesPostRequest}: TChannelPanel) => (
   <View style={styles.container}>
-    <View>
-      <View>
-        <Image source={{uri: `${channel.item.youtube.thumbnail}`}} />
-        <Text onPress={() => likesPostRequest(channel.item)} >いいね</Text>
-        <Text>{String(channel.item.isLiked)}</Text>
+    <View style={styles.infoContainer}>
+      <View style={styles.infoTop}>
+        <Image style={styles.infoTopImage} source={{uri: `${channel.item.youtube.thumbnail}`}} />
+        <Text style={styles.infoTopLike} onPress={() => likesPostRequest(channel.item)} >いいね</Text>
       </View>
-      <View>
+      <View style={styles.infoName}>
         <Text>{channel.item.youtube.name}</Text>
       </View>
-      <View>
+      <View style={styles.infoDetail}>
         <Text>{channel.item.rank}</Text>
         <Text>{channel.itemMyInfo.rank}</Text>
         <Text>{channel.item.likeCount}</Text>
@@ -30,6 +29,7 @@ export const ChannelDetail = ({channel, likesPostRequest, channelActions}: TChan
         <Text>{channel.item.youtube.subscriberCount}</Text>
       </View>
     </View>
-    <Text>{channel.errorMessage}</Text>
   </View>
 );
+
+// <Text>{channel.errorMessage}</Text>

@@ -4,6 +4,9 @@ import Images from './Images';
 import {metrics} from './metrics';
 import {colors} from './colors';
 
+export const HEADER_HEIGHT = 66;
+export const FOOTER_HEIGHT = 52;
+
 export const flexRowCenter = {
   flex: 1,
   flexDirection: 'row',
