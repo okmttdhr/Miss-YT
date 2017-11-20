@@ -83,6 +83,10 @@ test.serial.group('Abnormal: no uid', () => {
   generator.next();
   generator.next(channelsStoreWithKeyMock());
   test('could stop requesting if no uid', (t) => {
+    t.deepEqual(
+      generator.next().value,
+      put(channelActions.channelMyInfoGetRequestCancel()),
+    );
     t.true(generator.next().done);
   });
 });

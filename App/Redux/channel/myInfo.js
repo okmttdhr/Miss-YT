@@ -6,6 +6,7 @@ import {CHANNEL_MY_INFO} from '../../constants';
 
 export const channelMyInfoActions = {
   channelMyInfoGetRequest: ['channelId'],
+  channelMyInfoGetRequestCancel: null,
   channelMyInfoGetSuccess: ['itemMyInfo'],
   channelMyInfoGetFailure: ['errorMessageMyInfo'],
 };
@@ -30,6 +31,11 @@ export const channelMyInfoReducer = {
     return state.merge({
       isFetchingMyInfo: true,
       errorMessageMyInfo: '',
+    });
+  },
+  [`${CHANNEL_MY_INFO.GET.REQUEST}_CANCEL`]: (state) => {
+    return state.merge({
+      isFetchingMyInfo: false,
     });
   },
   [CHANNEL_MY_INFO.GET.SUCCESS]: (state, {itemMyInfo}) => {
