@@ -1,6 +1,6 @@
 // @flow
 import { StyleSheet } from 'react-native';
-import { viewportWidth, viewportHeight } from '../../Services/';
+import { viewportWidth, viewportHeight, fontSize } from '../../Themes/';
 
 export default StyleSheet.create({
   container: {
@@ -14,13 +14,15 @@ export default StyleSheet.create({
   infoContainer: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    padding: 10,
+    // padding: viewportWidth(8),
+    padding: 30,
     width: viewportWidth(100),
   },
   infoTop: {
     // flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
   infoTopImage: {
     width: viewportWidth(30),
@@ -29,12 +31,20 @@ export default StyleSheet.create({
   },
   infoTopLike: {
     marginLeft: 'auto',
+    marginTop: 30,
+    marginRight: 30,
   },
   infoName: {
     // flex: 1,
     flexDirection: 'row',
+    marginTop: 15,
+  },
+  infoNameText: {
+    fontSize: 20,
   },
   infoDetail: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 10,
   },
 });
