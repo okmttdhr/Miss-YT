@@ -1,4 +1,6 @@
 // @flow
+import { Dimensions } from 'react-native';
+
 import Fonts, {fontSize} from './Fonts';
 import Images from './Images';
 import {metrics} from './metrics';
@@ -24,6 +26,9 @@ export const errorMessage = {
   fontSize: fontSize.small,
   color: colors.error,
 };
+
+export const viewportWidth = (percentageWidth: number) => Dimensions.get('window').width * (percentageWidth / 100);
+export const viewportHeight = (percentageHeight: number) => Dimensions.get('window').height * (percentageHeight / 100);
 
 export * from './applicationStyles';
 export * from './Fonts';
