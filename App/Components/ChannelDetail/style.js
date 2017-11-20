@@ -29,11 +29,16 @@ export default StyleSheet.create({
     height: viewportWidth(30),
     borderRadius: viewportWidth(30) / 2,
   },
-  infoTopLike: {
+
+  infoTopLikeWrapper: {
     marginLeft: 'auto',
     marginTop: 30,
     marginRight: 30,
+    flexDirection: 'row',
   },
+  infoTopLike: {
+  },
+
   infoName: {
     // flex: 1,
     flexDirection: 'row',

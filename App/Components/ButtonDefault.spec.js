@@ -10,7 +10,7 @@ const wrapper = shallow(<ButtonDefault onPress={() => {}} text="hi" />);
 test('component structure', (t) => {
   t.is(wrapper.name(), 'TouchableHighlight');
   t.is(wrapper.children().length, 1);
-  t.is(wrapper.children().first().name(), 'Text');
+  t.is(wrapper.children().first().name(), 'View');
 });
 
 test('should call onPress', (t) => {

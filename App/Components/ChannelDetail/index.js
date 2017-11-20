@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './style';
 import type {TChannelStore, TChannelActions, TDefaultChannel} from '../../types/';
@@ -17,12 +18,15 @@ export const ChannelDetail = ({channel, likesPostRequest}: TChannelPanel) => (
     <View style={styles.infoContainer}>
       <View style={styles.infoTop}>
         <Image style={styles.infoTopImage} source={{uri: `${channel.item.youtube.thumbnail}`}} />
-        <ButtonDefault
-          styles={styles.infoTopLike}
-          text={'いいね'}
-          onPress={() => likesPostRequest(channel.item)}
-          disabled={channel.isFetchingMyInfo}
-        />
+        <View style={styles.infoTopLikeWrapper}>
+          <ButtonDefault
+            styles={styles.infoTopLike}
+            text={'いいね'}
+            onPress={() => likesPostRequest(channel.item)}
+            disabled={channel.isFetchingMyInfo}
+            icon={'favorite'}
+          />
+        </View>
       </View>
       <View style={styles.infoName}>
         <Text style={styles.infoNameText}>{channel.item.youtube.name}</Text>
