@@ -51,4 +51,14 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     marginTop: 10,
   },
+  infoDetailItem: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginRight: 10,
+    marginBottom: 5,
+  },
+  infoDetailItemIcon: {
+    marginRight: 2,
+  },
 });

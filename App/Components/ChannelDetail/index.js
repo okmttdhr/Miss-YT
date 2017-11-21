@@ -5,7 +5,27 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './style';
 import type {TChannelStore, TChannelActions, TDefaultChannel} from '../../types/';
+import { colors, fontSize } from '../../Themes/';
 import {ButtonDefault} from '../ButtonDefault';
+
+type TInfoDetailItem = {
+  iconName: string;
+  text: string;
+}
+
+const InfoDetailItem = ({iconName, text}: TInfoDetailItem) => {
+  return (
+    <View style={styles.infoDetailItem}>
+      <Icon
+        style={styles.infoDetailItemIcon}
+        name={iconName}
+        size={fontSize.regular}
+        color={colors.mainWeak}
+      />
+      <Text>{text}</Text>
+    </View>
+  );
+};
 
 type TChannelPanel = {
   channel: TDefaultChannel,
@@ -21,10 +41,10 @@ export const ChannelDetail = ({channel, likesPostRequest}: TChannelPanel) => (
         <View style={styles.infoTopLikeWrapper}>
           <ButtonDefault
             styles={styles.infoTopLike}
-            text={'いいね'}
+            text={`いいね ${channel.item.likeCount}`}
             onPress={() => likesPostRequest(channel.item)}
             disabled={channel.isFetchingMyInfo}
-            icon={'favorite'}
+            iconName={'favorite'}
           />
         </View>
       </View>
@@ -32,21 +52,11 @@ export const ChannelDetail = ({channel, likesPostRequest}: TChannelPanel) => (
         <Text style={styles.infoNameText}>{channel.item.youtube.name}</Text>
       </View>
       <View style={styles.infoDetail}>
-        <View>
-          <Text>ランキング {channel.item.rank}位</Text>
-        </View>
-        <View>
-          <Text>マイランキング {channel.itemMyInfo.rank}位</Text>
-        </View>
-        <View>
-          <Text>いいね数 {channel.item.likeCount}</Text>
-        </View>
-        <View>
-          <Text>マイいいね数 {channel.itemMyInfo.likeCount}</Text>
-        </View>
-        <View>
-          <Text>チャンネル登録者数 {channel.item.youtube.subscriberCount}人</Text>
-        </View>
+        <InfoDetailItem iconName="trending-up" text={`ランキング ${channel.item.rank}位`} />
+        <InfoDetailItem iconName="trending-up" text={`マイランキング ${channel.itemMyInfo.rank}位`} />
+        <InfoDetailItem iconName="favorite" text={`総いいね数 ${channel.item.likeCount}`} />
+        <InfoDetailItem iconName="favorite" text={`マイいいね数 ${channel.itemMyInfo.likeCount}`} />
+        <InfoDetailItem iconName="subscriptions" text={`チャンネル登録者数 ${channel.item.youtube.subscriberCount}人`} />
       </View>
     </View>
   </View>
