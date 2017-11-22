@@ -9,6 +9,10 @@ test('could request for Channel', (t) => {
   );
   t.true(state.isFetchingMyInfo);
   t.is(state.errorMessageMyInfo, '');
+  t.deepEqual(state.itemMyInfo, {
+    rank: 0,
+    likeCount: 0,
+  });
 });
 
 test('could update Channel', (t) => {

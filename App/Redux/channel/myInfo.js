@@ -31,6 +31,7 @@ export const channelMyInfoReducer = {
     return state.merge({
       isFetchingMyInfo: true,
       errorMessageMyInfo: '',
+      itemMyInfo: defaultItem,
     });
   },
   [`${CHANNEL_MY_INFO.GET.REQUEST}_CANCEL`]: (state) => {
