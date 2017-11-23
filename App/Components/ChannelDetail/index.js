@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './style';
 import type {TChannelStore, TChannelActions, TDefaultChannel} from '../../types/';
-import { colors, fontSize } from '../../Themes/';
+import { colors, fontSize, Images } from '../../Themes/';
 import {ButtonDefault} from '../ButtonDefault';
 
 type TInfoDetailItem = {
@@ -37,7 +37,10 @@ export const ChannelDetail = ({channel, likesPostRequest}: TChannelPanel) => (
   <View style={styles.container}>
     <View style={styles.infoContainer}>
       <View style={styles.infoTop}>
-        <Image style={styles.infoTopImage} source={{uri: `${channel.item.youtube.thumbnail}`}} />
+        <Image
+          style={styles.infoTopImage}
+          source={channel.item.youtube.thumbnail ? {uri: `${channel.item.youtube.thumbnail}`} : Images.mainWeak}
+        />
         <View style={styles.infoTopLikeWrapper}>
           <ButtonDefault
             styles={styles.infoTopLike}
