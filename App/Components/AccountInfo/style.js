@@ -1,7 +1,6 @@
 // @flow
 import { StyleSheet } from 'react-native';
-import {viewportWidth} from '../../Services/';
-import {fontSize} from '../../Themes/';
+import {viewportWidth, fontSize} from '../../Themes/';
 
 export default StyleSheet.create({
   container: {

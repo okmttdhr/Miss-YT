@@ -1,8 +1,7 @@
 // @flow
 import { StyleSheet } from 'react-native';
 
-import {viewportHeight} from '../../Services/';
-import {flexColumnCenter} from '../../Themes/';
+import {viewportHeight, flexColumnCenter} from '../../Themes/';
 
 export default StyleSheet.create({
   container: {

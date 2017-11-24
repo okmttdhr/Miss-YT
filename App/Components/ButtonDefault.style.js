@@ -11,9 +11,19 @@ export default StyleSheet.create({
     shadowOffset: { width: 0.5, height: 0.5 },
     shadowOpacity: 0.7,
     shadowColor: 'black',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    marginRight: 5,
   },
   buttonText: {
-    margin: 10,
+    paddingTop: 5,
+    marginVertical: 5,
     textAlign: 'center',
     color: colors.snow,
     fontSize: Fonts.size.medium,

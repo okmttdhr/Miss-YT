@@ -1,5 +1,5 @@
 // @flow
-import React, {Component} from 'react';
+import React from 'react';
 import { View } from 'react-native';
 
 import styles from './style';
@@ -14,24 +14,19 @@ type TAccountForm = {
 
 export type AccountType = 'login' | 'createUser';
 
-export class AccountForm extends Component {
-  props: TAccountForm
-
-  render() {
-    const {user, userActions} = this.props;
-    return (
-      <View style={styles.container}>
-        {user.isForgotPassword ?
-          <PasswordResetForm
-            user={user}
-            userActions={userActions}
-          /> :
-          <AuthenticateForm
-            user={user}
-            userActions={userActions}
-          />
-        }
-      </View>
-    );
-  }
-}
+export const AccountForm = ({user, userActions}: TAccountForm) => {
+  return (
+    <View style={styles.container}>
+      {user.isForgotPassword ?
+        <PasswordResetForm
+          user={user}
+          userActions={userActions}
+        /> :
+        <AuthenticateForm
+          user={user}
+          userActions={userActions}
+        />
+      }
+    </View>
+  );
+};

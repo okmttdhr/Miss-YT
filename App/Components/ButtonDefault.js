@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
-import { TouchableHighlight, Text } from 'react-native';
+import { TouchableHighlight, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import baseStyles from './ButtonDefault.style';
 import {noop} from '../Services/';
@@ -11,9 +12,10 @@ type TButtonDefault = {
   onPress?: () => any;
   styles?: Object;
   disabled?: boolean;
+  iconName?: string;
 }
 
-export const ButtonDefault = ({styles, onPress, disabled, text}: TButtonDefault) => {
+export const ButtonDefault = ({styles, onPress, disabled, text, iconName}: TButtonDefault) => {
   const s = [
     baseStyles.button,
     disabled && baseStyles.disabled,
@@ -26,7 +28,17 @@ export const ButtonDefault = ({styles, onPress, disabled, text}: TButtonDefault)
       disabled={disabled}
       underlayColor={colors.mainWeak}
     >
-      <Text style={baseStyles.buttonText}>{text}</Text>
+      <View style={baseStyles.content}>
+        {iconName ?
+          <Icon
+            style={baseStyles.icon}
+            name={iconName}
+            size={20}
+            color={colors.white}
+          /> : null
+        }
+        <Text style={baseStyles.buttonText}>{text}</Text>
+      </View>
     </TouchableHighlight>
   );
 };
@@ -35,6 +47,7 @@ ButtonDefault.defaultProps = {
   onPress: noop,
   styles: {},
   disabled: false,
+  iconName: '',
 };
 
 export default ButtonDefault;

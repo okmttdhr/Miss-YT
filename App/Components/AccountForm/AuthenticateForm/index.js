@@ -14,7 +14,11 @@ type TAuthenticateForm = {
 
 export type AccountType = 'login' | 'createUser';
 
-export class AuthenticateForm extends Component {
+export class AuthenticateForm extends Component<TAuthenticateForm, {
+  email: string;
+  password: string;
+  type : AccountType;
+}> {
   constructor(props: TAuthenticateForm) {
     super(props);
     this.state = {
@@ -23,14 +27,6 @@ export class AuthenticateForm extends Component {
       type: 'login',
     };
   }
-
-  state: {
-    email: string;
-    password: string;
-    type : AccountType;
-  }
-  props: TAuthenticateForm
-
   switchType() {
     const type = this.state.type === 'login' ? 'createUser' : 'login';
     this.setState({type});

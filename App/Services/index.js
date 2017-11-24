@@ -6,7 +6,6 @@ export * from './resources';
 export * from './batches';
 export * from './config';
 export * from './response';
-export * from './styles';
 
 export const noop = () => {};
 

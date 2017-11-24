@@ -41,6 +41,7 @@ export type TChannelVideosActions = {
 
 export type TChannelMyInfoActions = {
   channelMyInfoGetRequest: (channelId: string) => void;
+  channelMyInfoGetRequestCancel: () => void;
   channelMyInfoGetSuccess: (itemMyInfo: {rank: number, likeCount: number}) => void;
   channelMyInfoGetFailure: (errorMessageMyInfo: string) => void;
 }

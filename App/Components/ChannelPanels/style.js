@@ -1,10 +1,6 @@
 // @flow
 import { StyleSheet } from 'react-native';
-import { viewportWidth } from '../../Services/';
-import { flexRowCenter, metrics, fontSize } from '../../Themes/';
-
-const HEADER_HEIGHT = 66;
-const FOOTER_HEIGHT = 52;
+import { viewportWidth, flexRowCenter, metrics, fontSize, HEADER_HEIGHT, FOOTER_HEIGHT } from '../../Themes/';
 
 export default StyleSheet.create({
   channelPanels: {

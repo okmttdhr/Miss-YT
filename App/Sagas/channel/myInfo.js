@@ -17,6 +17,7 @@ export function* channelMyInfoGet<T>({channelId}: TChannelMyInfoGetAction): Gene
   }
   const uid = yield select(uidSelector);
   if (!uid) {
+    yield put(channelActions.channelMyInfoGetRequestCancel());
     return;
   }
   const response: TFirebaseServiceResponse = yield call(getLikeWithChannelId, uid, channelId);
