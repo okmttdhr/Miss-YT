@@ -5,6 +5,7 @@ import type {TVideo} from '../../App/types/';
 export const videoMock = (i: number = 0): TVideo => {
   return {
     videoId: `VIDEOID${i}`,
+    channelId: `CHANNELID${i}`,
     title: `TITLE${i}`,
     thumbnail: `THUMBNAIL${i}`,
   };

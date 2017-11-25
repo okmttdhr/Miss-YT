@@ -41,6 +41,11 @@ export const youtubeSearchResponseMock = (i: number = 0) => {
           width: i,
           height: i,
         },
+        medium: {
+          url: `URL${i}`,
+          width: i,
+          height: i,
+        },
       },
       channelTitle: `channelTitle${i}`,
     },

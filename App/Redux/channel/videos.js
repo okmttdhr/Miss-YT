@@ -8,6 +8,7 @@ export const channelVideosActions = {
   channelVideosGetRequest: ['youtubeChannelId'],
   channelVideosGetSuccess: ['videos', 'nextPageTokenVideos'],
   channelVideosGetFailure: ['errorMessageVideos'],
+  channelVideosSetContentHeight: ['contentHeightVideos'],
 };
 
 /* ------------- Initial State ------------- */
@@ -43,5 +44,11 @@ export const channelVideosReducer = {
       isFetchingVideos: false,
       errorMessageVideos,
     });
+  },
+  CHANNEL_VIDEOS_SET_CONTENT_HEIGHT: (
+    state: Object,
+    {contentHeightVideos}: {contentHeightVideos: string},
+  ) => {
+    return state.merge({ contentHeightVideos });
   },
 };

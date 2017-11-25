@@ -37,6 +37,7 @@ export type TChannelVideosActions = {
   channelVideosGetRequest: (youtubeChannelId: string) => void;
   channelVideosGetSuccess: (videos: [], nextPageTokenVideos: string) => void;
   channelVideosGetFailure: (errorMessageVideos: string) => void;
+  channelVideosSetContentHeight: (contentHeightVideos: number) => void;
 }
 
 export type TChannelMyInfoActions = {

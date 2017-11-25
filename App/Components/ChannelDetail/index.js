@@ -1,12 +1,13 @@
 // @flow
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import {Text, View, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './style';
 import type {TChannelStore, TChannelActions, TDefaultChannel} from '../../types/';
 import { colors, fontSize, Images } from '../../Themes/';
 import {ButtonDefault} from '../ButtonDefault';
+import {Videos} from './Videos';
 
 type TInfoDetailItem = {
   iconName: string;
@@ -33,7 +34,7 @@ type TChannelPanel = {
   likesPostRequest: (channel: TChannelStore) => void,
 }
 
-export const ChannelDetail = ({channel, likesPostRequest}: TChannelPanel) => (
+export const ChannelDetail = ({channel, likesPostRequest, channelActions}: TChannelPanel) => (
   <View style={styles.container}>
     <View style={styles.infoContainer}>
       <View style={styles.infoTop}>
@@ -62,7 +63,10 @@ export const ChannelDetail = ({channel, likesPostRequest}: TChannelPanel) => (
         <InfoDetailItem iconName="subscriptions" text={`チャンネル登録者数 ${channel.item.youtube.subscriberCount}人`} />
       </View>
     </View>
+    <Videos
+      channel={channel}
+      setContentHeight={channelActions.channelVideosSetContentHeight}
+      channelVideosGetRequest={channelActions.channelVideosGetRequest}
+    />
   </View>
 );
-
-// <Text>{channel.errorMessage}</Text>
