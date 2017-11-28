@@ -6,7 +6,7 @@ import {CHANNEL_VIDEOS} from '../../constants';
 /* ------------- Types and Action Creators ------------- */
 
 export const channelVideosActions = {
-  channelVideosGetRequest: ['youtubeChannelId'],
+  channelVideosGetRequest: ['youtubeChannelId', 'initial'],
   channelVideosGetSuccess: ['videos', 'nextPageTokenVideos'],
   channelVideosGetFailure: ['errorMessageVideos'],
   channelVideosSetContentHeight: ['contentHeightVideos'],
@@ -25,11 +25,15 @@ export const defaultChannelVideos: TDefaultChannelVideos = {
 /* ------------- Reducers ------------- */
 
 export const channelVideosReducer = {
-  [CHANNEL_VIDEOS.GET.REQUEST]: (state) => {
-    return state.merge({
+  [CHANNEL_VIDEOS.GET.REQUEST]: (state, {initial}) => {
+    const updates = {
       isFetchingVideos: true,
       errorMessageVideos: '',
-    });
+    };
+    if (initial) {
+      return state.merge([updates, {videos: []}]);
+    }
+    return state.merge(updates);
   },
   [CHANNEL_VIDEOS.GET.SUCCESS]: (state, {videos, nextPageTokenVideos}) => {
     const newVideos = uniqBy(state.videos.concat(videos), 'videoId');

@@ -19,7 +19,7 @@ export class ChannelDetailScreen extends Component<TChannelDetailScreen, void> {
   componentDidMount() {
     const {channel} = this.props;
     this.props.channelActions.channelMyInfoGetRequest(channel.item.id);
-    this.props.channelActions.channelVideosGetRequest(channel.item.youtube.id);
+    this.props.channelActions.channelVideosGetRequest(channel.item.youtube.id, true);
   }
   render() {
     const {channel} = this.props;
