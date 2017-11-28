@@ -1,4 +1,5 @@
 // @flow
+import {uniqBy} from 'lodash';
 import type {TDefaultChannelVideos} from '../../types/';
 import {CHANNEL_VIDEOS} from '../../constants';
 
@@ -31,7 +32,7 @@ export const channelVideosReducer = {
     });
   },
   [CHANNEL_VIDEOS.GET.SUCCESS]: (state, {videos, nextPageTokenVideos}) => {
-    const newVideos = state.videos.concat(videos);
+    const newVideos = uniqBy(state.videos.concat(videos), 'videoId');
     return state.merge({
       videos: newVideos,
       nextPageTokenVideos,

@@ -12,7 +12,7 @@ test('could make a request with channelId', async (t) => {
     .query({
       key: 'YOUTUBE_API_KEY',
       part: 'snippet, id',
-      type: 'videos',
+      type: 'video',
       maxResults: 10,
       channelId: 'channelID',
       pageToken: '',

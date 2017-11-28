@@ -41,11 +41,7 @@ export const Videos = (
         style={styles.scrollView}
       >
         {videos.map((item) => {
-          return (
-            <View style={styles.panelWrapper} key={item.videoId}>
-              <Panel video={item} />
-            </View>
-          );
+          return (<Panel video={item} key={item.title + item.videoId} />);
         })}
         {errorMessageVideos ?
           <Text style={styles.errorMessage}>{errorMessageVideos}</Text> : null}
