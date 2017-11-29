@@ -11,16 +11,12 @@ type TDisplayName = {
   updateProfile: TUserUpdateProfile;
 }
 
-export class DisplayName extends Component {
+export class DisplayName extends Component<TDisplayName, {displayName: string}> {
   constructor(props: TDisplayName) {
     super(props);
     this.state = {
       displayName: '',
     };
-  }
-
-  state: {
-    displayName: string;
   }
 
   componentWillReceiveProps(nextProps: TDisplayName) {
