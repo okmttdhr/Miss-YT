@@ -12,7 +12,7 @@ test('could make a request with channelId', async (t) => {
     .query({
       key: 'YOUTUBE_API_KEY',
       part: 'snippet, id',
-      type: 'videos',
+      type: 'video',
       maxResults: 10,
       channelId: 'channelID',
       pageToken: '',
@@ -24,6 +24,7 @@ test('could make a request with channelId', async (t) => {
   t.is(res.videos.length, 10);
   t.deepEqual(res.videos[0], {
     videoId: 'VIDEOID0',
+    channelId: 'CHANNELID0',
     title: 'TITLE0',
     thumbnail: 'URL0',
   });

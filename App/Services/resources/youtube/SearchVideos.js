@@ -10,11 +10,12 @@ export class SearchVideosResource extends Resource {
     super(API_ENDPOINT_YOUTUBE);
   }
   GET(channelId: string, pageToken?: string = ''): Promise<APIResponse> {
+    console.log('pageToken', pageToken);
     return handleServerError(
       super.get(API_ENDPOINT_YOUTUBE_SEARCH, {
         key: Secrets.YOUTUBE_API_KEY,
         part: 'snippet, id',
-        type: 'videos',
+        type: 'video',
         maxResults: 10,
         channelId,
         pageToken,
@@ -26,8 +27,9 @@ export class SearchVideosResource extends Resource {
           videos: response.data.items.map((item): TVideo => {
             return {
               videoId: item.id.videoId,
+              channelId: item.id.channelId,
               title: item.snippet.title,
-              thumbnail: item.snippet.thumbnails.default.url,
+              thumbnail: item.snippet.thumbnails.medium.url,
             };
           }),
           nextPageToken: response.data.nextPageToken,

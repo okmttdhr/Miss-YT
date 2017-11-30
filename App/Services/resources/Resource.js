@@ -32,8 +32,6 @@ export class Resource {
     return api;
   }
   get(url: string, parameters?: TParameter) {
-    console.log('get');
-    console.log(this);
     const api = this._createAPI();
     return api.get(url, parameters);
   }

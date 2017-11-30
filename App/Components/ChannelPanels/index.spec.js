@@ -5,7 +5,7 @@ import { Text } from 'react-native';
 import { shallow } from 'enzyme';
 
 import { ChannelPanels } from './index';
-import { defaultChannelsMock } from '../../../Tests/mock/';
+import { defaultChannelsMock, channelActionsMock } from '../../../Tests/mock/';
 import { Panel } from './Panel/';
 
 const setContentHeightMock = () => {};
@@ -19,6 +19,7 @@ test('has right number of <Panel>', (t) => {
       setContentHeight={setContentHeightMock}
       channelsRequest={channelsRequestMock}
       likesPostRequest={likesPostRequestMock}
+      channelActions={channelActionsMock}
     />,
   );
   t.is(wrapper.find(Panel).length, 4);
@@ -31,6 +32,7 @@ test('display errorMessage', (t) => {
       setContentHeight={setContentHeightMock}
       channelsRequest={channelsRequestMock}
       likesPostRequest={likesPostRequestMock}
+      channelActions={channelActionsMock}
     />,
   );
   t.is(wrapper.find(Panel).length, 4);
@@ -45,6 +47,7 @@ test('display a message when no data', (t) => {
       setContentHeight={setContentHeightMock}
       channelsRequest={channelsRequestMock}
       likesPostRequest={likesPostRequestMock}
+      channelActions={channelActionsMock}
     />,
   );
   t.is(wrapper.find(Panel).length, 0);

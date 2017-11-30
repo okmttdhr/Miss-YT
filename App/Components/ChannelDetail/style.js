@@ -10,6 +10,10 @@ export default StyleSheet.create({
     width: viewportWidth(100),
     height: viewportHeight(100),
   },
+  scrollView: {
+    paddingHorizontal: 5,
+    width: viewportWidth(100),
+  },
 
   infoContainer: {
     flexDirection: 'column',

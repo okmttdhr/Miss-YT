@@ -12,7 +12,7 @@ export type TChannelsRef = {
   update: () => Promise<any>;
   once: (eventType: string) => Promise<any>;
   transaction: (callback: any) => Promise<any>;
-  on: () => void;
+  on: (value: any, value: any) => void;
 }
 
 export const channelsRef: TChannelsRef = firebaseApp.database().ref('channels');

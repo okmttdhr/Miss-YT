@@ -8,7 +8,7 @@ import {likesPostToFirebase} from './firebase';
 import { likesSync } from './sync';
 
 test.serial.group('Normal', () => {
-  const generator = likesSync(channelsStoreWithKeyMock());
+  const generator = likesSync();
 
   test('could select uid', (t) => {
     t.deepEqual(
