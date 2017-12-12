@@ -110,6 +110,16 @@
             ReferencedContainer = "container:YoutuVote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-FIRAnalyticsDebugEnabled"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-FIRDebugEnabled&#10;&#10;-FIRDebugEnabled&#10;&#10;-FIRDebugEnabled&#10;&#10;-FIRDebugEnabled&#10;&#10;-FIRDebugEnabled&#10;&#10;-FIRDebugEnabled&#10;&#10;-FIRDebugEnabled&#10;&#10;-FIRDebugEnabled&#10;&#10;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
