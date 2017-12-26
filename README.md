@@ -1,14 +1,20 @@
 
 # Miss YT
 
-* Using [Ignite](https://github.com/infinitered/ignite)
-
 ## What is this?
 
+Check out Top female YouTubers in Japan.
+
+![](/images/2017/12/i)
+
+![](/images/2017/12/i)
+
+![](/images/2017/12/i)
 
 
 ## Features
 
+- Using [Ignite](https://github.com/infinitered/ignite)
 - React Native
 - Redux + Redux-Saga
 - Firebase
