@@ -1,7 +1,21 @@
-# YoutuVote
 
-* Standard compliant React Native App Utilizing [Ignite](https://github.com/infinitered/ignite)
-* [Ignite Documentation](https://github.com/infinitered/ignite/wiki)
+# Miss YT
+
+* Using [Ignite](https://github.com/infinitered/ignite)
+
+## What is this?
+
+
+
+## Features
+
+- React Native
+- Redux + Redux-Saga
+- Firebase
+- AVA
+- Enzyme
+- ESLint
+- Flow
 
 ## Setup
 
@@ -64,7 +78,7 @@ Setting config for different environments in different files: `.env.staging` and
 
 ```sh
 # build for different environments
-npm start -- --scheme YOUR_APP_SCHEMA_FOR_ENVIRONMENTS
+yarn start -- --scheme YOUR_APP_SCHEMA_FOR_ENVIRONMENTS
 ```
 
 About `Scheme`, see [Different environments](https://github.com/luggit/react-native-config#different-environments) iOS section.
