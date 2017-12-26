@@ -3,7 +3,7 @@
 
 ## What is this?
 
-Check out Top female YouTubers in Japan.
+Check out Top female YouTubers in Japan (who are actually popular).
 
 ![](/images/2017/12/i)
 
@@ -11,6 +11,7 @@ Check out Top female YouTubers in Japan.
 
 ![](/images/2017/12/i)
 
+[Motivation](↓)
 
 ## Features
 
@@ -92,3 +93,7 @@ About `Scheme`, see [Different environments](https://github.com/luggit/react-nat
 ## Icon
 
 [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
+
+## Motivation
+
+I love [Japanese YouTubers](https://okmttdhr.github.io/youtubers-timeline-in-japan/) like [MEGWIN](https://www.youtube.com/user/megwin), [東海オンエア](https://www.youtube.com/user/TokaiOnAir), [禁断ボーイズ](https://www.youtube.com/channel/UCvtK7490fPF0TacbsvQ2H3g), [スカイピース](https://www.youtube.com/channel/UC8_wmm5DX9mb4jrLiw8ZYzw), [アバンティーズ](https://www.youtube.com/user/avntisdouga). I wanted to give something valuable for them.
