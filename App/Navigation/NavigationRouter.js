@@ -16,11 +16,11 @@ const NavigationRouter = () => (
   <Router>
     <Scene key="Root">
       <Scene key="Tabbar" tabs initial tabBarStyle={TabBarStyle.container}>
-        <Scene key="Ranking" title="Ranking" component={ConnectedRankingScreen} icon={TabIcon} />
-        <Scene key="MyRanking" title="My Ranking" component={ConnectedMyRankingScreen} icon={TabIcon} />
-        <Scene key="Account" title="Account" component={ConnectedAccountScreen} icon={TabIcon} />
+        <Scene key="Ranking" title="ランキング" hideNavBar component={ConnectedRankingScreen} icon={TabIcon} />
+        <Scene key="MyRanking" title="マイランキング" hideNavBar component={ConnectedMyRankingScreen} icon={TabIcon} />
+        <Scene key="Account" title="アカウント" hideNavBar component={ConnectedAccountScreen} icon={TabIcon} />
       </Scene>
-      <Scene key="ChannelDetail" title="ChannelDetail" component={ConnectedChannelDetailScreen} />
+      <Scene key="ChannelDetail" title="チャンネル詳細" navigationBarStyle={TabBarStyle.navigationBarStyle} component={ConnectedChannelDetailScreen} />
     </Scene>
   </Router>
 );
