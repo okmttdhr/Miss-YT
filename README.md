@@ -14,8 +14,8 @@ An iOS App for finding top female YouTubers in Japan (who are _actually_ popular
 <img src="/screenshots/5.png" alt="" height="700" width="auto">
 
 - un-released yet ⚠️
-- [more screenshots](https://github.com/okmttdhr/YoutuVote/tree/master/screenshots) 📸
-- [motivation👇](https://github.com/okmttdhr/YoutuVote#motivation)
+- [more screenshots](https://github.com/okmttdhr/Miss-YT/tree/master/screenshots) 📸
+- [motivation👇](https://github.com/okmttdhr/Miss-YT#motivation)
 
 ## Technologies
 
