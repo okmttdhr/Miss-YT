@@ -1,6 +1,7 @@
 // @flow
 export * from './Redux';
 export * from './channel';
+export * from './channelResponse';
 export * from './like';
 export * from './User';
 export * from './video';
