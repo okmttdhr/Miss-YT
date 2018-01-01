@@ -3,15 +3,15 @@
 
 An iOS App for finding top female YouTubers in Japan (who are _actually_ popular).
 
-<img src="/screenshots/1.png" alt="" style="height: 90vh;">
+<img src="/screenshots/1.png" alt="" height="700" width="auto">
 
-<img src="/screenshots/2.png" alt="" style="height: 90vh;">
+<img src="/screenshots/2.png" alt="" height="700" width="auto">
 
-<img src="/screenshots/3.png" alt="" style="height: 90vh;">
+<img src="/screenshots/3.png" alt="" height="700" width="auto">
 
-<img src="/screenshots/4.png" alt="" style="height: 90vh;">
+<img src="/screenshots/4.png" alt="" height="700" width="auto">
 
-<img src="/screenshots/5.png" alt="" style="height: 90vh;">
+<img src="/screenshots/5.png" alt="" height="700" width="auto">
 
 - un-released yet ⚠️
 - [more screenshots](https://github.com/okmttdhr/YoutuVote/tree/master/screenshots) 📸
