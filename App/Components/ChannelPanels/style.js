@@ -1,13 +1,13 @@
 // @flow
 import { StyleSheet } from 'react-native';
-import { viewportWidth, flexRowCenter, metrics, fontSize, HEADER_HEIGHT, FOOTER_HEIGHT } from '../../Themes/';
+import { viewportWidth, flexRowCenter, metrics, fontSize, FOOTER_HEIGHT } from '../../Themes/';
 
 export default StyleSheet.create({
   channelPanels: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    paddingTop: HEADER_HEIGHT,
+    paddingTop: 22,
     paddingBottom: FOOTER_HEIGHT,
   },
   scrollView: {
