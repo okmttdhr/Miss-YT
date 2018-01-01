@@ -1,16 +1,21 @@
 
 # Miss YT
 
-An iOS App for finding top female YouTubers in Japan (who are actually popular).
+An iOS App for finding top female YouTubers in Japan (who are _actually_ popular).
 
-![](/images/2017/12/i)
+![](/screenshots/1.png)
 
-![](/images/2017/12/i)
+![](/screenshots/2.png)
 
-![](/images/2017/12/i)
+![](/screenshots/3.png)
+
+![](/screenshots/4.png)
+
+![](/screenshots/5.png)
 
 - un-released yet ⚠️
-- [Motivation👇](↓)
+- [more screenshots](https://github.com/okmttdhr/YoutuVote/tree/master/screenshots) 📸
+- [motivation👇](↓)
 
 ## Technologies
 
