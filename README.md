@@ -101,12 +101,11 @@ About `Scheme`, see [Different environments](https://github.com/luggit/react-nat
   - Why?: to do component-driven development
 - [ ] create `.spec.js` files in the same directory as business logic
   - Why?: to increase efficiency for unit testing (`The unit tests for a module shouldn’t be shoved in some far-away corner of the source tree. They need to be conveniently located.` by The Pragmatic Programmer)
-- [ ] create `index.js` for constant/function/class/etc indexing (no need to use `export default` which is not easy to find what is exported sometimes.)
+- [ ] create `index.js` for `constant`/`function`/`class`/`redux-functions`/etc indexing (no need to use `export default` which is not easy to find what is exported sometimes.)
   - Why?: to find exported functions easily
 - [ ] remove all the flow warnings
 - [ ] remove un-used files/libraries
-- [ ] reduxファイルの雛形
-- [ ] sagaファイルの雛形
+- [ ] migrate from Realtime Database to Cloud Firestore
 
 
 ## Motivation
